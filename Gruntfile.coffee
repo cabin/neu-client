@@ -36,16 +36,20 @@ module.exports = (grunt) ->
       '<%= path.dist %>/js/vendor.min.js': [
         '<%= path.components %>/angular/angular.js'
       ]
-    rev:
-      src: ['<%= path.dist %>/**/*.{css,js}']
 
     copy:
       '<%= path.dist %>/index.html': 'app/index.html'
-
+    rev:
+      src: ['<%= path.dist %>/**/*.{css,js}']
     useminPrepare:
       html: '<%= path.dist %>/index.html'
     usemin:
       html: ['<%= path.dist %>/index.html']
+
+    connect:
+      server:
+        options:
+          base: 'app'
 
     watch:
       grunt:
@@ -76,5 +80,6 @@ module.exports = (grunt) ->
     'rev'
     'usemin'
   ])
+  grunt.registerTask('dev', ['build', 'connect', 'watch'])
 
   grunt.registerTask('default', ['build'])
