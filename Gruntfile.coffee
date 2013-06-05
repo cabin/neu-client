@@ -14,6 +14,7 @@ module.exports = (grunt) ->
         packages:
           angular: '1.0.7'
           'angular-mocks': '1.0.7'
+          'normalize-css': '2.1.2'
 
     clean: ['<%= path.build %>', '<%= path.dist %>']
 
@@ -25,13 +26,18 @@ module.exports = (grunt) ->
         dest: '<%= path.build %>'
         ext: '.js'
 
+    cssmin:
+      '<%= path.dist %>/css/neu.min.css': [
+        '<%= path.components %>/normalize-css/normalize.css'
+        '<%= path.build %>/css/**/*.css'
+      ]
     uglify:
       '<%= path.dist %>/js/neu.min.js': ['<%= path.build %>/js/**/*.js']
       '<%= path.dist %>/js/vendor.min.js': [
         '<%= path.components %>/angular/angular.js'
       ]
     rev:
-      src: ['<%= path.dist %>/**/*.js']
+      src: ['<%= path.dist %>/**/*.{css,js}']
 
     copy:
       '<%= path.dist %>/index.html': 'app/index.html'
@@ -64,6 +70,7 @@ module.exports = (grunt) ->
     'clean'
     'useminPrepare'
     'build'
+    'cssmin'
     'uglify'
     'copy'
     'rev'
