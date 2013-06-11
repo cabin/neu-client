@@ -14,10 +14,20 @@ module.exports = (grunt) ->
         packages:
           angular: '1.0.7'
           'angular-mocks': '1.0.7'
+          'bourbon': '3.1.6'
           'normalize-css': '2.1.2'
 
     clean: ['<%= path.build %>', '<%= path.dist %>']
 
+    sass:
+      dist:
+        expand: true
+        cwd: 'app'
+        src: ['css/**/*.{sass,scss}', '!css/**/_*']
+        dest: '<%= path.build %>'
+        ext: '.css'
+      options:
+        loadPath: '<%= path.components %>'
     coffee:
       dist:
         expand: true
@@ -57,9 +67,15 @@ module.exports = (grunt) ->
       options:
         livereload: true
         nospawn: true
+      sass:
+        files: ['app/css/**/*.{sass,scss}']
+        tasks: ['sass']
       coffee:
         files: ['app/js/**/*.coffee']
         tasks: ['coffee']
+      html:
+        files: ['app/**/*.html']
+        livereload: true
       karma:
         files: ['app/js/**/*.js', 'test/unit/**/*.coffee']
 
@@ -68,7 +84,7 @@ module.exports = (grunt) ->
   for dep of pkg.devDependencies when dep.indexOf('grunt-') is 0
     grunt.loadNpmTasks(dep)
 
-  grunt.registerTask('build', ['coffee'])
+  grunt.registerTask('build', ['sass', 'coffee'])
   grunt.registerTask('test', ['build', 'karma'])
   grunt.registerTask('dist', [
     'clean'
