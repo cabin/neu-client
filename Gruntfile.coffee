@@ -15,6 +15,7 @@ module.exports = (grunt) ->
           angular: '1.0.7'
           'angular-mocks': '1.0.7'
           'bourbon': '3.1.6'
+          'mailcheck': '1.0.3'
           'normalize-css': '2.1.2'
 
     clean: ['<%= path.build %>', '<%= path.dist %>']
@@ -45,6 +46,7 @@ module.exports = (grunt) ->
       '<%= path.dist %>/js/neu.min.js': ['<%= path.build %>/js/**/*.js']
       '<%= path.dist %>/js/vendor.min.js': [
         '<%= path.components %>/angular/angular.js'
+        '<%= path.components %>/mailcheck/src/mailcheck.js'
       ]
 
     copy:
