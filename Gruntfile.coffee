@@ -78,6 +78,16 @@ module.exports = (grunt) ->
         livereload: true
       karma:
         files: ['app/js/**/*.js', 'test/unit/**/*.coffee']
+        tasks: ['karma:unit:run']
+
+    karma:
+      unit:
+        configFile: 'test/config/karma.conf.js'
+        background: true
+        browsers: ['PhantomJS']
+      unitSingle:
+        configFile: 'test/config/karma.conf.js'
+        singleRun: true
 
 
   # Load tasks from all required grunt plugins.
@@ -85,7 +95,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks(dep)
 
   grunt.registerTask('build', ['sass', 'coffee'])
-  grunt.registerTask('test', ['build', 'karma'])
+  grunt.registerTask('test', ['build', 'karma:unitSingle'])
   grunt.registerTask('dist', [
     'clean'
     'useminPrepare'
@@ -96,6 +106,6 @@ module.exports = (grunt) ->
     'rev'
     'usemin'
   ])
-  grunt.registerTask('dev', ['build', 'connect', 'watch'])
+  grunt.registerTask('dev', ['build', 'connect', 'karma:unit', 'watch'])
 
   grunt.registerTask('default', ['build'])
