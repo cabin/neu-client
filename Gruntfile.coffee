@@ -72,12 +72,12 @@ module.exports = (grunt) ->
         tasks: ['sass']
       coffee:
         files: ['app/js/**/*.coffee']
-        tasks: ['coffee']
+        tasks: ['coffee', 'karma:unit:run']
       html:
         files: ['app/**/*.html']
         livereload: true
       karma:
-        files: ['app/js/**/*.js', 'test/unit/**/*.coffee']
+        files: ['test/unit/**/*.coffee']
         tasks: ['karma:unit:run']
 
     karma:
