@@ -12,8 +12,7 @@ module.exports = (grunt) ->
       dist:
         store: '<%= path.components %>'
         packages:
-          angular: '1.0.7'
-          'angular-mocks': '1.0.7'
+          'angular-1.1.x': '1.1.5'
           'bourbon': '3.1.6'
           'normalize-css': '2.1.2'
 
@@ -44,7 +43,7 @@ module.exports = (grunt) ->
     uglify:
       '<%= path.dist %>/js/neu.min.js': ['<%= path.build %>/js/**/*.js']
       '<%= path.dist %>/js/vendor.min.js': [
-        '<%= path.components %>/angular/angular.js'
+        '<%= path.components %>/AngularJS/angular.js'
       ]
 
     copy:
