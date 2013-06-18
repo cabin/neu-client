@@ -2,4 +2,5 @@
 app/bower_components
 app/build
 dist
+libpeerconnection.log
 node_modules
