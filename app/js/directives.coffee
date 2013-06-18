@@ -27,3 +27,38 @@ module.directive 'at2x', ['isRetina', 'preload', (isRetina, preload) ->
     # Load the retina asset and swap it out on success.
     preload(src, -> attrs.$set('src', src))
 ]
+
+
+# Display a shuffle animation when changing values; based on an idea from
+# <http://tutorialzine.com/2011/09/shuffle-letters-effect-jquery/>.
+module.directive 'bindShuffle', ['$timeout', ($timeout) ->
+  restrict: 'A'
+  link: (scope, elm, attrs) ->
+    firstTime = true
+    shuffleTimer = undefined
+    characters = ['0', '1', 'Σ']
+    step = 8
+    delay = 40
+    randomChar = -> characters[Math.floor(Math.random() * characters.length)]
+
+    shuffle = (start, value) ->
+      return if start > value.length
+      shuffled = []
+      for char, i in value
+        if i < start
+          shuffled.push(char)
+        else if i < start + step
+          shuffled.push(randomChar())
+      elm.text(shuffled.join(''))
+      shuffleTimer = $timeout((-> shuffle(start + 1, value)), delay)
+
+    scope.$watch attrs.bindShuffle, (value) ->
+      # Don't animate the initial value.
+      if firstTime
+        firstTime = false
+        return
+      # Clear out any existing animations, then start shuffling one character
+      # in at a time.
+      $timeout.cancel(shuffleTimer)
+      shuffle(-step, value)
+]

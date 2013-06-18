@@ -43,3 +43,7 @@ describe 'directives', ->
       element = $compile('<img src="foo" at2x="bar">')($rootScope)
       expect(preload).not.toHaveBeenCalled()
       expect(element.attr('src')).toEqual('foo')
+
+
+  describe 'bindShuffle', ->
+    xit 'should have some tests :('  # TODO
