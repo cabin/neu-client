@@ -47,7 +47,16 @@ module.exports = (grunt) ->
       ]
 
     copy:
-      '<%= path.dist %>/index.html': 'app/index.html'
+      build:
+        files: [
+          {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.build %>'}
+        ]
+      dist:
+        files: [
+          {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.dist %>'}
+          {expand: true, cwd: 'app', src: 'img/**', dest: '<%= path.dist %>'}
+          '<%= path.dist %>/index.html': 'app/index.html'
+        ]
     rev:
       src: ['<%= path.dist %>/**/*.{css,js}']
     useminPrepare:
@@ -93,7 +102,7 @@ module.exports = (grunt) ->
   for dep of pkg.devDependencies when dep.indexOf('grunt-') is 0
     grunt.loadNpmTasks(dep)
 
-  grunt.registerTask('build', ['sass', 'coffee'])
+  grunt.registerTask('build', ['sass', 'coffee', 'copy:build'])
   grunt.registerTask('test', ['build', 'karma:unitSingle'])
   grunt.registerTask('dist', [
     'clean'
@@ -101,7 +110,7 @@ module.exports = (grunt) ->
     'build'
     'cssmin'
     'uglify'
-    'copy'
+    'copy:dist'
     'rev'
     'usemin'
   ])
