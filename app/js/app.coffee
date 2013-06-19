@@ -1,4 +1,5 @@
 deps = [
+  'ngMobile'
   'neu.controllers'
   'neu.directives'
   'neu.services'

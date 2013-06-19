@@ -44,6 +44,9 @@ module.exports = (grunt) ->
       '<%= path.dist %>/js/neu.min.js': ['<%= path.build %>/js/**/*.js']
       '<%= path.dist %>/js/vendor.min.js': [
         '<%= path.components %>/AngularJS/angular.js'
+        '<%= path.components %>/AngularJS/angular-mobile.js'
+        'app/js/gsap/TweenLite.min.js'
+        'app/js/gsap/ScrollToPlugin.min.js'
       ]
 
     copy:
@@ -82,7 +85,7 @@ module.exports = (grunt) ->
         files: ['app/js/**/*.coffee']
         tasks: ['coffee', 'karma:unit:run']
       html:
-        files: ['app/**/*.html']
+        files: ['app/*.html']
         livereload: true
       karma:
         files: ['test/unit/**/*.coffee']

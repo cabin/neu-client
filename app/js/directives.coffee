@@ -62,3 +62,28 @@ module.directive 'bindShuffle', ['$timeout', ($timeout) ->
       $timeout.cancel(shuffleTimer)
       shuffle(-step, value)
 ]
+
+
+# Provide a smooth scrolling animation to the given in-page href.
+# TODO: Revisit this implementation; pulling in 25k of TweenLite is a bit
+# excessive for some smooth scrolling.
+module.directive 'smoothScroll', ['$window', ($window) ->
+  restrict: 'A'
+  link: (scope, elm, attrs) ->
+    return unless attrs.href.indexOf('#') is 0
+    id = attrs.href.slice(1)
+    yPos = (id) ->
+      target = $window.document.getElementById(id)
+      return 0 unless target
+      y = target.offsetTop
+      node = target
+      while node.offsetParent and node.offsetParent isnt $window.document.body
+        node = node.offsetParent
+        y += node.offsetTop
+      y
+    elm.bind 'click', (event) ->
+      event.preventDefault()
+      $window.TweenLite.to $window, .4,
+        scrollTo: {y: yPos(id)}
+        ease: $window.Power2.easeInOut
+]
