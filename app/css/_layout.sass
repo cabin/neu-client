@@ -1,8 +1,14 @@
 // Provides layout-only styles; classes here should be prefixed with `l-` to
 // keep them distinct in the markup.
 
+// A centered block element.
+.l-centered
+  display: block
+  margin: 0 auto
+
 // Main content, centered on the page with a max width.
 .l-main
+  @extend .l-centered
   +clearfix
-  margin: 0 auto
+  padding: 25px
   max-width: 960px

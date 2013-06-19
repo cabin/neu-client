@@ -19,7 +19,122 @@
   <!-- endbuild -->
 </head>
 <body>
-  <div ng-controller="MainCtrl">{{msg}}</div>
+
+  <div class="full-bg full-bg--orange">
+    <h1 class="l-main logo">
+      <img src="/img/NEU-Logo.png" width="160" height="135" at2x class="l-centered" alt="NEU">
+    </h1>
+  </div>
+
+  <div class="full-bg splash" ng-controller="SplashCtrl">
+    <div class="splash__header">A new breed of <div bind-shuffle="sel.name">university</div></div>
+    <div class="splash__arrow"></div>
+    <div class="splash__description" ng-bind-html-unsafe="sel.text">Hands-on, project based, collaborative, &amp; fun.</div>
+
+    <a class="scroller scroller--splash" href="#overview" smooth-scroll></a>
+  </div>
+
+  <h2 class="full-bg full-bg--black header-band">New Engineering University</h2>
+
+  <div class="l-main" id="overview">
+    <ul class="overview">
+      <li class="overview__item">
+        With
+        <div class="overview__callout">millions</div>
+        of unfilled engineering jobs
+      </li>
+      <li class="overview__item">
+        &amp; less than
+        <div class="overview__callout">10%</div>
+        women &amp; minorities<br>in the field
+      </li>
+      <li class="overview__item">
+        <div class="overview__callout">
+          NEU<br>is bridging<br>the gap.
+        </div>
+      </li>
+    </ul>
+
+    <div class="invitation">
+      (Invitation placeholder.)
+      <a class="scroller scroller--invitation" href="#join-us" smooth-scroll></a>
+    </div>
+  </div>
+
+  <h2 class="full-bg full-bg--black header-band">First program launches Fall 2014</h2>
+
+  <div class="location">
+    (Location placeholder.)
+  </div>
+
+  <div class="full-bg full-bg--grey">
+    <div class="l-main highlights">
+      <h3 class="highlights__header">Fully Accredited</h3>
+      <p class="highlights__text">Our highly-adaptive and competitive degrees
+      prime graduates to command desired positions.</p>
+
+      <h3 class="highlights__header">Rigorous &amp;&nbsp;Collaborative</h3>
+      <p class="highlights__text">Students work together on real-world
+      projects instructed and mentored by leading professionals working in
+      the&nbsp;field.</p>
+
+      <h3 class="highlights__header">Culturally Rich</h3>
+      <p class="highlights__text">Unlike any other engineering program in the
+      nation, NEU's faculty and student body are diverse in gender, ethnicity,
+      and creative spirit.</p>
+
+      <h3 class="highlights__header">Unrivaled DNA</h3>
+      <p class="highlights__text">NEU is built on the simple belief that an
+      engineering education should be accessible, experiential, and
+      unbearably&nbsp;fun.</p>
+    </div>
+  </div>
+
+  <h2 class="team-header">Meet<br>the Team</h2>
+
+  <div class="full-bg full-bg--black">
+    <div class="team-container"
+      ng-controller="TeamCtrl"
+      ng-switch on="index"
+      ng-swipe-left="next()"
+      ng-swipe-right="prev()"
+      ng-animate="animate()">
+      <div class="team" ng-switch-when="0">
+        <div class="team__subhead">Leadership</div>
+        <img class="team__img" src="/img/team/scott1.jpg" alt>
+        <div class="team__name">Scott Kauffman</div>
+        <div class="team__title">President &amp; CEO</div>
+
+        <button class="button button--team-details">Bio</button>
+      </div>
+
+      <div class="team" ng-switch-when="1">
+        <div class="team__subhead">Partnerships</div>
+        <img class="team__img" src="/img/team/scott2.jpg" alt>
+        <div class="team__name">Facebook</div>
+        <div class="team__title">Internships &amp; Workshops</div>
+
+        <button class="button button--team-details">Details</button>
+      </div>
+    </div>
+  </div>
+
+  <div>(NEU social placeholder.)</div>
+
+  <div class="full-bg full-bg--orange">
+    <div class="l-main" id="join-us">
+      <form class="join-us" ng-controller="JoinCtrl" ng-submit="submit()" novalidate>
+        <h2 class="join-us__header">Join us</h2>
+        <p class="join-us__blurb">Calling all fans, partners<br>&amp; potential faculty!</p>
+        <input type="text" ng-model="name" placeholder="Name" required><br>
+        <input type="email" ng-model="email" placeholder="Email" required><br>
+        <input type="text" pattern="[0-9]*" ng-model="zip" placeholder="ZIP code" required><br>
+        <textarea ng-model="note" placeholder="Optional love note"></textarea>
+        <input type="submit" class="button button--join" value="Ship it">
+      </form>
+    </div>
+  </div>
+</div>
 
   <!-- build:js js/vendor.min.js -->
   <script src="bower_components/AngularJS/angular.js"></script>

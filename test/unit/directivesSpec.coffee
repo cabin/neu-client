@@ -1,6 +1,5 @@
 describe 'directives', ->
   beforeEach ->
-    module('neu.services')
     module('neu.directives')
 
   describe 'at2x', ->

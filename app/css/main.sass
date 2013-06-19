@@ -9,6 +9,278 @@
 @import layout
 
 
+// Site-wide defaults  /////////////////
+
+// Include border and padding in element width.
+*
+  box-sizing: border-box
+
+// Baseline.
 body
-  color: $black-text
-  font-family: $helvetica
+  @extend %text--body
+  background: $white
+  color: $black
+  line-height: 1.3
+
+// All links should get an active cursor.
+a
+  cursor: pointer
+
+// Ugh.
+input, textarea
+  &:focus
+    outline: none
+
+
+// Full backgrounds  ///////////////////
+
+.full-bg
+  color: $white
+.full-bg--black
+  background-color: $black
+.full-bg--orange
+  background-color: $orange
+.full-bg--grey
+  background-color: $grey-bg
+  color: $black
+
+
+// Site buttons  ///////////////////////
+
+// Account for all-caps text appearing too high visually.
+$button-text-offset: 1px
+
+.button
+  +linear-gradient(white, darken(white, 20%))
+  @extend %text--header--small
+  border-radius: 2px
+  border: none
+  color: $black
+  display: block
+  line-height: 30px - $button-text-offset
+  min-width: 75px
+  padding: 0 10px
+  padding-top: $button-text-offset  // this must appear after padding:
+
+.button--team-details
+  @extend .l-centered
+  margin-top: 20px
+
+.button--join
+  +linear-gradient(lighten($black, 10%), $black, $fallback: $black)
+  @extend %text--light-on-dark
+  color: $white
+  line-height: 40px - $button-text-offset
+  margin-top: 10px
+  padding-left: 15px
+  padding-right: 15px
+
+// TODO: hover/active styles
+
+
+// Smooth scroller links  //////////////
+
+.scroller
+  +size(30px)
+  border-radius: 15px
+  display: block
+  position: absolute
+
+.scroller--splash
+  background: $orange
+  bottom: 30px
+  left: 50%
+  margin-left: -15px
+
+.scroller--invitation
+  background: $black
+  margin-top: -15px
+  right: 30px
+  top: 50%
+
+// TODO: arrow images
+
+
+// Site header  ////////////////////////
+
+.logo
+  padding: 20px 0
+
+
+// Splash section  /////////////////////
+
+.splash
+  @extend %text--light-on-dark
+  background-image: url(/img/blank.png)
+  background-position: center bottom
+  background-repeat: no-repeat
+  background-size: cover
+  height: 360px
+  padding-top: 35px
+  position: relative
+
+.splash__header
+  @extend %text--header--medium
+  @extend .l-centered
+  max-width: 200px
+  text-align: center
+
+.splash__arrow
+  +position(absolute, 150px 50% 0 50px)
+  background: $orange
+  height: 1px
+  &:before
+    +size(9px)
+    background: $orange
+    border-radius: 4px
+    content: ""
+    display: block
+    position: relative
+    top: -4px
+
+.splash__description
+  +position(absolute, 140px 0 0 50%)
+  font-size: 20px
+  font-style: italic
+  line-height: 1
+  margin-left: 20px
+  width: 100px
+
+
+// Simple black header bands  //////////
+
+.header-band
+  @extend %text--header--small
+  @extend .l-centered
+  color: $grey-text
+  padding: 10px 0
+  text-align: center
+
+
+// Overview  ///////////////////////////
+
+.overview
+  list-style: none
+  margin: 0 auto
+  padding: 0
+  text-align: center
+
+.overview__item
+  @extend %text--header--small
+  @extend %with-rule
+  margin: 25px 0
+
+.overview__callout
+  @extend %text--header--large
+
+.invitation
+  +transform(rotate(-5deg))
+  border: 2px solid $black
+  height: 130px
+  margin: 30px
+  position: relative
+
+
+// Highlights  /////////////////////////
+
+.highlights
+  background: $grey-bg
+  text-align: center
+
+.highlights__header
+  @extend %text--header--medium
+  @extend %with-rule
+  margin: 25px 0 15px
+
+.highlights__text
+  font-size: 17px
+  margin: 0
+
+
+// Meet the team  //////////////////////
+
+.team-header
+  @extend %text--header--large
+  margin: 45px 0
+  text-align: center
+
+.team-container
+  height: 276px + 35 + 40
+  position: relative
+
+.team
+  // Fill the container.
+  +position(absolute, 0px 0px 0px 0px)
+  padding: 35px 0 40px
+  text-align: center
+
+.team__subhead
+  @extend %text--header--small
+  color: $grey-text
+
+.team__img
+  +size(120px)
+  border-radius: 60px
+  box-shadow: 0 1px 2px black
+  margin: 20px 0
+
+.team__name, .team__title
+  @extend %text--light-on-dark
+  font-size: 18px
+
+.team__name
+  letter-spacing: 3px
+  text-transform: uppercase
+
+.team__title
+  font-style: italic
+
+// Slide transitions.
+.team
+  +transition(all $ease-out-quad 300ms)
+.team-left-enter
+  +transform(translate3d(100%, 0, 0))
+  &.team-left-enter-active
+    +transform(translate3d(0, 0, 0))
+.team-left-leave
+  +transform(translate3d(0, 0, 0))
+  left: 0
+  &.team-left-leave-active
+    +transform(translate3d(-100%, 0, 0))
+.team-right-enter
+  +transform(translate3d(-100%, 0, 0))
+  &.team-right-enter-active
+    +transform(translate3d(0, 0, 0))
+.team-right-leave
+  +transform(translate3d(0, 0, 0))
+  &.team-right-leave-active
+    +transform(translate3d(100%, 0, 0))
+
+
+// Join us  ////////////////////////////
+
+.join-us
+  padding: 10px 0
+  text-align: center
+
+.join-us__header
+  @extend %text--header--large
+  margin: 0
+
+.join-us__blurb
+  @extend %with-rule
+  font-size: 18px
+  font-style: italic
+  margin-top: 15px
+  &:before
+    margin-bottom: 15px
+
+.join-us
+  #{$all-text-inputs}, textarea
+    border: none
+    border-radius: 1px
+    padding: 8px 16px
+    margin-bottom: 5px
+    width: 100%
+  textarea
+    height: 115px

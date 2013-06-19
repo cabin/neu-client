@@ -1,6 +1,61 @@
 // Standard colors.
-$black-text: #333
-$orange: #fc6137
+$black: #232323
+$white: #ffffff
+$orange: #fc6138
+$grey-bg: #f3f3f3
+$grey-rule: #e3e3e3
+$grey-text: #636363
 
+// Breakpoints.
 $media-iphone-portrait: 'only screen and (max-width: 320px)'
 $media-iphone-landscape: 'only screen and (max-width: 480px)'
+
+
+// Standard text faces and sizes.
++font-face(ProximaNova, 'fonts/proxima-nova-semibold', bold)
+
+%text--header
+  font-family: ProximaNova, $helvetica
+  font-weight: bold
+  letter-spacing: 1px
+  text-transform: uppercase
+
+%text--header--large
+  @extend %text--header
+  font-size: 25px
+  letter-spacing: 2.5px
+  line-height: 1.2
+
+%text--header--medium
+  @extend %text--header
+  font-size: 18px
+
+%text--header--small
+  @extend %text--header
+  font-size: 12px
+
+%text--body
+  font-family: 'Crimson Text', $georgia
+  // Sizes:
+  // 20 (80)
+  // 18 (72)
+  // 17 (68)
+  // 15 (60)
+
+%text--light-on-dark
+  -webkit-font-smoothing: antialiased
+
+
+// Standard sections broken by small horizontal rules.
+%with-rule
+  &:before
+    background: $grey-rule
+    content: ""
+    display: block
+    height: 1px
+    margin: 0 auto 25px
+    width: 25px
+  &:first-child
+    margin-top: 10px
+    &:before
+      display: none
