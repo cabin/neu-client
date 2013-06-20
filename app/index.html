@@ -143,11 +143,11 @@
       <form class="join-us" ng-controller="JoinCtrl" ng-submit="submit()" novalidate>
         <h2 class="join-us__header">Join us</h2>
         <p class="join-us__blurb">Calling all fans, partners<br>&amp; potential faculty!</p>
-        <input type="text" ng-model="name" placeholder="Name" required><br>
-        <input type="email" ng-model="email" placeholder="Email" required><br>
-        <input type="text" pattern="[0-9]*" ng-model="zip" placeholder="ZIP code" required><br>
+        <input type="text" ng-model="name" placeholder="Name" required>
+        <input type="email" ng-model="email" placeholder="Email" required>
+        <input type="text" pattern="[0-9]*" ng-model="zip" placeholder="ZIP code">
         <textarea ng-model="note" placeholder="Optional love note"></textarea>
-        <input type="submit" class="button button--join" value="Ship it">
+        <button type="submit" class="button button--join">Ship it</button>
       </form>
     </div>
   </div>

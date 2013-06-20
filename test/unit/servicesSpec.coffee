@@ -9,6 +9,7 @@ describe 'services', ->
   describe 'isRetina', ->
     isRetina = matchMedia = null
 
+    # TODO: test fails in Firefox; window.devicePixelRatio doesn't accept assignment
     beforeEach ->
       inject ($injector) ->
         isRetina = $injector.get('isRetina')
