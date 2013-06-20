@@ -61,6 +61,10 @@ $button-text-offset: 1px
   min-width: 75px
   padding: 0 10px
   padding-top: $button-text-offset  // this must appear after padding:
+  &:hover
+    +linear-gradient(white, darken(white, 10%))
+  &:active
+    +linear-gradient(darken(white, 20%), white)
 
 .button--team-details
   @extend .l-centered
@@ -74,8 +78,10 @@ $button-text-offset: 1px
   margin-top: 10px
   padding-left: 15px
   padding-right: 15px
-
-// TODO: hover/active styles
+  &:hover
+    +linear-gradient(lighten($black, 15%), $black)
+  &:active
+    +linear-gradient($black, lighten($black, 10%))
 
 
 // Smooth scroller links  //////////////
