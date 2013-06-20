@@ -28,6 +28,7 @@
 
   <div class="full-bg splash" ng-controller="SplashCtrl">
     <div class="splash__header">A new breed of <div bind-shuffle="sel.name">university</div></div>
+    <img class="splash__img" ng-src="{{sel.img}}" src="/img/lorempixel/cats5.jpg" alt>
     <div class="splash__arrow"></div>
     <div class="splash__description" ng-bind-html-unsafe="sel.text">Hands-on, project based, collaborative, &amp; fun.</div>
 
@@ -99,7 +100,7 @@
       ng-swipe-right="prev()">
       <div class="team l-block" ng-if="showMultiple || index == 0" ng-animate="animate()">
         <div class="team__subhead">Leadership</div>
-        <img class="team__img" src="/img/team/scott1.jpg" alt>
+        <img class="team__img" src="/img/lorempixel/cats1.jpg" alt>
         <div class="team__name">Scott Kauffman</div>
         <div class="team__title">President &amp; CEO</div>
 
@@ -108,7 +109,7 @@
 
       <div class="team l-block" ng-if="showMultiple || index == 1" ng-animate="animate()">
         <div class="team__subhead">Partnerships</div>
-        <img class="team__img" src="/img/team/scott2.jpg" alt>
+        <img class="team__img" src="/img/lorempixel/cats2.jpg" alt>
         <div class="team__name">Facebook</div>
         <div class="team__title">Internships &amp; Workshops</div>
 
@@ -117,7 +118,7 @@
 
       <div class="team l-block" ng-if="showMultiple || index == 2" ng-animate="animate()">
         <div class="team__subhead">Leadership</div>
-        <img class="team__img" src="/img/team/scott1.jpg" alt>
+        <img class="team__img" src="/img/lorempixel/cats3.jpg" alt>
         <div class="team__name">Scott Kauffman</div>
         <div class="team__title">President &amp; CEO</div>
 
@@ -126,7 +127,7 @@
 
       <div class="team l-block" ng-if="showMultiple || index == 3" ng-animate="animate()">
         <div class="team__subhead">Partnerships</div>
-        <img class="team__img" src="/img/team/scott2.jpg" alt>
+        <img class="team__img" src="/img/lorempixel/cats4.jpg" alt>
         <div class="team__name">Facebook</div>
         <div class="team__title">Internships &amp; Workshops</div>
 

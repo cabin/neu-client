@@ -3,9 +3,9 @@ module = angular.module('neu.controllers', [])
 module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $timeout, preload) ->
   delay = 4000
   data = [
-    {name: 'university', img: 'university',
+    {name: 'university', img: '/img/lorempixel/cats5.jpg',
     text: 'Hands-on, project based, collaborative, & fun.'}
-    {name: 'creators', img: 'creator',
+    {name: 'creators', img: '/img/lorempixel/cats6.jpg',
     text: 'Diverse<br>in gender, ethnicity,<br>and creative spirit.'}
   ]
   index = -1
@@ -24,7 +24,7 @@ module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $time
 
 
 module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
-  sections = [0...2]  # NOTE: this must reflect the total team sections.
+  sections = [0...4]  # NOTE: this must reflect the total team sections.
   animateDirection = null
 
   $scope.$watch 'windowWidth', ->
