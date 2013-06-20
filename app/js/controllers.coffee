@@ -19,6 +19,9 @@ module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $time
       index = 0
     $scope.sel = data[index]
     $timeout(cycle, delay)
+    # Avoid the implicit return of `$timeout()`s return value, which is a
+    # promise and would otherwise be leaking.
+    return
   cycle()
 ])
 

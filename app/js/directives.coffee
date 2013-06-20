@@ -51,6 +51,7 @@ module.directive 'bindShuffle', ['$timeout', ($timeout) ->
           shuffled.push(randomChar(value))
       elm.text(shuffled.join(''))
       shuffleTimer = $timeout((-> shuffle(start + 1, value)), delay)
+      return  # throw away implicit return value
 
     scope.$watch attrs.bindShuffle, (value) ->
       # Don't animate the initial value.
