@@ -55,7 +55,7 @@ describe 'controllers', ->
     it 'should wrap the index correctly', ->
       expect($scope.index).toEqual(0)
       $scope.prev()
-      expect($scope.index).toEqual(1)
+      expect($scope.index).toEqual($scope.sectionCount - 1)
 
     it 'should set the animation direction correctly', ->
       $scope.next()
