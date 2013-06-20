@@ -27,8 +27,8 @@ module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
   sections = [0...2]  # NOTE: this must reflect the total team sections.
   animateDirection = null
 
-  # XXX modernizr.mq? onresize?
-  $scope.showMultiple = ($window.outerWidth > 768)
+  $scope.$watch 'windowWidth', ->
+    $scope.showMultiple = $scope.windowWidth > 768
 
   $scope.index = 0
 
