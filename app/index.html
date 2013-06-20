@@ -93,13 +93,11 @@
   <h2 class="team-header">Meet<br>the Team</h2>
 
   <div class="full-bg full-bg--black">
-    <div class="team-container"
+    <div class="team-container l-main"
       ng-controller="TeamCtrl"
-      ng-switch on="index"
       ng-swipe-left="next()"
-      ng-swipe-right="prev()"
-      ng-animate="animate()">
-      <div class="team" ng-switch-when="0">
+      ng-swipe-right="prev()">
+      <div class="team l-block" ng-if="showMultiple || index == 0" ng-animate="animate()">
         <div class="team__subhead">Leadership</div>
         <img class="team__img" src="/img/team/scott1.jpg" alt>
         <div class="team__name">Scott Kauffman</div>
@@ -108,7 +106,25 @@
         <button class="button button--team-details">Bio</button>
       </div>
 
-      <div class="team" ng-switch-when="1">
+      <div class="team l-block" ng-if="showMultiple || index == 1" ng-animate="animate()">
+        <div class="team__subhead">Partnerships</div>
+        <img class="team__img" src="/img/team/scott2.jpg" alt>
+        <div class="team__name">Facebook</div>
+        <div class="team__title">Internships &amp; Workshops</div>
+
+        <button class="button button--team-details">Details</button>
+      </div>
+
+      <div class="team l-block" ng-if="showMultiple || index == 2" ng-animate="animate()">
+        <div class="team__subhead">Leadership</div>
+        <img class="team__img" src="/img/team/scott1.jpg" alt>
+        <div class="team__name">Scott Kauffman</div>
+        <div class="team__title">President &amp; CEO</div>
+
+        <button class="button button--team-details">Bio</button>
+      </div>
+
+      <div class="team l-block" ng-if="showMultiple || index == 3" ng-animate="animate()">
         <div class="team__subhead">Partnerships</div>
         <img class="team__img" src="/img/team/scott2.jpg" alt>
         <div class="team__name">Facebook</div>

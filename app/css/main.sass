@@ -167,7 +167,7 @@ $button-text-offset: 1px
 
 .overview
   list-style: none
-  margin: 0 auto
+  margin: 40px auto
   padding: 0
   text-align: center
 
@@ -191,6 +191,7 @@ $button-text-offset: 1px
 
 .highlights
   background: $grey-bg
+  padding: 50px 0
   text-align: center
 
 .highlights__header
@@ -210,15 +211,20 @@ $button-text-offset: 1px
   margin: 45px 0
   text-align: center
 
-.team-container
-  height: 276px + 35 + 40
-  position: relative
-
 .team
-  // Fill the container.
-  +position(absolute, 0px 0px 0px 0px)
   padding: 35px 0 40px
   text-align: center
+
+@media only screen and (max-width: 768px)
+  .team-container
+    height: 276px + 35 + 40
+    position: relative
+
+  // Fill the container and enable transitions.
+  .team
+    +position(absolute, 0px 0px 0px 0px)
+    +transition(all $ease-out-quad 300ms)
+    width: auto
 
 .team__subhead
   @extend %text--header--small
@@ -242,8 +248,6 @@ $button-text-offset: 1px
   font-style: italic
 
 // Slide transitions.
-.team
-  +transition(all $ease-out-quad 300ms)
 .team-left-enter
   +transform(translate3d(100%, 0, 0))
   &.team-left-enter-active
@@ -266,6 +270,8 @@ $button-text-offset: 1px
 // Join us  ////////////////////////////
 
 .join-us
+  margin: 30px auto
+  max-width: 400px
   padding: 10px 0
   text-align: center
 

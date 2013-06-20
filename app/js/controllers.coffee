@@ -23,9 +23,12 @@ module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $time
 ])
 
 
-module.controller('TeamCtrl', ['$scope', ($scope) ->
+module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
   sections = [0...2]  # NOTE: this must reflect the total team sections.
   animateDirection = null
+
+  # XXX modernizr.mq? onresize?
+  $scope.showMultiple = ($window.outerWidth > 768)
 
   $scope.index = 0
 

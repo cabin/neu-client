@@ -1,6 +1,11 @@
 // Provides layout-only styles; classes here should be prefixed with `l-` to
 // keep them distinct in the markup.
 
+$fg-column: 216px
+$fg-gutter: 32px
+$fg-max-columns: 4
+
+
 // A centered block element.
 .l-centered
   display: block
@@ -10,5 +15,20 @@
 .l-main
   @extend .l-centered
   +clearfix
-  padding: 25px
+  padding: 0 25px
   max-width: 960px
+
+// A single grid block, adjusted at reasonable breakpoints.
+.l-block
+  float: left
+  margin-left: flex-gutter(4)
+  width: flex-grid(1)
+  &:nth-child(4n+1)
+    margin-left: 0
+  @media only screen and (max-width: 960px)
+    width: flex-grid(2)
+    &:nth-child(2n+1)
+      margin-left: 0
+  @media only screen and (max-width: 480px)
+    width: flex-grid(4)
+    margin-left: 0
