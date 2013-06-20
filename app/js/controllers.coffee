@@ -1,7 +1,7 @@
 module = angular.module('neu.controllers', [])
 
 module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $timeout, preload) ->
-  delay = 3000
+  delay = 4000
   data = [
     {name: 'university', img: 'university',
     text: 'Hands-on, project based, collaborative, & fun.'}

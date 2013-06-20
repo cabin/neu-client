@@ -36,10 +36,10 @@ module.directive 'bindShuffle', ['$timeout', ($timeout) ->
   link: (scope, elm, attrs) ->
     firstTime = true
     shuffleTimer = undefined
-    characters = ['0', '1', 'Σ']
     step = 8
     delay = 40
-    randomChar = -> characters[Math.floor(Math.random() * characters.length)]
+    randomChar = (characters) ->
+      characters.charAt(Math.floor(Math.random() * characters.length))
 
     shuffle = (start, value) ->
       return if start > value.length
@@ -48,7 +48,7 @@ module.directive 'bindShuffle', ['$timeout', ($timeout) ->
         if i < start
           shuffled.push(char)
         else if i < start + step
-          shuffled.push(randomChar())
+          shuffled.push(randomChar(value))
       elm.text(shuffled.join(''))
       shuffleTimer = $timeout((-> shuffle(start + 1, value)), delay)
 
