@@ -144,18 +144,18 @@
         <h2 class="join-us__header">Join us</h2>
         <p class="join-us__blurb">Calling all fans, partners<br>&amp; potential faculty!</p>
 
-        <input name="name" type="text" ng-model="name" placeholder="Name" required>
-        <span ng-show="failed && !form.name.$valid">
+        <span class="join-us__error" ng-show="invalid && !form.name.$valid">
           But what will we call you?
         </span>
+        <input name="name" type="text" ng-model="name" placeholder="Name" required>
 
-        <input name="email" type="email" ng-model="email" placeholder="Email" required>
-        <span ng-show="failed && form.email.$error.required">
+        <span class="join-us__error" ng-show="invalid && form.email.$error.required">
           Come on, let's stay in touch!
         </span>
-        <span ng-show="failed && form.email.$error.email">
-          Your email address doesn't look quite right.
+        <span class="join-us__error" ng-show="invalid && form.email.$error.email">
+          Your email doesn't look quite right.
         </span>
+        <input name="email" type="email" spellcheck="false" ng-model="email" placeholder="Email" required>
 
         <input type="text" pattern="[0-9]*" ng-model="zip" placeholder="ZIP code">
         <textarea ng-model="note" placeholder="Optional love note."></textarea>
