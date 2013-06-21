@@ -51,26 +51,27 @@ module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
 
 
 module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $window) ->
-  $scope.invalid = false  # avoid showing errors until initial submission
-  $scope.submitting = false  # avoid multiple submissions
+  $scope.state =
+    invalid: false     # avoid showing errors until initial submission
+    submitting: false  # avoid multiple submissions
+    submitted: false   # hide the form after successful submission
+    submissionFailed: false
+  $scope.data = {}
 
   postData = ->
-    promise = $http.post '/api/prospects', JSON.stringify
-      name: $scope.name
-      email: $scope.email
-      zip: $scope.zip
-      note: $scope.note
-    promise.success(-> console.log 'success', arguments)
+    promise = $http.post('/api/prospects', $scope.data)
+    promise.success (data, status, headers, config) ->
+      $scope.state.submitted = true
     promise.error (data, status, headers, config) ->
-      $scope.submitting = false
-      console.log 'error', data, headers('foo'), config
+      $scope.state.submitting = false
+      $scope.state.submissionFailed = true
 
   $scope.submit = ->
-    return if $scope.submitting
+    return if $scope.state.submitting
     if $scope.form.$valid
-      $scope.submitting = true
+      $scope.state.submitting = true
       $window._gaq.push(['_trackEvent', 'submit'])  # XXX test
       postData()
     else
-      $scope.invalid = true
+      $scope.state.invalid = true
 ])
