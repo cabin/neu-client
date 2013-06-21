@@ -61,10 +61,12 @@ $button-text-offset: 1px
   min-width: 75px
   padding: 0 10px
   padding-top: $button-text-offset  // this must appear after padding:
-  &:hover
+  &:hover:not([disabled])
     +linear-gradient(white, darken(white, 10%))
-  &:active
+  &:active:not([disabled])
     +linear-gradient(darken(white, 20%), white)
+  &[disabled]
+    opacity: .6
 
 .button--team-details
   @extend .l-centered

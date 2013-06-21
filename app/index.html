@@ -160,7 +160,7 @@
         <input type="text" pattern="[0-9]*" ng-model="zip" placeholder="ZIP code">
         <textarea ng-model="note" placeholder="Optional love note."></textarea>
 
-        <button type="submit" class="button button--join">Ship it</button>
+        <button type="submit" ng-model="_" ng-disabled="submitting" class="button button--join">Ship it</button>
       </form>
     </div>
   </div>
