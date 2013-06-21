@@ -50,7 +50,12 @@ module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
 ])
 
 
-module.controller('JoinCtrl', ['$scope', ($scope) ->
+module.controller('JoinCtrl', ['$scope', '$window', ($scope, $window) ->
+  $scope.failed = false  # avoid showing errors until initial submission
   $scope.submit = ->
-    console.log 'submitting', $scope.name, $scope.email, $scope.zip, $scope.note
+    if $scope.form.$valid
+      console.log 'submitting', $scope.name, $scope.email, $scope.zip, $scope.note
+      $window._gaq.push(['_trackEvent', 'submit'])  # XXX test
+    else
+      $scope.failed = true
 ])
