@@ -24,6 +24,7 @@ module.run ['$window', ($window) ->
   )()
 ]
 
+# Keep track of the viewport's width through resize events.
 # TODO: Investigate whether there's a better solution here; hacking away at the
 # root scope seems like too much. And maybe use Modernizr.mq?
 module.run ['$window', '$rootScope', ($window, $rootScope) ->

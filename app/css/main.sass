@@ -3,6 +3,7 @@
 // .component-name--modifier
 //   .component-name__sub-object
 //   .component-name__sub-object--modifier
+// Similar to BEM.
 
 @import bourbon/app/assets/stylesheets/bourbon
 @import globals
@@ -80,9 +81,9 @@ $button-text-offset: 1px
   margin-top: 10px
   padding-left: 15px
   padding-right: 15px
-  &:hover
+  &:hover:not([disabled])
     +linear-gradient(lighten($black, 15%), $black)
-  &:active
+  &:active:not([disabled])
     +linear-gradient($black, lighten($black, 10%))
 
 
@@ -95,13 +96,13 @@ $button-text-offset: 1px
   position: absolute
 
 .scroller--splash
-  background: $orange
+  background-color: $orange
   bottom: 30px
   left: 50%
   margin-left: -15px
 
 .scroller--invitation
-  background: $black
+  background-color: $black
   margin-top: -15px
   right: 30px
   top: 50%
@@ -137,7 +138,7 @@ $button-text-offset: 1px
   +position(absolute, 0 0 0px -50px)
 
 .splash__arrow
-  +position(absolute, 150px 50% 0 50px)
+  +position(absolute, 150px 50% 0 80px)
   background: $orange
   height: 1px
   &:before
@@ -156,6 +157,19 @@ $button-text-offset: 1px
   line-height: 1
   margin-left: 20px
   width: 100px
+
+@media only screen and (min-width: 768px)
+  .splash__img
+    left: 50%
+    margin-left: -100px
+  .splash__arrow
+    left: 50%
+    margin-left: 30px
+    right: 50%
+    margin-right: -140px
+  .splash__description
+    left: 50%
+    margin-left: 160px
 
 
 // Simple black header bands  //////////
@@ -301,3 +315,6 @@ $button-text-offset: 1px
     width: 100%
   textarea
     height: 115px
+
+.join-us__error
+  text-align: right
