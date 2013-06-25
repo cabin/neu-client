@@ -1,0 +1,81 @@
+// Common, reusable blocks.
+
+@import globals
+
+
+// Stretch a darker background color to fill the viewport width.
+.full-bg
+  color: $white
+.full-bg--black
+  background-color: $black
+.full-bg--orange
+  background-color: $orange
+.full-bg--grey
+  background-color: $grey-bg
+  color: $black
+
+
+// Site buttons
+
+// Account for all-caps text appearing too high visually.
+$button-text-offset: 1px
+
+.button
+  @extend %text--header--small
+  @extend %text--light-on-dark
+  +linear-gradient(lighten($black, 15%), $black, $fallback: $black)
+  border: none
+  border-radius: 2px
+  color: $white
+  display: block
+  line-height: 40px - $button-text-offset
+  margin-top: 10px
+  min-width: 75px
+  padding: 0 15px
+  padding-top: $button-text-offset
+
+  &:hover:not([disabled])
+    +linear-gradient(lighten($black, 20%), $black)
+  &:active:not([disabled])
+    +linear-gradient($black, lighten($black, 10%))
+  &[disabled]
+    opacity: .6
+
+
+// Smooth scroller links
+
+.scroller
+  +retina-image(/img/icon/scroller, 17px 11px)
+  +size(30px)
+  background-position: 7px 10px
+  background-repeat: no-repeat
+  border-radius: 15px
+  display: block
+  position: absolute
+
+.scroller--splash
+  background-color: $orange
+  bottom: 30px
+  left: 50%
+  margin-left: -15px
+
+.scroller--invitation
+  background-color: $black
+  margin-top: -15px
+  right: 30px
+  top: 50%
+
+
+// Simple black header bands
+
+.header-band
+  @extend %text--header--small
+  @extend .l-centered
+  color: $grey-text
+  padding: 10px 0
+  text-align: center
+
+.header-band--serif
+  @extend %text--body
+  background: $white
+  color: $black

@@ -1,3 +1,11 @@
+// Global variables, mixins, and placeholders; nothing in this file should emit
+// any actual styles, since it may be imported by multiple files in the
+// compilation chain.
+
+// Make Bourbon available everywhere.
+@import bourbon/app/assets/stylesheets/bourbon
+
+
 // Standard colors.
 $black: #232323
 $white: #ffffff
@@ -9,10 +17,15 @@ $grey-text: #636363
 // Breakpoints.
 $media-iphone-portrait: 'only screen and (max-width: 320px)'
 $media-iphone-landscape: 'only screen and (max-width: 480px)'
+$media-ipad: 'only screen and (min-width: 768px)'
+$media-desk: 'only screen and (min-width: 1024px)'
 
 
 // Standard text faces and sizes.
 +font-face(ProximaNova, 'fonts/proxima-nova-semibold', bold)
+$large-font: 30px
+$medium-font: 18px
+$small-font: 12px
 
 %text--header
   font-family: ProximaNova, $helvetica
@@ -22,20 +35,28 @@ $media-iphone-landscape: 'only screen and (max-width: 480px)'
 
 %text--header--large
   @extend %text--header
-  font-size: 25px
+  font-size: $large-font
   letter-spacing: 2.5px
   line-height: 1.2
 
 %text--header--medium
   @extend %text--header
-  font-size: 18px
+  font-size: $medium-font
 
 %text--header--small
   @extend %text--header
-  font-size: 12px
+  font-size: $small-font
+
+%text--header--small--light
+  @extend %text--header--small
+  @extend %text--light-on-dark
+  font-size: 10px
+  line-height: 1.1
+  opacity: .6
 
 %text--body
   font-family: 'Crimson Text', $georgia
+  font-weight: normal
   // Sizes:
   // 20 (80)
   // 18 (72)
@@ -53,9 +74,14 @@ $media-iphone-landscape: 'only screen and (max-width: 480px)'
     content: ""
     display: block
     height: 1px
-    margin: 0 auto 25px
+    margin: 0 auto
     width: 25px
   &:first-child
     margin-top: 10px
     &:before
       display: none
+
+@mixin with-rule($spacing: 25px)
+  @extend %with-rule
+  &:before
+    margin-bottom: $spacing
