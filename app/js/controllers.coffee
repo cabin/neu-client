@@ -27,7 +27,7 @@ module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $time
 
 
 module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
-  $scope.sectionCount = 4  # NOTE: this must reflect the total team sections.
+  $scope.sectionCount = 6  # NOTE: this must reflect the total team sections.
   sections = [0...$scope.sectionCount]
   animateDirection = null
 
