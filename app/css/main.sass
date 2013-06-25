@@ -21,7 +21,8 @@
 
 .splash
   @extend %text--light-on-dark
-  background-image: url(/img/blank.png)
+  background-color: #455456
+  background-image: url(/img/splash-bg.jpg)
   background-position: center bottom
   background-repeat: no-repeat
   background-size: cover
@@ -59,7 +60,7 @@
   margin-left: 20px
   width: 100px
 
-@media only screen and (min-width: 768px)
+@media #{$media-ipad}
   .splash__img
     left: 50%
     margin-left: -100px
@@ -140,6 +141,37 @@
   @extend %text--header--large
   font-size: $large-font
 
+// Graphical callouts, which usually appear next to text callouts.
+.callout-img
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: contain
+  margin-top: 40px
+
+.callout-img--america
+  height: 155px
+  background-image: url(/img/map-america-filled.png)  // XXX retina
+  @media #{$media-ipad}
+    height: 310px
+
+.callout-img--woman, .callout-img--bang
+  height: 129px
+  @media #{$media-ipad}
+    height: 258px
+
+.callout-img--woman
+  background-image: url(/img/icon-lady.png)  // XXX retina
+
+.callout-img--bang
+  background-image: url(/img/icon-minorities.png)  // XXX retina
+
+.callout-img--california
+  +position(absolute, 0px 0 0 50%)
+  +size(140px 239px)
+  background-image: url(/img/map-california.png)  // XXX retina
+  margin-left: -110px
+  margin-top: -20px
+
 
 // Pull quote  /////////////////////////
 
@@ -164,8 +196,8 @@
 // Palo Alto  //////////////////////////
 
 .palo-alto
-  // background: XXX
   height: 180px
+  overflow: hidden
   position: relative
 
 .palo-alto__ribbon
@@ -182,6 +214,7 @@
   position: relative
   text-align: center
   width: $width
+  z-index: 1
 
   &:after
     +position(absolute, 100% 0 0 0px)
@@ -231,53 +264,31 @@
     display: block
     font-style: normal
 
-.team-container
-  @extend .grid
-  position: relative
-
-.team__arrow
-  +size(23px 44px)
-  position: absolute
-  top: 40px
-  z-index: 1
-  opacity: 1
-  +transition(opacity ease-in 100ms)
-  .team-left-leave ~ &, .team-right-leave ~ &
-    +transition-duration(0)
-    opacity: 0
-
-.team__arrow--left
-  +retina-image(/img/icon/arrow-left, 23px 44px)
-  left: 20px
-
-.team__arrow--right
-  +retina-image(/img/icon/arrow-right, 23px 44px)
-  right: 20px
-
 $team-top-padding: 20px
 $team-bottom-padding: 45px
 
+.team-container
+  @extend .grid
+  height: 236px + $team-top-padding + $team-bottom-padding
+  position: relative
+  @media #{$media-ipad}
+    height: auto
+
 .team
   @extend .grid__item
-  +width(1 of 3)
-  padding: $team-top-padding 0 $team-bottom-padding
+  +position(absolute, 0px 0px 0px 0px)
+  +transform(translate3d(0, 0, 0))  // performance on Mobile Safari
+  padding-top: $team-top-padding
+  padding-bottom: $team-bottom-padding
   text-align: center
-
-@media only screen and (max-width: 768px)
-  .team-container
-    height: 236px + $team-top-padding + $team-bottom-padding
-
-  // Fill the container and enable transitions.
-  .team
-    +position(absolute, 0px 0px 0px 0px)
-    +transform(translate3d(0, 0, 0))  // performance on Mobile Safari
-    +width(auto)
+  @media #{$media-ipad}
+    +width(1 of 2)
+    position: static
+  @media #{$media-desk}
+    +width(1 of 3)
 
 .team__img
   +size(80px)
-  border: 1px solid $black
-  border-radius: 40px
-  box-shadow: 0 0 2px $black
 
 .team__name, .team__title
   font-size: 18px
@@ -291,6 +302,28 @@ $team-bottom-padding: 45px
 
 .team__details
   margin-top: 20px
+
+.team__arrow
+  +size(23px 44px)
+  +transition(opacity ease-in 100ms)
+  opacity: 1
+  position: absolute
+  top: 40px
+  -webkit-tap-highlight-color: transparent
+  z-index: 1
+  .team-left-leave ~ &, .team-right-leave ~ &
+    +transition-duration(0)
+    opacity: 0
+  @media #{$media-ipad}
+    display: none
+
+.team__arrow--left
+  +retina-image(/img/icon/arrow-left, 23px 44px)
+  left: $grid-gutter  // account for .grid negative margin
+
+.team__arrow--right
+  +retina-image(/img/icon/arrow-right, 23px 44px)
+  right: 0
 
 // Slide transitions.
 $team-slide-distance: 300px

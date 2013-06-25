@@ -3,9 +3,9 @@ module = angular.module('neu.controllers', [])
 module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $timeout, preload) ->
   delay = 4000
   data = [
-    {name: 'university', img: '/img/lorempixel/cats5.jpg',
+    {name: 'university', img: 'http://placehold.it/200x250&text=university',
     text: 'Hands-on, project based, collaborative, & fun.'}
-    {name: 'creators', img: '/img/lorempixel/cats6.jpg',
+    {name: 'creators', img: 'http://placehold.it/200x250&text=creator',
     text: 'Diverse<br>in gender, ethnicity,<br>and creative spirit.'}
   ]
   index = -1
@@ -32,7 +32,7 @@ module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
   animateDirection = null
 
   $scope.$watch 'windowWidth', ->
-    $scope.showMultiple = $scope.windowWidth > 768
+    $scope.showMultiple = $scope.windowWidth >= 768
 
   $scope.index = 0
 

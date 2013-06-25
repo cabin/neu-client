@@ -29,7 +29,7 @@
 
   <div class="full-bg splash" ng-controller="SplashCtrl">
     <div class="splash__header">A new breed of <div bind-shuffle="sel.name">university</div></div>
-    <img class="splash__img" ng-src="{{sel.img}}" src="/img/lorempixel/cats5.jpg" alt>
+    <img class="splash__img" ng-src="{{sel.img}}" src="http://placehold.it/200x250" alt width="200" height="250">
     <div class="splash__arrow"></div>
     <div class="splash__description" ng-bind-html-unsafe="sel.text">Hands-on, project based, collaborative, &amp; fun.</div>
 
@@ -63,9 +63,7 @@
 
   <div class="l-main l-pad">
     <div class="callout callout--small">In 2012</div>
-
-    XXX (Map placeholder.)
-
+    <div class="callout-img callout-img--america"></div>
     <div class="callout">
       <em class="callout__huge">Millions</em>
       of engineering jobs<br>went unfilled<br>in America alone
@@ -81,19 +79,14 @@
     <div class="whisper">
       And we&rsquo;re lookin&rsquo;<br>at you too, ladies.
     </div>
-
-    XXX (Pictogram placeholder.)
-
+    <div class="callout-img callout-img--woman"></div>
     <div class="callout">
     Less than
     <em class="callout__huge">10%</em>
     of engineers are<br>women
     </div>
-
-    XXX (Pictogram placeholder.)
-
+    <div class="callout-img callout-img--bang"></div>
     <div class="callout">Even less are<br>minorities</div>
-
     <div class="whisper whisper--bottom">And as if that's not<br>enough&hellip;</div>
   </div>
 
@@ -130,6 +123,7 @@
   </h2>
 
   <div class="palo-alto">
+    <div class="callout-img callout-img--california"></div>
     <div class="palo-alto__ribbon">Palo Alto<br>CA</div>
     <div class="palo-alto__text">
       With 10 locations slated to open in tech-centric cities across the
@@ -174,77 +168,79 @@
 
   <h2 class="team-header">Meet the <em>Game-Changers</em></h2>
 
-  <div class="team-container l-main"
-    ng-controller="TeamCtrl"
-    ng-swipe-left="next()"
-    ng-swipe-right="prev()">
+  <div class="l-main">
+    <div class="team-container"
+      ng-controller="TeamCtrl"
+      ng-swipe-left="next()"
+      ng-swipe-right="prev()">
 
-    <div class="team" ng-if="showMultiple || index == 0" ng-animate="animate()">
-      <img class="team__img" src="/img/lorempixel/cats1.jpg" alt>
-      <div class="team__name">Scott Kauffman</div>
-      <div class="team__title">President &amp; CEO</div>
-      <div class="team__details">
-        With years of senior executive and board leadership experience, Scott
-        Kauffman leads the charge to redefine engineering education.
+      <div class="team" ng-if="showMultiple || index == 0" ng-animate="animate()">
+        <img class="team__img" src="/img/team/Scott.png" at2x alt width="80" height="80">
+        <div class="team__name">Scott Kauffman</div>
+        <div class="team__title">President &amp; CEO</div>
+        <div class="team__details">
+          With years of senior executive and board leadership experience, Scott
+          Kauffman leads the charge to redefine engineering education.
+        </div>
       </div>
-    </div>
 
-    <div class="team" ng-if="showMultiple || index == 1" ng-animate="animate()">
-      <img class="team__img" src="/img/lorempixel/cats2.jpg" alt>
-      <div class="team__name">Lueny Morell</div>
-      <div class="team__title">Chief Academic Officer</div>
-      <div class="team__details">
-        Gordon prize-winning engineer, renowned professor, and industry leader
-        Lueny Morell brings heart and vision to developing all-new educational
-        programs.
+      <div class="team" ng-if="showMultiple || index == 1" ng-animate="animate()">
+        <img class="team__img" src="/img/team/Lueny.png" at2x alt width="80" height="80">
+        <div class="team__name">Lueny Morell</div>
+        <div class="team__title">Chief Academic Officer</div>
+        <div class="team__details">
+          Gordon prize-winning engineer, renowned professor, and industry leader
+          Lueny Morell brings heart and vision to developing all-new educational
+          programs.
+        </div>
       </div>
-    </div>
 
-    <div class="team" ng-if="showMultiple || index == 2" ng-animate="animate()">
-      <img class="team__img" src="/img/lorempixel/cats3.jpg" alt>
-      <div class="team__name">University Ventures</div>
-      <div class="team__title">Investors</div>
-      <div class="team__details">
-        University Ventures partners with entrepreneurs and leading
-        institutions to establish transformative companies in postsecondary
-        education.
+      <div class="team" ng-if="showMultiple || index == 2" ng-animate="animate()">
+        <img class="team__img" src="/img/team/UniversityVentures.png" at2x alt width="80" height="80">
+        <div class="team__name">University Ventures</div>
+        <div class="team__title">Investment</div>
+        <div class="team__details">
+          University Ventures partners with entrepreneurs and leading
+          institutions to establish transformative companies in postsecondary
+          education.
+        </div>
       </div>
-    </div>
 
-    <div class="team" ng-if="showMultiple || index == 3" ng-animate="animate()">
-      <img class="team__img" src="/img/lorempixel/cats4.jpg" alt>
-      <div class="team__name">Cabin</div>
-      <div class="team__title">Design &amp; Technology</div>
-      <div class="team__details">
-        Former Etsy design and technology duo apply their fierce creativity to
-        crafting vibrant digital experiences for NEU&rsquo;s community to
-        thrive.
+      <div class="team" ng-if="showMultiple || index == 3" ng-animate="animate()">
+        <img class="team__img" src="/img/team/Cabin.png" at2x alt width="80" height="80">
+        <div class="team__name">Cabin</div>
+        <div class="team__title">Design &amp; Technology</div>
+        <div class="team__details">
+          Former Etsy design and technology duo apply their fierce creativity to
+          crafting vibrant digital experiences for NEU&rsquo;s community to
+          thrive.
+        </div>
       </div>
-    </div>
 
-    <div class="team" ng-if="showMultiple || index == 4" ng-animate="animate()">
-      <img class="team__img" src="/img/lorempixel/cats4.jpg" alt>
-      <div class="team__name">OMFGCO</div>
-      <div class="team__title">Design</div>
-      <div class="team__details">
-        The creative masterminds behind the Ace Hotel chain join us to bring to
-        life the most coveted maker space around. Prepare to stay awhile.
+      <div class="team" ng-if="showMultiple || index == 4" ng-animate="animate()">
+        <img class="team__img" src="/img/team/OMFGCO.png" at2x alt width="80" height="80">
+        <div class="team__name">OMFGCO</div>
+        <div class="team__title">Design</div>
+        <div class="team__details">
+          The creative masterminds behind the Ace Hotel chain join us to bring to
+          life the most coveted maker space around. Prepare to stay awhile.
+        </div>
       </div>
-    </div>
 
-    <div class="team" ng-if="showMultiple || index == 5" ng-animate="animate()">
-      <img class="team__img" src="/img/lorempixel/cats4.jpg" alt>
-      <div class="team__name">Clairvoyant</div>
-      <div class="team__title">Educational Technology</div>
-      <div class="team__details">
-        With a rich history in the vast landscape of educational platforms, the
-        Clairvoyant team weave together a system of offerings that support our
-        students and faculty.
+      <div class="team" ng-if="showMultiple || index == 5" ng-animate="animate()">
+        <img class="team__img" src="/img/team/Clairvoyant.png" at2x alt width="80" height="80">
+        <div class="team__name">Clairvoyant</div>
+        <div class="team__title">Educational Technology</div>
+        <div class="team__details">
+          With a rich history in the vast landscape of educational platforms, the
+          Clairvoyant team weave together a system of offerings that support our
+          students and faculty.
+        </div>
       </div>
-    </div>
 
-    <a class="team__arrow team__arrow--left" ng-click="prev()"></a>
-    <a class="team__arrow team__arrow--right" ng-click="next()"></a>
+      <a class="team__arrow team__arrow--left" ng-click="prev()"></a>
+      <a class="team__arrow team__arrow--right" ng-click="next()"></a>
+    </div>
   </div>
 
   <div class="full-bg full-bg--orange">
