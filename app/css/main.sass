@@ -233,6 +233,26 @@
 
 .team-container
   @extend .grid
+  position: relative
+
+.team__arrow
+  +size(23px 44px)
+  position: absolute
+  top: 40px
+  z-index: 1
+  opacity: 1
+  +transition(opacity ease-in 100ms)
+  .team-left-leave ~ &, .team-right-leave ~ &
+    +transition-duration(0)
+    opacity: 0
+
+.team__arrow--left
+  +retina-image(/img/icon/arrow-left, 23px 44px)
+  left: 20px
+
+.team__arrow--right
+  +retina-image(/img/icon/arrow-right, 23px 44px)
+  right: 20px
 
 $team-top-padding: 20px
 $team-bottom-padding: 45px
@@ -246,14 +266,12 @@ $team-bottom-padding: 45px
 @media only screen and (max-width: 768px)
   .team-container
     height: 236px + $team-top-padding + $team-bottom-padding
-    position: relative
 
   // Fill the container and enable transitions.
   .team
     +position(absolute, 0px 0px 0px 0px)
-    +transform(translate3d(0, 0, 0))
-    +transition(all $ease-out-quad 300ms)
-    +width(1)
+    +transform(translate3d(0, 0, 0))  // performance on Mobile Safari
+    +width(auto)
 
 .team__img
   +size(80px)
@@ -275,23 +293,47 @@ $team-bottom-padding: 45px
   margin-top: 20px
 
 // Slide transitions.
+$team-slide-distance: 300px
+$team-slide-duration: 300ms
+$team-slide-easing: $ease-in-out-quad
+
 .team-left-enter
-  +transform(translate3d(100%, 0, 0))
-  &.team-left-enter-active
-    +transform(translate3d(0, 0, 0))
+  +animation(team-left-enter $team-slide-duration $team-slide-easing)
 .team-left-leave
-  +transform(translate3d(0, 0, 0))
-  left: 0
-  &.team-left-leave-active
-    +transform(translate3d(-100%, 0, 0))
+  +animation(team-left-leave $team-slide-duration $team-slide-easing)
 .team-right-enter
-  +transform(translate3d(-100%, 0, 0))
-  &.team-right-enter-active
-    +transform(translate3d(0, 0, 0))
+  +animation(team-right-enter $team-slide-duration $team-slide-easing)
 .team-right-leave
-  +transform(translate3d(0, 0, 0))
-  &.team-right-leave-active
-    +transform(translate3d(100%, 0, 0))
+  +animation(team-right-leave $team-slide-duration $team-slide-easing)
+
++keyframes(team-left-enter)
+  from
+    +transform(translateX($team-slide-distance))
+  to
+    +transform(translateX(0))
++keyframes(team-left-leave)
+  from
+    +transform(translateX(0))
+    opacity: 1
+  50%
+    opacity: .2
+  to
+    +transform(translateX(-$team-slide-distance))
+    opacity: 0
++keyframes(team-right-enter)
+  from
+    +transform(translateX(-$team-slide-distance))
+  to
+    +transform(translateX(0))
++keyframes(team-right-leave)
+  from
+    +transform(translateX(0))
+    opacity: 1
+  50%
+    opacity: .2
+  to
+    +transform(translateX($team-slide-distance))
+    opacity: 0
 
 
 // Join us  ////////////////////////////
