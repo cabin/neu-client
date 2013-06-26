@@ -21,12 +21,7 @@
 
 .splash
   @extend %text--light-on-dark
-  @extend %ie-background-size
-  background-color: #a0aaa9
-  background-image: url(/img/splash-bg.jpg)
-  background-position: center bottom
-  background-repeat: no-repeat
-  background-size: cover
+  +radial-gradient(circle at 20% 80%, #dee0df, #8c9896, $fallback: #a0aaa9)
   height: 300px
   padding-top: 35px
   position: relative
