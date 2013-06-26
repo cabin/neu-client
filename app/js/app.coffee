@@ -7,6 +7,14 @@ deps = [
 
 module = angular.module('neu', deps)
 
+# Hide the navigation bar on mobile.
+module.run ['$window', ($window) ->
+  # Trivial implementation: not worried about Android support, and we're not
+  # using location hashes so there's no need to avoid breaking them. See
+  # <https://gist.github.com/scottjehl/1183357> for a proper implementation.
+  $window.scrollTo(0, 0)
+]
+
 # Set up Google Analytics.
 module.run ['$window', ($window) ->
   trackingID = 'UA-42012866-1'
