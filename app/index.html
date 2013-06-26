@@ -243,9 +243,9 @@
     </div>
   </div>
 
-  <div class="full-bg full-bg--orange">
-    <div class="l-main" id="join-us" ng-controller="JoinCtrl">
-      <form class="join-us" name="form" ng-submit="submit()" ng-hide="state.submitted" novalidate>
+  <div class="full-bg full-bg--orange" ng-controller="JoinCtrl" ng-class="{'join-us--done': state.submitted}">
+    <div class="l-main" id="join-us">
+      <form class="join-us" name="form" ng-submit="submit()" ng-hide="state.submitted" ng-animate="'join-us__poof'" novalidate>
         <h2 class="join-us__header">Part of the<br>solution?</h2>
         <p class="join-us__blurb">Calling all friends, fans, partners,<br>&amp;
         prospective faculty.</p>

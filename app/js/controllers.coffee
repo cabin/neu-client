@@ -73,6 +73,8 @@ module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $wi
     if $scope.form.$valid
       $scope.state.submitting = true
       postData()
+      # Make sure Mobile Safari closes the keyboard.
+      $window.document.activeElement.blur()
     else
       $scope.state.invalid = true
 ])
