@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="neu">
+<html lang="en" ng-app="neu" data-placeholder-focus="false" data-placeholder-live="false">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -296,6 +296,11 @@
   <script src="js/gsap/TweenLite.min.js"></script>
   <script src="js/gsap/ScrollToPlugin.min.js"></script>
   <!-- endbuild -->
+  <!--[if lte IE 9]>
+  <script src="ie/Placeholders.js"></script>
+  <script src="ie/respond.js"></script>
+  <script>setTimeout(function () { Placeholders.enable(); }, 250)</script>
+  <![endif]-->
   <!-- build:js js/neu.min.js -->
   <script src="build/js/app.js"></script>
   <script src="build/js/controllers.js"></script>

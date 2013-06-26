@@ -84,3 +84,8 @@ $small-font: 12px
   @extend %with-rule
   &:before
     margin-bottom: $spacing
+
+
+// IE6-8 shim for background-size: {contain,cover}.
+%ie-background-size
+  -ms-behavior: url(/ie/backgroundsize.min.htc)

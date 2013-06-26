@@ -55,16 +55,23 @@ module.exports = (grunt) ->
         'app/js/gsap/TweenLite.min.js'
         'app/js/gsap/ScrollToPlugin.min.js'
       ]
+      # TODO: modernizr, or new grunt-usemin
+      '<%= path.dist %>/js/ie.min.js': [
+        'app/ie/Placeholders.js'
+        'app/ie/respond.js'
+      ]
 
     copy:
       build:
         files: [
           {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.build %>'}
+          {expand: true, cwd: 'app', src: 'ie/**', dest: '<%= path.build %>'}
         ]
       dist:
         files: [
           {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.dist %>'}
           {expand: true, cwd: 'app', src: 'img/**', dest: '<%= path.dist %>'}
+          {expand: true, cwd: 'app', src: 'ie/**', dest: '<%= path.dist %>'}
           '<%= path.dist %>/index.html': 'app/index.html'
         ]
     rev:

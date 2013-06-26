@@ -21,6 +21,7 @@
 
 .splash
   @extend %text--light-on-dark
+  @extend %ie-background-size
   background-color: #455456
   background-image: url(/img/splash-bg.jpg)
   background-position: center bottom
@@ -143,6 +144,7 @@
 
 // Graphical callouts, which usually appear next to text callouts.
 .callout-img
+  @extend %ie-background-size
   background-repeat: no-repeat
   background-position: center center
   background-size: contain
