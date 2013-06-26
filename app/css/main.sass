@@ -22,14 +22,16 @@
 .splash
   @extend %text--light-on-dark
   @extend %ie-background-size
-  background-color: #455456
+  background-color: #a0aaa9
   background-image: url(/img/splash-bg.jpg)
   background-position: center bottom
   background-repeat: no-repeat
   background-size: cover
-  height: 360px
+  height: 300px
   padding-top: 35px
   position: relative
+  @media #{$media-ipad}
+    height: 600px
 
 .splash__header
   @extend %text--header--medium
@@ -37,11 +39,17 @@
   max-width: 200px
   text-align: center
 
+$splash-image-width: 520px
+$splash-image-height: 420px
+
 .splash__img
   +position(absolute, 0 0 0px -50px)
+  +size(($splash-image-width / 2) ($splash-image-height / 2))
+  @media #{$media-ipad}
+    +size($splash-image-width $splash-image-height)
 
 .splash__arrow
-  +position(absolute, 150px 50% 0 80px)
+  +position(absolute, 130px 50% 0 75px)
   background: $orange
   height: 1px
   &:before
@@ -54,7 +62,7 @@
     top: -4px
 
 .splash__description
-  +position(absolute, 140px 0 0 50%)
+  +position(absolute, 120px 0 0 50%)
   font-size: 20px
   font-style: italic
   line-height: 1
@@ -64,13 +72,14 @@
 @media #{$media-ipad}
   .splash__img
     left: 50%
-    margin-left: -100px
+    margin-left: -($splash-image-width / 2)
   .splash__arrow
+    top: 260px
     left: 50%
-    margin-left: 30px
     right: 50%
     margin-right: -140px
   .splash__description
+    top: 250px
     left: 50%
     margin-left: 160px
 
