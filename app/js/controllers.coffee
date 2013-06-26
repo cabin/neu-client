@@ -75,3 +75,22 @@ module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $wi
     else
       $scope.state.invalid = true
 ])
+
+
+module.controller('ShareCtrl', ['$scope', '$window', ($scope, $window) ->
+  popupSizes =
+    facebook: [580, 325]
+    twitter: [550, 420]
+    google: [600, 600]
+    linkedin: [520, 570]
+
+  $scope.share = ($event, type) ->
+    $event.preventDefault()
+    url = angular.element($event.target).attr('href')
+    [width, height] = popupSizes[type]
+    screen = $window.screen
+    left = (screen.availWidth or screen.width) / 2 - width / 2
+    top = (screen.availHeight or screen.height) / 2 - height / 2
+    features = "width=#{width},height=#{height},left=#{left},top=#{top}"
+    $window.open(url, '_blank', features)
+])
