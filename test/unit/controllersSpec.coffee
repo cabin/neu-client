@@ -72,7 +72,7 @@ describe 'controllers', ->
         $scope.form = jasmine.createSpy('$scope.form')
         $controller('JoinCtrl', $scope: $scope)
         $window = _$window_
-        $window._gaq = jasmine.createSpyObj('$window._gaq', ['push'])
+        $window.ga = jasmine.createSpy('$window.ga')
         $httpBackend = _$httpBackend_
 
     afterEach ->
@@ -95,8 +95,8 @@ describe 'controllers', ->
 
       it 'should track an event with Google Analytics', ->
         submitValid()
-        expect($window._gaq.push).toHaveBeenCalledWith(
-          ['_trackEvent', jasmine.any(String)])
+        expect($window.ga).toHaveBeenCalledWith(
+          'send', 'event', jasmine.any(String), jasmine.any(String))
 
       it "should mark state as invalid when the form isn't valid", ->
         $scope.form.$valid = false
@@ -106,7 +106,7 @@ describe 'controllers', ->
       it 'should not submit or track an invalid submission', ->
         $scope.form.$valid = false
         $scope.submit()
-        expect($window._gaq.push).not.toHaveBeenCalled()
+        expect($window.ga).not.toHaveBeenCalled()
 
       it 'should prevent multiple submissions', ->
         submitValid()

@@ -9,19 +9,20 @@ module = angular.module('neu', deps)
 
 # Set up Google Analytics.
 module.run ['$window', ($window) ->
-  $window._gaq = $window._gaq || []
-  $window._gaq.push(['_setAccount', 'UA-XXXXX-Y'])  # TODO disable in dev
-  $window._gaq.push(['_trackPageview'])
+  trackingID = 'UA-42012866-1'
+  domain = 'neu.me'
+  if $window.location.host in ['localhost', 'neu.dev', 'staging.neu.me']
+    trackingID = 'UA-42012866-2'
+    domain = "staging.#{domain}"
 
-  (->
-    d = $window.document
-    ga = d.createElement('script')
-    ga.type = 'text/javascript'
-    ga.async = true
-    ga.src = "#{if d.location.protocol is 'https:' then 'https://ssl' else 'http://www'}.google-analytics.com/ga.js"
-    s = d.getElementsByTagName('script')[0]
-    s.parentNode.insertBefore(ga, s)
-  )()
+  # Embedded JS copypasta from Google.
+  `(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');`
+
+  ga('create', trackingID, domain)
+  ga('send', 'pageview')
 ]
 
 # Keep track of the viewport's width through resize events.

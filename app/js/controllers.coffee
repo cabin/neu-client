@@ -62,15 +62,16 @@ module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $wi
     promise = $http.post('/api/prospects', $scope.data)
     promise.success (data, status, headers, config) ->
       $scope.state.submitted = true
+      $window.ga('send', 'event', 'Initial sign-up form', 'Submitted')
     promise.error (data, status, headers, config) ->
       $scope.state.submitting = false
       $scope.state.submissionFailed = true
+      $window.ga('send', 'event', 'Initial sign-up form', 'Failed submission')
 
   $scope.submit = ->
     return if $scope.state.submitting
     if $scope.form.$valid
       $scope.state.submitting = true
-      $window._gaq.push(['_trackEvent', 'submit'])  # XXX test
       postData()
     else
       $scope.state.invalid = true
@@ -92,5 +93,9 @@ module.controller('ShareCtrl', ['$scope', '$window', ($scope, $window) ->
     left = (screen.availWidth or screen.width) / 2 - width / 2
     top = (screen.availHeight or screen.height) / 2 - height / 2
     features = "width=#{width},height=#{height},left=#{left},top=#{top}"
+    # NOTE: We don't have a reliable way to measure *completed* share
+    # interactions; this just measures the number of times someone opened a
+    # share window, whether or not they went on to successfully share.
+    $window.ga('send', 'social', type, 'share', 'http://neu.me/')
     $window.open(url, '_blank', features)
 ])
