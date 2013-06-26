@@ -250,10 +250,9 @@ $splash-image-height: 420px
   +width(1 of 1)
   @extend .grid__item
   text-align: center
-  @media #{$media-ipad}
-    +width(1 of 2)
   @media #{$media-desk}
     +width(1 of 4)
+    text-align: left
 
 .highlight__header
   @extend %text--header--medium
@@ -261,7 +260,8 @@ $splash-image-height: 420px
 
 .highlight__text
   font-size: 17px
-  margin: 0
+  margin: 0 auto
+  max-width: 320px
 
 
 // Meet the team  //////////////////////
@@ -312,7 +312,10 @@ $team-bottom-padding: 45px
   font-style: italic
 
 .team__details
-  margin-top: 20px
+  margin: 20px auto 0
+  max-width: 320px
+  @media #{$media-desk}
+    text-align: left
 
 .team__arrow
   +size(23px 44px)
