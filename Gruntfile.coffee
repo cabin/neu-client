@@ -23,10 +23,17 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'app'
         src: ['css/**/*.{sass,scss}', '!css/**/_*']
-        dest: '<%= path.build %>'
+        dest: '<%= path.build %>/.tmp'
         ext: '.css'
       options:
         loadPath: '<%= path.components %>'
+    dataUri:
+      dist:
+        src: ['<%= path.build %>/.tmp/css/*.css']
+        dest: '<%= path.build %>/css'
+        options:
+          target: ['app/img/icon/**/*']
+          baseDir: 'app/build'
     coffee:
       dist:
         expand: true
@@ -80,7 +87,7 @@ module.exports = (grunt) ->
         nospawn: true
       sass:
         files: ['app/css/**/*.{sass,scss}']
-        tasks: ['sass']
+        tasks: ['sass', 'dataUri']
       coffee:
         files: ['app/js/**/*.coffee']
         tasks: ['coffee', 'karma:unit:run']
@@ -105,7 +112,7 @@ module.exports = (grunt) ->
   for dep of pkg.devDependencies when dep.indexOf('grunt-') is 0
     grunt.loadNpmTasks(dep)
 
-  grunt.registerTask('build', ['sass', 'coffee', 'copy:build'])
+  grunt.registerTask('build', ['sass', 'dataUri', 'coffee', 'copy:build'])
   grunt.registerTask('test', ['build', 'karma:unitSingle'])
   grunt.registerTask('dist', [
     'clean'
