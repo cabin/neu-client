@@ -20,21 +20,21 @@
 </head>
 <body>
 <div class="scroll-wrapper">
-  <h2 class="header-band header-band--serif">New Engineering University</h2>
+  <h2 class="l-main header-band header-band--serif"><span>New Engineering University</span></h2>
 
   <div class="full-bg full-bg--orange">
     <h1 class="l-main logo">
-      <img src="/img/NEU-Logo.png" width="160" height="135" at2x class="l-centered" alt="NEU">
+      <img src="/img/NEU-Logo.png" width="120" height="45" class="l-centered" alt="NEU">
     </h1>
   </div>
 
   <div class="full-bg splash" ng-controller="SplashCtrl">
-    <div class="splash__header">A new breed of <div bind-shuffle="sel.name">university</div></div>
-    <img class="splash__img" ng-src="{{sel.img}}" src="http://placehold.it/200x250" alt>
+    <div class="splash__header">A new breed of <em bind-shuffle="sel.name">university</em></div>
+    <img class="splash__img" ng-src="{{sel.img}}" src="/img/marquee-educator.png" alt>
     <div class="splash__arrow"></div>
-    <div class="splash__description" ng-bind-html-unsafe="sel.text">Hands-on, project based, collaborative, &amp; fun.</div>
+    <div class="splash__description" ng-bind-html-unsafe="sel.text">XXX</div>
 
-    <a class="scroller scroller--splash" href="#slideshow" smooth-scroll></a>
+    <a class="splash__scroller" href="#slideshow" smooth-scroll></a>
   </div>
 
   <h2 class="full-bg full-bg--black header-band">Launching Fall 2014</h2>
@@ -45,15 +45,15 @@
         <div class="whisper">This might come as a surprise, but</div>
       </div>
       <div class="slide slide--white">
-        <div class="callout">We are facing a <em>national<br>crisis</em></div>
+        <div class="callout">We are facing a new <em>national <span class="wbr">crisis</span></em></div>
       </div>
       <div class="slide slide--white">
         <div class="callout callout--with-rule">
-          We&rsquo;re not<br>talking about<br><s>terrorism</s><br><s>hunger</s><br><s>poverty</s>
+          We&rsquo;re not <span class="wbr">talking about<br></span><s>terrorism</s><br><s>hunger</s><br><s>poverty</s>
         </div>
       </div>
       <div class="slide slide--white">
-        <div class="callout callout--with-rule">We are<br>talking about <em>engineering</em></div>
+        <div class="callout callout--with-rule">We are <span class="wbr">talking about</span><em class="callout__hugedesk">engineering</em></div>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
     <div class="callout-img callout-img--america"></div>
     <div class="callout">
       <em class="callout__huge">Millions</em>
-      of engineering jobs<br>went unfilled<br>in America alone
+      of engineering jobs<br><span class="wbr">went unfilled</span> in America alone
     </div>
   </div>
 
@@ -116,7 +116,7 @@
   </div>
 
   <div class="full-bg full-bg--black l-pad">
-    <div class="callout">Until now</div>
+    <div class="callout callout--big">Until now</div>
   </div>
 
   <div class="l-main l-pad--big">
@@ -124,8 +124,8 @@
     XXX (NEU logo placeholder.)
 
     <div class="whisper">
-      The most practical,<br>relevant, and<br>student-focused<br>engineering
-      program<br>in the world.
+      The most practical, <span class="wbr">relevant, and</span> student-focused<br>
+      <span class="wbr">engineering program</span> in the world.
     </div>
   </div>
 

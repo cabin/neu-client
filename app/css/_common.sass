@@ -42,30 +42,6 @@ $button-text-offset: 1px
     opacity: .6
 
 
-// Smooth scroller links
-
-.scroller
-  +retina-image(/img/icon/scroller, 17px 11px)
-  +size(30px)
-  background-position: 7px 10px
-  background-repeat: no-repeat
-  border-radius: 15px
-  display: block
-  position: absolute
-
-.scroller--splash
-  background-color: $orange
-  bottom: 30px
-  left: 50%
-  margin-left: -15px
-
-.scroller--invitation
-  background-color: $black
-  margin-top: -15px
-  right: 30px
-  top: 50%
-
-
 // Simple black header bands
 
 .header-band
@@ -74,8 +50,20 @@ $button-text-offset: 1px
   color: $grey-text
   padding: 10px 0
   text-align: center
+  @media #{$media-ipad}
+    font-size: 18px
+    padding: 20px 0 18px
 
 .header-band--serif
-  @extend %text--body
   background: $white
   color: $black
+  font-size: 10px
+  @media #{$media-ipad}
+    padding: 0
+    text-align: right
+    > span
+      @extend .l-main
+      border: 1px solid $grey-rule
+      border-width: 0 1px
+      display: inline-block
+      padding: 10px 30px 8px

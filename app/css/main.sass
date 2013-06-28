@@ -14,7 +14,7 @@
 // Site header  ////////////////////////
 
 .logo
-  padding: 20px 0
+  padding: 60px 0
 
 
 // Splash section  /////////////////////
@@ -31,8 +31,14 @@
 .splash__header
   @extend %text--header--medium
   @extend .l-centered
-  max-width: 200px
   text-align: center
+  em
+    display: block
+    font-style: normal
+  @media #{$media-ipad}
+    padding-top: 25px
+    em
+      font-size: 48px
 
 $splash-image-width: 520px
 $splash-image-height: 420px
@@ -63,6 +69,24 @@ $splash-image-height: 420px
   line-height: 1
   margin-left: 20px
   width: 100px
+  @media #{$media-ipad}
+    font-size: 24px
+    width: 200px
+
+.splash__scroller
+  +position(absolute, 0 0 30px 50%)
+  +retina-image(/img/icon/scroller, 17px 11px)
+  +size(30px)
+  background-color: $orange
+  background-position: 7px 10px
+  background-repeat: no-repeat
+  border-radius: 15px
+  display: block
+  margin-left: -15px
+  @media #{$media-ipad}
+    +size(60px)
+    border-radius: 30px
+    margin-left: -30px
 
 @media #{$media-ipad}
   .splash__img
@@ -89,6 +113,8 @@ $splash-image-height: 420px
   font-size: 18px
   font-style: italic
   text-align: center
+  @media #{$media-ipad}
+    font-size: 24px
 
 .whisper--bottom
   margin-top: 60px
@@ -99,6 +125,13 @@ $splash-image-height: 420px
   text-align: center
   &:first-child
     margin-top: 0
+  @media #{$media-ipad}
+    font-size: 30px
+
+// Use <span class="wbr"/> for text that should be on its own line on mobile.
+@media #{$media-small}
+  .wbr
+    display: block
 
 .callout--small
   @extend %text--header--small
@@ -116,13 +149,19 @@ $splash-image-height: 420px
     margin-bottom: 10px
   &.callout__huge--orange
     font-size: 40px
+  @media #{$media-ipad}
+    font-size: 60px
+    margin-top: 20px
+    &.callout__hugedesk
+      font-size: 80px
 
 .callout s
   @extend %text--header--large
-  margin-top: 5px
   display: inline-block
   position: relative
   text-decoration: none
+  &:first-of-type
+    margin-top: 5px
   &:after
     // TODO: Apply this to Chrome only; it has the opposite effect on Mobile
     // Safari.
@@ -131,7 +170,13 @@ $splash-image-height: 420px
     background-color: $orange
     content: ""
     height: 3px
-    opacity: .8
+    opacity: .9
+  @media #{$media-ipad}
+    font-size: 48px
+    &:first-of-type
+      margin-top: 20px
+    &:after
+      height: 5px
   &:nth-of-type(1):after
     +transform(rotate(-1.8deg))
   &:nth-of-type(2):after
@@ -145,6 +190,8 @@ $splash-image-height: 420px
 .callout--big
   @extend %text--header--large
   font-size: $large-font
+  @media #{$media-ipad}
+    font-size: 48px
 
 // Graphical callouts, which usually appear next to text callouts.
 .callout-img
@@ -429,7 +476,7 @@ $team-slide-easing: $ease-in-out-quad
 // Animation following successful submission.
 .join-us--done
   +animation(join-us--done 300ms ease-in-out 150ms)
-  +box-shadow(inset 0 3px 4px -2px rgba($black, .4), inset 0 -3px 4px -2px rgba($black, .4))
+  box-shadow: inset 0 3px 4px -2px rgba($black, .4), inset 0 -3px 4px -2px rgba($black, .4)
 +keyframes(join-us--done)
   from
     height: 550px
