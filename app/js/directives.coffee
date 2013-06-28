@@ -110,6 +110,8 @@ module.directive 'slideshow', ['$window', ($window) ->
     # Shared variables.
     slides = elm[0].querySelectorAll('.slide')
     return unless slides.length
+    mask = angular.element(elm[0].querySelector('.mask'))
+    maskHeight = 600
     body = angular.element($window.document.body)
     bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
     firstSlideTop = lastSlideTop = null
@@ -160,12 +162,13 @@ module.directive 'slideshow', ['$window', ($window) ->
 
     adjustScroll = ->
       y = $window.scrollY  # XXX ie?
-      # Past the slideshow; make sure that all slides are scrolled up.
+      # Past the slideshow; make sure that all slides are scrolled off.
       if y >= lastSlideTop
         y -= extraSlidesHeight
         angular.forEach slides, (slide, i) ->
           return if i is slides.length - 1
           angular.element(slide).css(left: "#{slideWidth}px")
+        mask.css(top: "-#{maskHeight}px")
       # Inside the slideshow.
       else if y >= firstSlideTop
         relativeY = y - firstSlideTop
@@ -181,10 +184,14 @@ module.directive 'slideshow', ['$window', ($window) ->
             0
           angular.element(slide).css(left: "#{offset}px")
         y = firstSlideTop  # don't scroll the container
+        mask.css(top: "-#{maskHeight}px")
       # Before the slideshow; make sure that all slides are reset.
       else
         angular.forEach slides, (slide) ->
           angular.element(slide).css(left: '0')
+        # Slide the mask up to reveal the first slide.
+        ratio = y / firstSlideTop
+        mask.css(top: "-#{ratio * maskHeight}px")
       wrapper.css(top: "-#{y}px")
 
     # Set everything up once images load, so we can compute the page height.

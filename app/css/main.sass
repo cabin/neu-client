@@ -522,8 +522,17 @@ $team-slide-easing: $ease-in-out-quad
 
 @media #{$media-desk}
   .slideshow
+    margin-top: 1px
     overflow: hidden
     position: relative
+
+    .mask
+      +position(absolute, 0px 0px 0 0px)
+      height: 600px
+      background-image: url(/img/marquee-bottom.gif)
+      background-position: center top
+      z-index: 20
+
     .slide
       +position(absolute, 0px 0px 0 0px)
       height: 100%
