@@ -114,6 +114,9 @@ module.directive 'slideshow', ['$window', ($window) ->
     bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
     firstSlideTop = lastSlideTop = null
     wrapper = null
+    slideWidth = startTransitionAt = null
+    startTransitionAt = null
+    transitionMultiplier = 0.65
 
     # Stack each element in `elements` underneath its predecessor.
     descendingStackingOrder = (elements) ->
@@ -130,20 +133,30 @@ module.directive 'slideshow', ['$window', ($window) ->
       # XXX check for mobile safari
       return false unless slideHeight and slideHeight > 600
       elm.css(height: "#{slideHeight}px")
+      slideWidth = elm[0].clientWidth
+      startTransitionAt = slideWidth * transitionMultiplier
       # Vertically center each slide.
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
         content = slide.children()[0]
         angular.element(content).css(marginTop: "-#{content.clientHeight}px")
         angular.element(slide).css(lineHeight: 'normal')
+        angular.element(slide).css(width: "#{slideWidth}px")
       # Find the offsets for the first and last animated slides.
       firstSlideTop or= yOffset(elm)
       extraSlidesHeight = (slides.length - 1) * slideHeight
       lastSlideTop = firstSlideTop + extraSlidesHeight
       # Ensure the page has enough room to scroll.
       bodyHeightSansSlides or= body[0].clientHeight - slideHeight
-      body.css(minHeight: "#{bodyHeightSansSlides + slideHeight + extraSlidesHeight}px")
+      minHeight = bodyHeightSansSlides + slideHeight + extraSlidesHeight
+      body.css(minHeight: "#{minHeight}px")
       x = bodyHeightSansSlides + slideHeight + extraSlidesHeight
+
+    # The slide transition only begins after scrolling `transitionMultiplier`
+    # (as a percentage) through the slide; adjust the range to accommodate.
+    rescale = (offset) ->
+      originalRange = slideWidth - startTransitionAt
+      ((offset - startTransitionAt) * slideWidth) / originalRange
 
     adjustScroll = ->
       y = $window.scrollY  # XXX ie?
@@ -152,25 +165,26 @@ module.directive 'slideshow', ['$window', ($window) ->
         y -= extraSlidesHeight
         angular.forEach slides, (slide, i) ->
           return if i is slides.length - 1
-          angular.element(slide).css(top: "#{slideHeight}px")
+          angular.element(slide).css(left: "#{slideWidth}px")
       # Inside the slideshow.
       else if y >= firstSlideTop
         relativeY = y - firstSlideTop
         currentSlide = Math.floor(relativeY / slideHeight)
-        currentOffset = relativeY - (currentSlide * slideHeight)
+        yOffset = relativeY - (currentSlide * slideHeight)
+        xOffset = (yOffset / slideHeight) * slideWidth
         angular.forEach slides, (slide, i) ->
           offset = if i < currentSlide
-            slideHeight
-          else if i is currentSlide
-            currentOffset
+            slideWidth
+          else if i is currentSlide and xOffset >= startTransitionAt
+            rescale(xOffset)
           else
             0
-          angular.element(slide).css(top: "-#{offset}px")
+          angular.element(slide).css(left: "#{offset}px")
         y = firstSlideTop  # don't scroll the container
       # Before the slideshow; make sure that all slides are reset.
       else
         angular.forEach slides, (slide) ->
-          angular.element(slide).css('top', '0')
+          angular.element(slide).css(left: '0')
       wrapper.css(top: "-#{y}px")
 
     # Set everything up once images load, so we can compute the page height.
@@ -178,7 +192,8 @@ module.directive 'slideshow', ['$window', ($window) ->
       return unless adjustSizes()  # must happen before fixing the wrapper
       elm.addClass('slideshow')
       descendingStackingOrder(slides)
-      wrapper = angular.element(document.querySelectorAll('.scroll-wrapper')).css
+      wrapper = angular.element(document.querySelectorAll('.scroll-wrapper'))
+      wrapper.css
         position: 'fixed'
         left: '0'
         right: '0'
