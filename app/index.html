@@ -19,6 +19,7 @@
   <!-- endbuild -->
 </head>
 <body>
+<div class="scroll-wrapper">
   <h2 class="header-band header-band--serif">New Engineering University</h2>
 
   <div class="full-bg full-bg--orange">
@@ -29,26 +30,36 @@
 
   <div class="full-bg splash" ng-controller="SplashCtrl">
     <div class="splash__header">A new breed of <div bind-shuffle="sel.name">university</div></div>
-    <img class="splash__img" ng-src="{{sel.img}}" src="http://placehold.it/200x250" alt width="200" height="250">
+    <img class="splash__img" ng-src="{{sel.img}}" src="http://placehold.it/200x250" alt>
     <div class="splash__arrow"></div>
     <div class="splash__description" ng-bind-html-unsafe="sel.text">Hands-on, project based, collaborative, &amp; fun.</div>
 
-    <a class="scroller scroller--splash" href="#overview" smooth-scroll></a>
+    <a class="scroller scroller--splash" href="#slideshow" smooth-scroll></a>
   </div>
 
   <h2 class="full-bg full-bg--black header-band">Launching Fall 2014</h2>
 
-  <div class="l-main l-pad--big" id="overview">
-    <div class="whisper">This might come as a surprise, but</div>
-    <div class="callout">We are facing a <em>national<br>crisis</em></div>
-    <div class="callout callout--with-rule">
-      We&rsquo;re not<br>talking about<br><s>terrorism</s><br><s>hunger</s><br><s>poverty</s>
+  <div id="slideshow" slideshow>
+    <div class="l-pad--big">
+      <div class="slide slide--white">
+        <div class="whisper">This might come as a surprise, but</div>
+      </div>
+      <div class="slide slide--white">
+        <div class="callout">We are facing a <em>national<br>crisis</em></div>
+      </div>
+      <div class="slide slide--white">
+        <div class="callout callout--with-rule">
+          We&rsquo;re not<br>talking about<br><s>terrorism</s><br><s>hunger</s><br><s>poverty</s>
+        </div>
+      </div>
+      <div class="slide slide--white">
+        <div class="callout callout--with-rule">We are<br>talking about <em>engineering</em></div>
+      </div>
     </div>
-    <div class="callout callout--with-rule">We are<br>talking about <em>engineering</em></div>
-  </div>
 
-  <div class="full-bg full-bg--black l-pad">
-    <div class="callout callout--big">No, really.</div>
+    <div class="full-bg full-bg--black l-pad slide">
+      <div class="callout callout--big">No, really.</div>
+    </div>
   </div>
 
   <div class="l-main l-pad">
@@ -307,5 +318,6 @@
   <script src="build/js/directives.js"></script>
   <script src="build/js/services.js"></script>
   <!-- endbuild -->
+</div>
 </body>
 </html>

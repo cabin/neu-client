@@ -445,3 +445,44 @@ $team-slide-easing: $ease-in-out-quad
   to
     +transform(translateZ(0) scale(.5))
     opacity: 0
+
+
+// Slideshow  //////////////////////////
+
+// HACK
+.slide
+  .callout:first-child
+    margin-top: 40px
+.slide.full-bg
+  .callout
+    margin-top: 0
+
+@media #{$media-ipad}
+  // HACK
+  #slideshow .l-pad--big
+    padding-bottom: 0
+
+  // Vertical centering.
+  .slide
+    line-height: 600px
+    text-align: center
+    > div
+      display: inline-block
+      line-height: normal
+  .slide--white
+    background: $white
+    border-bottom: 1px solid $grey-rule
+
+@media #{$media-desk}
+  .slideshow
+    overflow: hidden
+    position: relative
+    .slide
+      +position(absolute, 0px 0px 0 0px)
+      height: 100%
+      margin: 0
+      padding: 0
+      // Vertical centering.
+      > div
+        position: relative
+        top: 50%
