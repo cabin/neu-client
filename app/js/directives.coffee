@@ -2,7 +2,7 @@ module = angular.module('neu.directives', [])
 
 # Return the y-offset relative to the document for the given `element`, which
 # can be an angular Element or a DOM node.
-yOffset = (element) ->
+elementY = (element) ->
   return 0 unless element
   # Grab the first match if this is a wrapped element.
   element = element[0] if (element.bind and element.find)
@@ -89,7 +89,7 @@ module.directive 'smoothScroll', ['$window', ($window) ->
     elm.bind 'click', (event) ->
       event.preventDefault()
       $window.TweenLite.to $window, .4,
-        scrollTo: {y: yOffset($window.document.getElementById(id))}
+        scrollTo: {y: elementY($window.document.getElementById(id))}
         ease: $window.Power2.easeInOut
 ]
 
@@ -143,7 +143,7 @@ module.directive 'slideshow', ['$window', ($window) ->
         angular.element(slide).css(lineHeight: 'normal')
         angular.element(slide).css(width: "#{slideWidth}px")
       # Find the offsets for the first and last animated slides.
-      firstSlideTop or= yOffset(elm)
+      firstSlideTop or= elementY(elm)
       extraSlidesHeight = (slides.length - 1) * slideHeight
       lastSlideTop = firstSlideTop + extraSlidesHeight
       # Ensure the page has enough room to scroll.
