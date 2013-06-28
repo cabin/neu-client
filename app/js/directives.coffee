@@ -131,11 +131,11 @@ module.directive 'slideshow', ['$window', ($window) ->
       slideHeight = attrs.slides
       slideHeight or= $window.innerHeight
       slideHeight or= $window.document.documentElement.clientHeight  # IE8
+      slideWidth = elm[0].clientWidth
       # If the viewport is too small or we're on Mobile Safari, abandon ship.
       # XXX check for mobile safari
-      return false unless slideHeight and slideHeight > 600
+      return false unless slideHeight and slideHeight > 600 and slideWidth > 768
       elm.css(height: "#{slideHeight}px")
-      slideWidth = elm[0].clientWidth
       startTransitionAt = slideWidth * transitionMultiplier
       # Vertically center each slide.
       angular.forEach slides, (slide) ->
