@@ -12,7 +12,14 @@
   <meta name="og:url" content="http://neu.me/">
   <meta name="og:site_name" content="NEU">
 
-  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic" rel="stylesheet">
+  <!--[if lte IE 8]>
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400italic" rel="stylesheet" type="text/css">
+  <style>@font-face { font-family: ProximaNova; src: url("/css/fonts/proxima-nova-semibold.eot"); }</style>
+  <![endif]-->
+  <!--[if gt IE 8]> -->
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic" rel="stylesheet" type="text/css">
+  <!-- <![endif]-->
   <!-- build:css css/neu.min.css -->
   <link href="bower_components/normalize-css/normalize.css" rel="stylesheet">
   <link href="build/css/main.css" rel="stylesheet">

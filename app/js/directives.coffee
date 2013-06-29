@@ -162,7 +162,7 @@ module.directive 'slideshow', ['$window', ($window) ->
       ((offset - startTransitionAt) * slideWidth) / originalRange
 
     adjustScroll = ->
-      y = $window.scrollY  # XXX ie?
+      y = $window.scrollY or $window.document.documentElement.scrollTop  # IE8
       # Past the slideshow; make sure that all slides are scrolled off.
       if y >= endSlidesAt
         y -= extraSlidesHeight
@@ -200,8 +200,7 @@ module.directive 'slideshow', ['$window', ($window) ->
         mask.css(top: "-#{Math.floor(ratio * maskHeight)}px")
       wrapper.css(top: "-#{y}px")
 
-    # Set everything up once images load, so we can compute the page height.
-    angular.element($window).bind 'load', ->
+    setup = ->
       return unless adjustSizes()  # must happen before fixing the wrapper
       elm.addClass('slideshow')
       descendingStackingOrder(slides)
@@ -214,4 +213,12 @@ module.directive 'slideshow', ['$window', ($window) ->
       adjustScroll()
       angular.element($window).bind('resize', adjustSizes)
       angular.element($window).bind('scroll', adjustScroll)
+
+    # Set everything up once images load, so we can compute the page height.
+    angular.element($window).bind 'load', ->
+      # If we loaded respond.js, give it time to update the page.
+      if $window.respond?
+        setTimeout(setup, 150)
+      else
+        setup()
 ]
