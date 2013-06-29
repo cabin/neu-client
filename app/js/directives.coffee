@@ -10,6 +10,7 @@ elementY = (element) ->
   node = element
   while node.offsetParent and node.offsetParent isnt window.document.body
     node = node.offsetParent
+    continue if node.offsetTop < 0  # account for crazy scroll-wrapper
     offset += node.offsetTop
   offset
 
