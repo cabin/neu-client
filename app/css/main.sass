@@ -496,13 +496,20 @@ $team-slide-easing: $ease-in-out-quad
 
 // Slideshow  //////////////////////////
 
+.slideshow__mask
+  background-image: url(/img/marquee-bottom.gif)
+  background-position: center top
+  height: 100px
+
 // HACK
-.slide
+.slideshow__slide
   .callout:first-child
     margin-top: 40px
-.slide.full-bg
+.slideshow__slide.full-bg
   .callout
     margin-top: 0
+#slideshow
+  margin-top: 1px
 
 @media #{$media-ipad}
   // HACK
@@ -510,30 +517,27 @@ $team-slide-easing: $ease-in-out-quad
     padding-bottom: 0
 
   // Vertical centering.
-  .slide
+  .slideshow__slide
     line-height: 600px
     text-align: center
     > div
       display: inline-block
       line-height: normal
-  .slide--white
+  .slideshow__slide--white
     background: $white
     border-left: 2px solid $grey-rule
 
   // This class is only added if the slideshow is available.
   .slideshow
-    margin-top: 1px
     overflow: hidden
     position: relative
 
-    .mask
+    .slideshow__mask
       +position(absolute, 0px 0px 0 0px)
       height: 600px
-      background-image: url(/img/marquee-bottom.gif)
-      background-position: center top
       z-index: 20
 
-    .slide
+    .slideshow__slide
       +position(absolute, 0px 0px 0 0px)
       height: 100%
       margin: 0

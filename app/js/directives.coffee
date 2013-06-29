@@ -108,16 +108,14 @@ module.directive 'slideshow', ['$window', ($window) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Shared variables.
-    slides = elm[0].querySelectorAll('.slide')
+    slides = elm[0].querySelectorAll('.slideshow__slide')
     return unless slides.length
-    mask = angular.element(elm[0].querySelector('.mask'))
+    mask = angular.element(elm[0].querySelector('.slideshow__mask'))
     maskHeight = 600
     body = angular.element($window.document.body)
     bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
-    firstSlideTop = lastSlideTop = null
     wrapper = null
-    slideWidth = startTransitionAt = null
-    startTransitionAt = null
+    slideWidth = startSlidesAt = startTransitionAt = endSlidesAt = null
     transitionMultiplier = 0.65
 
     # Stack each element in `elements` underneath its predecessor.
@@ -141,13 +139,16 @@ module.directive 'slideshow', ['$window', ($window) ->
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
         content = slide.children()[0]
-        angular.element(content).css(marginTop: "-#{content.clientHeight}px")
-        angular.element(slide).css(lineHeight: 'normal')
-        angular.element(slide).css(width: "#{slideWidth}px")
+        angular.element(content).css
+          marginTop: "-#{content.clientHeight / 2}px"
+        angular.element(slide).css
+          lineHeight: 'normal'
+          width: "#{slideWidth}px"
       # Find the offsets for the first and last animated slides.
-      firstSlideTop or= elementY(elm)
-      extraSlidesHeight = (slides.length - 1) * slideHeight
-      lastSlideTop = firstSlideTop + extraSlidesHeight
+      startSlidesAt or= elementY(elm)
+      # Include an extra `startTransitionAt` for a pause on the final slide.
+      extraSlidesHeight = (slides.length - 1) * slideHeight + startTransitionAt
+      endSlidesAt = startSlidesAt + extraSlidesHeight
       # Ensure the page has enough room to scroll.
       bodyHeightSansSlides or= body[0].clientHeight - slideHeight
       minHeight = bodyHeightSansSlides + slideHeight + extraSlidesHeight
@@ -163,35 +164,40 @@ module.directive 'slideshow', ['$window', ($window) ->
     adjustScroll = ->
       y = $window.scrollY  # XXX ie?
       # Past the slideshow; make sure that all slides are scrolled off.
-      if y >= lastSlideTop
+      if y >= endSlidesAt
         y -= extraSlidesHeight
         angular.forEach slides, (slide, i) ->
           return if i is slides.length - 1
           angular.element(slide).css(left: "#{slideWidth}px")
         mask.css(top: "-#{maskHeight}px")
       # Inside the slideshow.
-      else if y >= firstSlideTop
-        relativeY = y - firstSlideTop
+      else if y >= startSlidesAt
+        relativeY = y - startSlidesAt
         currentSlide = Math.floor(relativeY / slideHeight)
         yOffset = relativeY - (currentSlide * slideHeight)
         xOffset = (yOffset / slideHeight) * slideWidth
         angular.forEach slides, (slide, i) ->
+          # Previous slides are off the page.
           offset = if i < currentSlide
             slideWidth
+          # The final slide never moves.
+          else if i is slides.length - 1
+            0
+          # The current slide starts moving partway through its scrollHeight.
           else if i is currentSlide and xOffset >= startTransitionAt
             rescale(xOffset)
           else
             0
-          angular.element(slide).css(left: "#{offset}px")
-        y = firstSlideTop  # don't scroll the container
+          angular.element(slide).css(left: "#{Math.floor(offset)}px")
+        y = startSlidesAt  # don't scroll the container
         mask.css(top: "-#{maskHeight}px")
       # Before the slideshow; make sure that all slides are reset.
       else
         angular.forEach slides, (slide) ->
           angular.element(slide).css(left: '0')
         # Slide the mask up to reveal the first slide.
-        ratio = y / firstSlideTop
-        mask.css(top: "-#{ratio * maskHeight}px")
+        ratio = y / startSlidesAt
+        mask.css(top: "-#{Math.floor(ratio * maskHeight)}px")
       wrapper.css(top: "-#{y}px")
 
     # Set everything up once images load, so we can compute the page height.
