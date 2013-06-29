@@ -25,6 +25,34 @@
     .callout
       line-height: 680px
 
+// Droplet-style vertical arrow.
+.drip
+  background: $orange
+  position: relative
+  width: 1px
+  height: 50px
+  margin: 20px auto
+  &:after
+    +size(9px)
+    background: $orange
+    border-radius: 4px
+    content: ""
+    display: block
+    position: relative
+    top: 100%
+    left: -4px
+  @media #{$media-ipad}
+    height: 100px
+
+// Use <span class="wbr"/> for text that should be on its own line on mobile,
+// or .wbr--big for text for >mobile.
+@media #{$media-small}
+  .wbr
+    display: block
+@media #{$media-ipad}
+  .wbr--big
+    display: block
+
 
 // Site buttons
 
@@ -32,8 +60,8 @@
 $button-text-offset: 1px
 
 .button
-  @extend %text--header--small
-  @extend %text--light-on-dark
+  //XXX @extend %text--header--small
+  @extend %text--thinner
   +linear-gradient(lighten($black, 15%), $black, $fallback: $black)
   border: none
   border-radius: 2px
@@ -56,19 +84,19 @@ $button-text-offset: 1px
 // Simple black header bands
 
 .header-band
-  @extend %text--header--small
   @extend .l-centered
+  +font-header(12, 18)
   color: $grey-text
-  padding: 10px 0
+  padding: 10px 0 8px
   text-align: center
   @media #{$media-ipad}
-    font-size: 18px
     padding: 20px 0 18px
 
-.header-band--serif
+.header-band.header-band--serif
   background: $white
   color: $black
   font-size: 10px
+  letter-spacing: 1px
   @media #{$media-ipad}
     padding: 0
     text-align: right

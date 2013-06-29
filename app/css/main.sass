@@ -20,7 +20,7 @@
 // Splash section  /////////////////////
 
 .splash
-  @extend %text--light-on-dark
+  @extend %text--thinner
   +radial-gradient(circle at 20% 80%, #dee0df, #8c9896, $fallback: #a0aaa9)
   height: 300px
   padding-top: 35px
@@ -29,16 +29,15 @@
     height: 600px
 
 .splash__header
-  @extend %text--header--medium
   @extend .l-centered
+  +font-header(15, 18)
   text-align: center
   em
+    +font-sizes(30, 48)
     display: block
     font-style: normal
   @media #{$media-ipad}
     padding-top: 25px
-    em
-      font-size: 48px
 
 $splash-image-width: 520px
 $splash-image-height: 420px
@@ -63,30 +62,31 @@ $splash-image-height: 420px
     top: -4px
 
 .splash__description
+  +font-sizes(18, 24)
   +position(absolute, 120px 0 0 50%)
-  font-size: 20px
   font-style: italic
   line-height: 1
   margin-left: 20px
   width: 100px
   @media #{$media-ipad}
-    font-size: 24px
     width: 200px
 
 .splash__scroller
   +position(absolute, 0 0 30px 50%)
-  +retina-image(/img/icon/scroller, 17px 11px)
-  +size(30px)
-  background-color: $orange
-  background-position: 7px 10px
-  background-repeat: no-repeat
-  border-radius: 15px
   display: block
-  margin-left: -15px
+  @media #{$media-small}
+    +retina-image('../img/icon/scroller', 17px 11px)
+    +size(30px)
+    background-color: $orange
+    background-position: 7px 10px
+    background-repeat: no-repeat
+    border-radius: 15px
+    margin-left: -15px
   @media #{$media-ipad}
     +size(60px)
     border-radius: 30px
     margin-left: -30px
+    background-image: url(../img/icon/scroll.png)
 
 @media #{$media-ipad}
   .splash__img
@@ -109,54 +109,38 @@ $splash-image-height: 420px
   padding: 50px 30px
 
 .whisper
-  @extend %text--body
-  font-size: 18px
+  +font-body(18, 24)
   font-style: italic
   text-align: center
-  @media #{$media-ipad}
-    font-size: 24px
 
-.whisper--bottom
-  margin-top: 60px
+.whisper--big
+  +font-sizes(18, 36)
 
 .callout
-  @extend %text--header--medium
+  +font-header(15, 30)
   margin-top: 40px
   text-align: center
   &:first-child
     margin-top: 0
-  @media #{$media-ipad}
-    font-size: 30px
 
-// Use <span class="wbr"/> for text that should be on its own line on mobile.
-@media #{$media-small}
-  .wbr
-    display: block
-
-.callout--small
-  @extend %text--header--small
+.callout--with-rule
+  // XXX track this down
+  @extend %with-rule
 
 .callout em
-  @extend %text--header--large
+  +font-sizes(30, 60)
   color: $orange
   display: block
   font-style: normal
   line-height: 1
   margin-top: 5px
-  &.callout__huge
-    color: $black
-    font-size: 40px
-    margin-bottom: 10px
-  &.callout__huge--orange
-    font-size: 40px
   @media #{$media-ipad}
-    font-size: 60px
     margin-top: 20px
-    &.callout__hugedesk
+    &.callout__huge
       font-size: 80px
 
 .callout s
-  @extend %text--header--large
+  +font-sizes(24, 48)
   display: inline-block
   position: relative
   text-decoration: none
@@ -172,7 +156,6 @@ $splash-image-height: 420px
     height: 3px
     opacity: .9
   @media #{$media-ipad}
-    font-size: 48px
     &:first-of-type
       margin-top: 20px
     &:after
@@ -184,14 +167,44 @@ $splash-image-height: 420px
   &:nth-of-type(3):after
     +transform(rotate(-.7deg))
 
-.callout--with-rule
-  +with-rule(40px)
-
 .callout--big
-  @extend %text--header--large
-  font-size: $large-font
-  @media #{$media-ipad}
-    font-size: 48px
+  +font-sizes(24, 48)
+
+.callout--year
+  +font-sizes(12, 18)
+
+.callout--small
+  +font-sizes(15, 18)
+
+
+// Things engineers do  ////////////////
+
+.callout.engineers-can
+  +font-sizes(24, 30)
+
+.engineers-can ul
+  list-style: none
+  padding: 0
+
+.engineers-can__item
+  +font-sizes(15, 18)
+.engineers-can__item--build
+  // XXX TODO
+.engineers-can__item--cure
+  // XXX TODO
+.engineers-can__item--send
+  // XXX TODO
+
+
+// More callouts further down...  //////
+// XXX re-work this
+
+.callout--logo
+  +hide-text
+  +size(200px 73px)
+  background-image: url(/img/NEU-logo-orange.png)  // XXX retina
+  font: 0/0 a !important  // IE 8
+  margin: 20px auto
 
 // Graphical callouts, which usually appear next to text callouts.
 .callout-img
@@ -229,21 +242,35 @@ $splash-image-height: 420px
 // Pull quote  /////////////////////////
 
 .quote
-  padding: 20px 25px 40px
+  @extend %text--thinner
+  padding: 20px 40px
+  @media #{$media-ipad}
+    padding: 60px 80px
+    text-align: center
 .quote__text
-  @extend %text--light-on-dark
-  font-size: 30px
-  line-height: 1.2
-  -moz-hyphens: manual
-  hyphens: manual
+  +font-sizes(30, 50)
+  background-image: url(../img/icon/illy-quotes.png)  // XXX retina
+  background-position: center 20px
+  background-repeat: no-repeat
+  padding-top: 100px
+  @media #{$media-ipad}
+    background-position: center 30px
+    padding-top: 120px
 .quote__author-name
-  margin-top: 40px
-  text-transform: uppercase
-.quote__author-title
-  @extend %text--header--small--light
+  +font-sizes(18, 24)
   border-top: 1px solid rgba($white, .5)
-  margin-top: 8px
+  margin: 40px 0 10px
   padding-top: 8px
+  text-transform: uppercase
+  @media #{$media-ipad}
+    margin: 80px 0 20px
+    padding-top: 20px
+.quote__author-title
+  @extend %text--header
+  font-size: 10px
+  letter-spacing: 1px
+  line-height: 1.1
+  opacity: .6
 
 
 // Palo Alto  //////////////////////////
@@ -252,11 +279,13 @@ $splash-image-height: 420px
   height: 180px
   overflow: hidden
   position: relative
+  @media #{$media-ipad}
+    height: 400px
 
 .palo-alto__ribbon
   $width: 160px
   $pointer-height: 40px
-  @extend %text--header--small
+  +font-header(15, 18)
   @extend .l-centered
   background: $orange
   color: $white
@@ -279,8 +308,8 @@ $splash-image-height: 420px
     z-index: -1
 
 .palo-alto__text
+  +font-sizes(14, 18)
   +position(absolute, 0 0 0 50%)
-  font-size: 14px
   font-style: italic
   margin-left: 20px
   max-width: 120px
@@ -297,11 +326,11 @@ $splash-image-height: 420px
     text-align: left
 
 .highlight__header
-  @extend %text--header--medium
+  +font-header(15)
   margin: 25px 0 15px
 
 .highlight__text
-  font-size: 17px
+  font-size: 18px
   margin: 0 auto
   max-width: 320px
 
@@ -309,13 +338,9 @@ $splash-image-height: 420px
 // Meet the team  //////////////////////
 
 .team-header
-  @extend %text--header--medium
+  +font-header(24, 30)
   margin-top: 45px
   text-align: center
-  & em
-    color: $orange
-    display: block
-    font-style: normal
 
 $team-top-padding: 20px
 $team-bottom-padding: 45px
@@ -331,8 +356,9 @@ $team-bottom-padding: 45px
   @extend .grid__item
   +position(absolute, 0px 0px 0px 0px)
   +transform(translate3d(0, 0, 0))  // performance on Mobile Safari
-  padding-top: $team-top-padding
+  font-size: 18px
   padding-bottom: $team-bottom-padding
+  padding-top: $team-top-padding
   text-align: center
   @media #{$media-ipad}
     +width(1 of 2)
@@ -342,9 +368,6 @@ $team-bottom-padding: 45px
 
 .team__img
   +size(80px)
-
-.team__name, .team__title
-  font-size: 18px
 
 .team__name
   margin-top: 20px

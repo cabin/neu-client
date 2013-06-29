@@ -20,69 +20,74 @@ $media-ipad: 'only screen and (min-width: 768px)'
 $media-desk: 'only screen and (min-width: 1024px)'
 
 
-// Standard text faces and sizes.
-$large-font: 30px
-$medium-font: 18px
-$small-font: 12px
-
+// Standard-ish font styling.
 %text--header
   font-family: ProximaNova, $helvetica
   font-weight: bold
-  letter-spacing: 1px
+  letter-spacing: 3px
   text-transform: uppercase
 
-%text--header--large
-  @extend %text--header
-  font-size: $large-font
-  letter-spacing: 2.5px
-  line-height: 1.2
+//
+  %text--header--large
+    @extend %text--header
+    font-size: 30px
+    line-height: 1.2
 
-%text--header--medium
-  @extend %text--header
-  font-size: $medium-font
+  %text--header--medium
+    @extend %text--header
+    font-size: 18px
 
-%text--header--small
-  @extend %text--header
-  font-size: $small-font
+  %text--header--small
+    @extend %text--header
+    font-size: 12px
 
-%text--header--small--light
-  @extend %text--header--small
-  @extend %text--light-on-dark
-  font-size: 10px
-  line-height: 1.1
-  opacity: .6
+  %text--header--small--light
+    @extend %text--header--small
+    @extend %text--thinner
+    font-size: 10px
+    line-height: 1.1
+    opacity: .6
 
 %text--body
   font-family: 'Crimson Text', $georgia
   font-weight: normal
-  // Sizes:
-  // 20 (80)
-  // 18 (72)
-  // 17 (68)
-  // 15 (60)
 
-%text--light-on-dark
+%text--thinner
   -webkit-font-smoothing: antialiased
+
+@mixin font-sizes($small, $big: '')
+  @if unitless($small)
+    $small: $small * 1px
+  font-size: $small
+  @if $big != ''
+    @media #{$media-ipad}
+      @if unitless($big)
+        $big: $big * 1px
+      font-size: $big
+
+@mixin font-header($small, $big: '')
+  @extend %text--header
+  +font-sizes($small, $big)
+
+@mixin font-body($small, $big)
+  @extend %text--body
+  +font-sizes($small, $big)
 
 
 // Standard sections broken by small horizontal rules.
 %with-rule
-  &:before
-    background: $grey-rule
-    content: ""
-    display: block
-    height: 1px
-    margin: 0 auto
-    width: 25px
-  &:first-child
-    margin-top: 10px
+  @media #{$media-small}
     &:before
-      display: none
-
-@mixin with-rule($spacing: 25px)
-  @extend %with-rule
-  &:before
-    margin-bottom: $spacing
+      background: $grey-rule
+      content: ""
+      display: block
+      height: 1px
+      margin: 0 auto 25px
+      width: 25px
+    &:first-child
+      margin-top: 10px
+      &:before
+        display: none
 
 
 // IE6-8 shim for background-size: {contain,cover}.
