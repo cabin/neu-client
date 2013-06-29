@@ -135,7 +135,7 @@ module.directive 'slideshow', ['$window', ($window) ->
       # XXX check for mobile safari
       return false unless slideHeight and slideHeight > 600 and slideWidth > 768
       elm.css(height: "#{slideHeight}px")
-      startTransitionAt = slideWidth * transitionMultiplier
+      startTransitionAt = Math.floor(slideWidth * transitionMultiplier)
       # Vertically center each slide.
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
@@ -175,6 +175,9 @@ module.directive 'slideshow', ['$window', ($window) ->
       else if y >= startSlidesAt
         relativeY = y - startSlidesAt
         currentSlide = Math.floor(relativeY / slideHeight)
+        # It's possible for the computed current slide to exceed the total
+        # slides due to the final slide's extra padding. Correct for this.
+        currentSlide = Math.min(currentSlide, slides.length - 1)
         yOffset = relativeY - (currentSlide * slideHeight)
         xOffset = (yOffset / slideHeight) * slideWidth
         angular.forEach slides, (slide, i) ->
