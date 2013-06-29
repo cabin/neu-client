@@ -14,7 +14,15 @@
 // Site header  ////////////////////////
 
 .logo
+  +hide-text
+  +retina-image(/img/logo-white-sm, 90px 33px)
+  +size(90px 30px)
+  background-position: center center
+  background-repeat: no-repeat
   padding: 60px 0
+  @media #{$media-ipad}
+    +retina-image(/img/logo-white-lg, 120px 44px)
+    +size(120px 44px)
 
 
 // Splash section  /////////////////////
@@ -75,18 +83,13 @@ $splash-image-height: 420px
   +position(absolute, 0 0 30px 50%)
   display: block
   @media #{$media-small}
-    +retina-image('../img/icon/scroller', 17px 11px)
+    +retina-image('../img/icon/scroll-sm', 30px 30px)
     +size(30px)
-    background-color: $orange
-    background-position: 7px 10px
-    background-repeat: no-repeat
-    border-radius: 15px
     margin-left: -15px
   @media #{$media-ipad}
+    +retina-image('../img/icon/scroll-lg', 60px 60px)
     +size(60px)
-    border-radius: 30px
     margin-left: -30px
-    background-image: url(../img/icon/scroll.png)
 
 @media #{$media-ipad}
   .splash__img
@@ -201,10 +204,14 @@ $splash-image-height: 420px
 
 .callout--logo
   +hide-text
-  +size(200px 73px)
-  background-image: url(/img/NEU-logo-orange.png)  // XXX retina
+  +retina-image(/img/logo-orange-sm, 100px 37px)
+  +size(100px 37px)
   font: 0/0 a !important  // IE 8
   margin: 20px auto
+  @media #{$media-ipad}
+    +retina-image(/img/logo-orange-lg, 200px 74px)
+    +size(200px 74px)
+
 
 // Graphical callouts, which usually appear next to text callouts.
 .callout-img
@@ -215,10 +222,11 @@ $splash-image-height: 420px
   margin-top: 40px
 
 .callout-img--america
-  height: 155px
-  background-image: url(/img/map-america-filled.png)  // XXX retina
+  +retina-image(/img/map-us-sm, 240px 142px, gif)
+  height: 142px
   @media #{$media-ipad}
-    height: 310px
+    +retina-image(/img/map-us-lg, 500px 296px, gif)
+    height: 296px
 
 .callout-img--woman, .callout-img--bang
   height: 129px
@@ -249,11 +257,12 @@ $splash-image-height: 420px
     text-align: center
 .quote__text
   +font-sizes(30, 50)
-  background-image: url(../img/icon/illy-quotes.png)  // XXX retina
+  +retina-image('../img/icon/quotes-sm', 30px 30px)
   background-position: center 20px
   background-repeat: no-repeat
-  padding-top: 100px
+  padding-top: 60px
   @media #{$media-ipad}
+    +retina-image('../img/icon/quotes-lg', 60px 60px)
     background-position: center 30px
     padding-top: 120px
 .quote__author-name
@@ -285,7 +294,7 @@ $splash-image-height: 420px
 .palo-alto__ribbon
   $width: 160px
   $pointer-height: 40px
-  +font-header(15, 18)
+  +font-header(12, 18)
   @extend .l-centered
   background: $orange
   color: $white
@@ -515,6 +524,46 @@ $team-slide-easing: $ease-in-out-quad
   to
     +transform(translateZ(0) scale(.5))
     opacity: 0
+
+
+// Share buttons  //////////////////////
+
+.share
+  margin-top: 5px
+  padding: 40px 0
+
+.share__header
+  @extend .callout
+
+.share__icons
+  text-align: center
+
+.share-icon
+  +hide-text
+  +size(50px)
+  display: inline-block
+  margin: 5px
+  @media #{$media-ipad}
+    +size(70px)
+    margin: 10px
+
+@mixin share-icon($type)
+  +retina-image("../img/icon/social-#{$type}-sm", 50px 50px)
+  &:hover
+    +retina-image("../img/icon/social-#{$type}-hover-sm", 50px 50px)
+  @media #{$media-ipad}
+    +retina-image("../img/icon/social-#{$type}-lg", 70px 70px)
+    &:hover
+      +retina-image("../img/icon/social-#{$type}-hover-lg", 70px 70px)
+
+.share-icon--facebook
+  +share-icon(facebook)
+.share-icon--gplus
+  +share-icon(gplus)
+.share-icon--linkedin
+  +share-icon(linkedin)
+.share-icon--twitter
+  +share-icon(twitter)
 
 
 // Slideshow  //////////////////////////
