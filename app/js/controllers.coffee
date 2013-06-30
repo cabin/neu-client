@@ -9,12 +9,12 @@ module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $time
     text: 'Pioneers in<br>the field,<br>mentors at<br>NEU.'}
     {name: 'creators', img: '/img/student-1.png',
     text: 'Thinkers,<br>innovators, &amp;<br>change-makers.'}
+    {name: 'collaborators', img: '/img/university-2.png',
+    text: 'Rocking the fun.'}
     {name: 'history-makers', img: '/img/student-2.png',
     text: 'Changing<br>the world<br>one classroom<br>at a time.'}
     {name: 'innovators', img: '/img/educators-2.png',
     text: 'Creating what<br>has never been.'}
-    {name: 'collaborators', img: '/img/university-2.png',
-    text: 'Rocking the fun.'}
   ]
   index = -1
 

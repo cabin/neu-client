@@ -194,6 +194,10 @@ module.directive 'slideshow', ['$window', ($window) ->
           else
             0
           angular.element(slide).css(left: "#{Math.floor(offset)}px")
+          # XXX testing a swipe instead of slide; refactor or remove
+          c = angular.element(angular.element(slide).children()[0])
+          angular.element(slide).css(overflow: 'hidden')
+          c.css(marginLeft: "-#{Math.floor(offset) * 2}px")
         y = startSlidesAt  # don't scroll the container
         mask.css(top: "-#{maskHeight}px")
       # Before the slideshow; make sure that all slides are reset.

@@ -53,7 +53,13 @@ $grid-gutter: 32px
 .l-pad
   padding-top: 60px
   padding-bottom: 60px
+  @media #{$media-ipad}
+    padding-top: 60px
+    padding-bottom: 90px
 
-.l-pad--big
-  padding-top: 60px
-  padding-bottom: 90px
+@media #{$media-ipad}
+  .l-pad--huge
+    padding: 200px 0
+
+  .l-pad--mega
+    padding: 150px 0 300px

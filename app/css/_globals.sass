@@ -16,37 +16,20 @@ $grey-text: #636363
 
 // Breakpoints.
 $media-small: 'only screen and (max-width: 767px)'
+$media-small-ipad: 'only screen and (max-width: 1023px)'
 $media-ipad: 'only screen and (min-width: 768px)'
 $media-desk: 'only screen and (min-width: 1024px)'
 
 
 // Standard-ish font styling.
 %text--header
+  @extend %text--thinner
   font-family: ProximaNova, $helvetica
   font-weight: bold
-  letter-spacing: 3px
+  letter-spacing: 2px
   text-transform: uppercase
-
-//
-  %text--header--large
-    @extend %text--header
-    font-size: 30px
-    line-height: 1.2
-
-  %text--header--medium
-    @extend %text--header
-    font-size: 18px
-
-  %text--header--small
-    @extend %text--header
-    font-size: 12px
-
-  %text--header--small--light
-    @extend %text--header--small
-    @extend %text--thinner
-    font-size: 10px
-    line-height: 1.1
-    opacity: .6
+  @media #{$media-ipad}
+    letter-spacing: 2px
 
 %text--body
   font-family: 'Crimson Text', $georgia

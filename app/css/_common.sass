@@ -16,15 +16,16 @@
 .full-bg--starfield
   @extend %ie-background-size
   background-color: $black
+  background-image: url(/img/universe-long.jpg)
+  background-size: 100%
+  box-shadow: inset 0 6px 6px -2px rgba($black, .8), inset 0 -6px 6px -2px rgba($black, .4)
   @media #{$media-ipad}
+    height: 800px
+    .callout
+      line-height: 680px
     .no-touch &
-      background-image: url(/img/universe-long.jpg)
       background-attachment: fixed
       background-size: cover
-      box-shadow: inset 0 6px 6px -2px rgba($black, .8), inset 0 -6px 6px -2px rgba($black, .4)
-      height: 800px
-      .callout
-        line-height: 680px
 
 // Droplet-style vertical arrow.
 .drip
@@ -40,7 +41,7 @@
     content: ""
     display: block
   @media #{$media-ipad}
-    height: 100px
+    height: 80px
     &:after
       +retina-image('../img/icon/dot-lg', 11px 11px)
       +size(11px)
@@ -94,11 +95,18 @@ $button-text-offset: 1px
   @media #{$media-ipad}
     padding: 20px 0 18px
 
+.header-band--two-lines
+  padding: 25px 0 23px
+  @media #{$media-ipad}
+    padding: 30px 0 28px
+
 .header-band.header-band--serif
+  @extend %text--body
   background: $white
   color: $black
   font-size: 10px
   letter-spacing: 1px
+  padding: 9px 0
   @media #{$media-ipad}
     padding: 0
     text-align: right
@@ -106,4 +114,4 @@ $button-text-offset: 1px
       border: 1px solid $grey-rule
       border-width: 0 1px
       display: inline-block
-      padding: 10px 30px 8px
+      padding: 8px 30px 9px
