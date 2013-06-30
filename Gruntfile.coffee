@@ -52,6 +52,7 @@ module.exports = (grunt) ->
       '<%= path.dist %>/js/vendor.min.js': [
         '<%= path.components %>/AngularJS/angular.js'
         '<%= path.components %>/AngularJS/angular-mobile.js'
+        'app/js/modernizr.js'
         'app/js/gsap/TweenLite.min.js'
         'app/js/gsap/ScrollToPlugin.min.js'
       ]

@@ -17,13 +17,14 @@
   @extend %ie-background-size
   background-color: $black
   @media #{$media-ipad}
-    background-image: url(/img/universe-long.jpg)
-    background-attachment: fixed
-    background-size: cover
-    box-shadow: inset 0 6px 6px -2px rgba($black, .8), inset 0 -6px 6px -2px rgba($black, .4)
-    height: 800px
-    .callout
-      line-height: 680px
+    .no-touch &
+      background-image: url(/img/universe-long.jpg)
+      background-attachment: fixed
+      background-size: cover
+      box-shadow: inset 0 6px 6px -2px rgba($black, .8), inset 0 -6px 6px -2px rgba($black, .4)
+      height: 800px
+      .callout
+        line-height: 680px
 
 // Droplet-style vertical arrow.
 .drip

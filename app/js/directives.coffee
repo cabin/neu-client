@@ -131,9 +131,9 @@ module.directive 'slideshow', ['$window', ($window) ->
       slideHeight or= $window.innerHeight
       slideHeight or= $window.document.documentElement.clientHeight  # IE8
       slideWidth = elm[0].clientWidth
-      # If the viewport is too small or we're on Mobile Safari, abandon ship.
-      # XXX check for mobile safari
-      return false unless slideHeight and slideHeight > 600 and slideWidth > 768
+      # If the viewport is too small or we're on a touch device, abandon ship.
+      return false unless slideHeight and slideHeight >= 600
+      return false if Modernizr.touch
       elm.css(height: "#{slideHeight}px")
       startTransitionAt = Math.floor(slideWidth * transitionMultiplier)
       # Vertically center each slide.
