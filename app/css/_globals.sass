@@ -74,22 +74,6 @@ $media-desk: 'only screen and (min-width: 1024px)'
   +font-sizes($small, $big)
 
 
-// Standard sections broken by small horizontal rules.
-%with-rule
-  @media #{$media-small}
-    &:before
-      background: $grey-rule
-      content: ""
-      display: block
-      height: 1px
-      margin: 0 auto 25px
-      width: 25px
-    &:first-child
-      margin-top: 10px
-      &:before
-        display: none
-
-
 // IE6-8 shim for background-size: {contain,cover}.
 %ie-background-size
   -ms-behavior: url(/ie/backgroundsize.min.htc)
