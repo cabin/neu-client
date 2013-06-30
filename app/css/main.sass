@@ -393,6 +393,7 @@ $splash-image-height: 420px
       border-top-width: $height
 
 .palo-alto__text
+  @extend %text--thinner
   +font-sizes(14, 18)
   +position(absolute, 0 0 0 50%)
   color: $grey-text
@@ -569,6 +570,7 @@ $team-slide-easing: $ease-in-out-quad
   margin: 0
 
 .join-us__blurb
+  @extend %text--thinner
   font-size: 18px
   font-style: italic
   margin-top: 15px
