@@ -163,6 +163,7 @@ window.matchMedia = window.matchMedia || (function( doc, undefined ) {
 						media : thisq.split( "(" )[ 0 ].match( /(only\s+)?([a-zA-Z]+)\s?/ ) && RegExp.$2 || "all",
 						rules : rules.length - 1,
 						hasquery : thisq.indexOf("(") > -1,
+						retina: !!(thisq.match( /device\-pixel\-ratio/ ) || thisq.match( /min-resolution/ )),
 						minw : thisq.match( /\(\s*min\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/ ) && parseFloat( RegExp.$1 ) + ( RegExp.$2 || "" ), 
 						maxw : thisq.match( /\(\s*max\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/ ) && parseFloat( RegExp.$1 ) + ( RegExp.$2 || "" )
 					} );
@@ -252,6 +253,8 @@ window.matchMedia = window.matchMedia || (function( doc, undefined ) {
 						if( !styleBlocks[ thisstyle.media ] ){
 							styleBlocks[ thisstyle.media ] = [];
 						}
+						// just skip device-pixel-ratio styles for now
+						if (thisstyle.retina) continue;
 						styleBlocks[ thisstyle.media ].push( rules[ thisstyle.rules ] );
 					}
 				}
