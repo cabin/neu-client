@@ -36,9 +36,9 @@
 
   <div class="full-bg splash" ng-controller="SplashCtrl">
     <div class="splash__header">A new breed of <em bind-shuffle="sel.name">university</em></div>
-    <img class="splash__img" ng-src="{{sel.img}}" src="/img/marquee-educator.png" alt>
+    <img class="splash__img" ng-src="{{sel.img}}" src="/img/marquee-educator.png" width="520" height="420" alt>
     <div class="splash__drip"></div>
-    <div class="splash__description" ng-bind-html-unsafe="sel.text">XXX</div>
+    <div class="splash__description" ng-bind="sel.text">XXX</div>
 
     <a class="splash__scroller" href="#slideshow" smooth-scroll></a>
   </div>
@@ -102,14 +102,12 @@
     <div class="whisper">
       And we&rsquo;re lookin&rsquo;<br>at you too, ladies.
     </div>
-    <div class="callout-img callout-img--woman"></div>
+    <div class="callout-img callout-img--pie"><div class="callout-img__women"></div></div>
     <div class="callout callout--small">
-    Less than
-    <em class="callout__huge">10%</em>
-    of engineers are<br>women
+      Less than
+      <em class="callout__huge">10%</em>
+      of engineers are women,<br>and even less are minorities
     </div>
-    <div class="callout-img callout-img--bang"></div>
-    <div class="callout callout--small">Even less are<br>minorities</div>
   </div>
 
   <div class="full-bg full-bg--orange">
@@ -179,8 +177,8 @@
         <div class="highlight">
           <h3 class="highlight__header">Community</h3>
           <p class="highlight__text">Unlike any other engineering program in the
-          nation, NEU&rsquo;s faculty and student body are diverse in gender,
-          ethnicity, and creative&nbsp;spirit.</p>
+          nation, NEU&rsquo;s faculty and student body are full of diversity
+          and creative spirit.</p>
         </div>
 
         <div class="highlight">

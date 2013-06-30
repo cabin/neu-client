@@ -195,6 +195,7 @@ $splash-image-height: 420px
   +font-sizes(24, 30)
 
 .engineers-can ul
+  +clearfix
   list-style: none
   padding: 0
 
@@ -222,11 +223,11 @@ $splash-image-height: 420px
 @media #{$media-ipad}
   .engineers-can__item
     +width(1 of 3)
-    border-bottom: 1px solid transparent
     background-position: center 20px
+    border-bottom: 1px solid transparent
     display: inline-block
     float: left
-    margin-bottom: 60px
+    margin-bottom: 30px
     padding: 170px 40px 60px
   .engineers-can__item--build
     +retina-image('../img/icon/illy-bridge-lg', 160px 130px)
@@ -270,11 +271,25 @@ $splash-image-height: 420px
   @media #{$media-ipad}
     height: 258px
 
-.callout-img--woman
-  background-image: url(/img/icon-lady.png)  // XXX retina
+.callout-img--pie
+  +retina-image(/img/icon-pie-chart-sm, 150px 150px, gif)
+  +size(150px)
+  margin-left: auto
+  margin-right: auto
+  @media #{$media-ipad}
+    +retina-image(/img/icon-pie-chart-lg, 200px 200px, gif)
+    +size(200px)
 
-.callout-img--bang
-  background-image: url(/img/icon-minorities.png)  // XXX retina
+.callout-img__women
+  +retina-image(/img/icon-lady-dark-sm, 26px 55px)
+  +size(26px 55px)
+  margin: 0 auto
+  position: relative
+  top: 45px
+  @media #{$media-ipad}
+    +retina-image(/img/icon-lady-dark-lg, 38px 80px)
+    +size(38px 80px)
+    top: 60px
 
 .callout-img--california
   +position(absolute, 0px 0 0 50%)
@@ -388,7 +403,7 @@ $splash-image-height: 420px
     margin-top: 80px
 
 
-// Highlights  /////////////////////////
+// Highlights/brass tacks  /////////////
 
 .highlight
   +width(1 of 1)
@@ -396,7 +411,15 @@ $splash-image-height: 420px
   text-align: center
   @media #{$media-desk}
     +width(1 of 4)
+    position: relative
     text-align: left
+    &:before
+      +position(absolute, 25px 0 0 ($grid-gutter / 2 + 3))
+      background-color: $grey-rule
+      content: ""
+      display: block
+      height: 170px
+      width: 1px
 
 .highlight__header
   +font-header(15)
