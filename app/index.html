@@ -268,33 +268,35 @@
 
   <div class="full-bg full-bg--orange" ng-controller="JoinCtrl" ng-class="{'join-us--done': state.submitted}">
     <div class="l-main" id="join-us">
-      <form class="join-us" name="form" ng-submit="submit()" ng-hide="state.submitted" ng-animate="'join-us__poof'" novalidate>
-        <h2 class="join-us__header">Part of the<br>solution?</h2>
+      <form class="join-us l-pad" name="form" ng-submit="submit()" ng-hide="state.submitted" ng-animate="'join-us__poof'" novalidate>
+        <h2 class="join-us__header">Part of the solution?</h2>
         <p class="join-us__blurb">Calling all friends, fans, partners,<br>&amp;
         prospective faculty.</p>
 
-        <div class="join-us__error" ng-show="state.invalid && !form.name.$valid">
-          But what will we call you?
-        </div>
         <input name="name" type="text" ng-model="data.name" placeholder="Name" required>
+        <div class="join-us__error" ng-show="state.invalid && !form.name.$valid">
+          But what shall we call you?
+        </div>
 
+        <input name="email" type="email" spellcheck="false" ng-model="data.email" placeholder="Email" required>
         <div class="join-us__error" ng-show="state.invalid && form.email.$error.required">
           Come on, let&rsquo;s stay in touch!
         </div>
         <div class="join-us__error" ng-show="state.invalid && form.email.$error.email">
-          Your email doesn&rsquo;t look quite right.
+          Is that really your email?
         </div>
-        <input name="email" type="email" spellcheck="false" ng-model="data.email" placeholder="Email" required>
 
         <input type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
         <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
 
-        <div class="join-us__error" ng-show="state.submissionFailed" style="float: right">
-          I dannae if she can take any more, Cap&rsquo;n!
+        <div class="join-us__buttons">
+          <button type="submit" ng-model="_" ng-disabled="state.submitting" class="button">Yes!</button>
+          <div class="join-us__nospam">
+            Psst:<br>We don't share, sell,<br>or spam. XO.
+          </div>
         </div>
-        <button type="submit" ng-model="_" ng-disabled="state.submitting" class="button">Yes!</button>
-        <div class="join-us__nospam">
-          Psst:<br>We don't share, sell,<br>or spam. XO.
+        <div class="join-us__error join-us__error--form" ng-show="state.submissionFailed">
+          Something went wrong! :-(
         </div>
       </form>
     </div>

@@ -562,13 +562,12 @@ $team-slide-easing: $ease-in-out-quad
 
 .join-us
   @extend .l-centered
-  @extend .l-pad
-  +clearfix
   max-width: 400px
   text-align: center
 
 .join-us__header
-  @extend %text--header--medium
+  +font-header(24, 30)
+  line-height: 1.1
   margin: 0
 
 .join-us__blurb
@@ -580,27 +579,50 @@ $team-slide-easing: $ease-in-out-quad
 
 .join-us
   #{$all-text-inputs}, textarea
+    font-size: 18px
     border: none
-    border-radius: 1px
-    margin-bottom: 5px
+    border-radius: 2px
+    margin-top: 8px
     padding: 8px 16px
     width: 100%
+    @include placeholder
+      color: #ccc
   textarea
     height: 115px
 
 .join-us__error
-  text-align: right
+  +font-header(10px)
+  +retina-image('../img/icon/error-chevron', 16px 16px)
+  background-color: #ffdfd7
+  background-position: 20px 7px
+  background-repeat: no-repeat
+  border-radius: 2px
+  color: $orange
+  letter-spacing: 1px
+  margin-top: 1px
+  padding: 8px 20px 8px 46px
+  text-align: left
+
+.join-us__error--form
+  clear: both
+  margin-top: 20px
 
 .join-us__nospam
-  @extend %text--header--small--light
+  +font-header(10)
   float: left
-  margin-top: 13px
+  letter-spacing: 1px
+  line-height: 1.1
   margin-left: 15px
+  margin-top: 13px
+  opacity: .6
   text-align: left
+
+.join-us__buttons
+  +clearfix
+  margin-top: 5px
 
 .join-us .button
   float: left
-  clear: left
 
 .join-us textarea
   resize: none

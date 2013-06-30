@@ -63,8 +63,7 @@
 $button-text-offset: 1px
 
 .button
-  //XXX @extend %text--header--small
-  @extend %text--thinner
+  +font-header(12)
   +linear-gradient(lighten($black, 15%), $black, $fallback: $black)
   border: none
   border-radius: 2px
