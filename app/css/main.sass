@@ -56,18 +56,25 @@ $splash-image-height: 420px
   @media #{$media-ipad}
     +size($splash-image-width $splash-image-height)
 
-.splash__arrow
+.splash__drip
   +position(absolute, 130px 50% 0 75px)
   background: $orange
   height: 1px
   &:before
-    +size(9px)
-    background: $orange
-    border-radius: 4px
+    +position(absolute, -3px 0 0 0px)
+    +retina-image('../img/icon/dot-sm', 7px 7px)
+    +size(7px)
     content: ""
     display: block
-    position: relative
-    top: -4px
+  @media #{$media-ipad}
+    top: 260px
+    left: 50%
+    right: 50%
+    margin-right: -140px
+    &:before
+      +retina-image('../img/icon/dot-lg', 11px 11px)
+      +size(11px)
+      top: -5px
 
 .splash__description
   +font-sizes(18, 24)
@@ -95,11 +102,6 @@ $splash-image-height: 420px
   .splash__img
     left: 50%
     margin-left: -($splash-image-width / 2)
-  .splash__arrow
-    top: 260px
-    left: 50%
-    right: 50%
-    margin-right: -140px
   .splash__description
     top: 250px
     left: 50%
@@ -191,17 +193,46 @@ $splash-image-height: 420px
 
 .engineers-can__item
   +font-sizes(15, 18)
-.engineers-can__item--build
-  // XXX TODO
-.engineers-can__item--cure
-  // XXX TODO
-.engineers-can__item--send
-  // XXX TODO
+  background-repeat: no-repeat
+
+@media #{$media-small}
+  .engineers-can__item
+    background-position: 20px 10px
+    border-bottom: 1px solid $grey-rule
+    height: 80px
+    padding: 20px 0 10px
+    padding-left: 120px
+    text-align: left
+    &:first-child
+      border-top: 1px solid $grey-rule
+  .engineers-can__item--build
+    +retina-image('../img/icon/illy-bridge-sm', 74px 60px)
+  .engineers-can__item--cure
+    +retina-image('../img/icon/illy-cure-sm', 74px 60px)
+  .engineers-can__item--send
+    +retina-image('../img/icon/illy-space-sm', 74px 60px)
+
+@media #{$media-ipad}
+  .engineers-can__item
+    +width(1 of 3)
+    border-bottom: 1px solid transparent
+    background-position: center 20px
+    display: inline-block
+    float: left
+    margin-bottom: 60px
+    padding: 170px 40px 60px
+  .engineers-can__item--build
+    +retina-image('../img/icon/illy-bridge-lg', 160px 130px)
+  .engineers-can__item--cure
+    +retina-image('../img/icon/illy-cure-lg', 160px 130px)
+    border-color: $grey-rule
+  .engineers-can__item--send
+    +retina-image('../img/icon/illy-space-lg', 160px 130px)
 
 
 // More callouts further down...  //////
-// XXX re-work this
 
+// Meet NEU.
 .callout--logo
   +hide-text
   +retina-image(/img/logo-orange-sm, 100px 37px)
@@ -211,7 +242,6 @@ $splash-image-height: 420px
   @media #{$media-ipad}
     +retina-image(/img/logo-orange-lg, 200px 74px)
     +size(200px 74px)
-
 
 // Graphical callouts, which usually appear next to text callouts.
 .callout-img
@@ -241,10 +271,25 @@ $splash-image-height: 420px
 
 .callout-img--california
   +position(absolute, 0px 0 0 50%)
-  +size(140px 239px)
-  background-image: url(/img/map-california.png)  // XXX retina
+  +retina-image(/img/map-cali-sm, 111px 180px, gif)
+  +size(111px 180px)
   margin-left: -110px
-  margin-top: -20px
+  margin-top: 0
+  @media #{$media-ipad}
+    +retina-image(/img/map-cali-lg, 246px 400px, gif)
+    +size(246px 400px)
+    margin-left: -100px
+    margin-top: 20px
+
+.callout-img--california__pointer
+  +retina-image('../img/icon/pointer-sm', 30px 30px)
+  +size(30px 30px)
+  margin-top: 55px
+  margin-left: -3px
+  @media #{$media-ipad}
+    +retina-image('../img/icon/pointer-lg', 60px 60px)
+    +size(60px 60px)
+    margin-top: 130px
 
 
 // Pull quote  /////////////////////////
@@ -293,28 +338,36 @@ $splash-image-height: 420px
 
 .palo-alto__ribbon
   $width: 160px
-  $pointer-height: 40px
+  $height: 30px
   +font-header(12, 18)
   @extend .l-centered
   background: $orange
   color: $white
-  height: 20px
-  margin-bottom: $pointer-height + 15px
+  height: $height
+  margin-bottom: $height + 15px
   overflow: visible
   padding-top: 12px
   position: relative
   text-align: center
   width: $width
   z-index: 1
-
   &:after
     +position(absolute, 100% 0 0 0px)
     +size(0)
     border: ($width / 2) solid transparent
-    border-top: $pointer-height solid $orange
+    border-top: $height solid $orange
     content: ""
     pointer-events: none
     z-index: -1
+  @media #{$media-ipad}
+    $height: 55px
+    $width: 260px
+    height: $height
+    padding-top: 25px
+    width: $width
+    &:after
+      border-width: $width / 2
+      border-top-width: $height
 
 .palo-alto__text
   +font-sizes(14, 18)
@@ -322,6 +375,10 @@ $splash-image-height: 420px
   font-style: italic
   margin-left: 20px
   max-width: 120px
+  @media #{$media-ipad}
+    max-width: 240px
+    margin-left: 110px
+    margin-top: 80px
 
 
 // Highlights  /////////////////////////

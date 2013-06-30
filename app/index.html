@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>NEU &middot; New Engineering University</title>
+  <!-- Made by Cabin <http://madebycabin.com/>. xo! -->
 
   <meta name="viewport" content="initial-scale=1">
   <meta name="og:title" content="New Engineering University">
@@ -36,7 +37,7 @@
   <div class="full-bg splash" ng-controller="SplashCtrl">
     <div class="splash__header">A new breed of <em bind-shuffle="sel.name">university</em></div>
     <img class="splash__img" ng-src="{{sel.img}}" src="/img/marquee-educator.png" alt>
-    <div class="splash__arrow"></div>
+    <div class="splash__drip"></div>
     <div class="splash__description" ng-bind-html-unsafe="sel.text">XXX</div>
 
     <a class="splash__scroller" href="#slideshow" smooth-scroll></a>
@@ -149,7 +150,7 @@
   </h2>
 
   <div class="palo-alto">
-    <div class="callout-img callout-img--california"></div>
+    <div class="callout-img callout-img--california"><div class="callout-img--california__pointer"></div></div>
     <div class="palo-alto__ribbon">Palo Alto<br>CA</div>
     <div class="palo-alto__text">
       With 10 locations slated to open in tech-centric cities across the
