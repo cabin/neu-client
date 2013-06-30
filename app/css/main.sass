@@ -677,14 +677,17 @@ $team-slide-easing: $ease-in-out-quad
 
   // Vertical centering.
   .slideshow__slide
-    line-height: 600px
+    display: table
+    height: 600px
     text-align: center
+    width: 100%
     > div
-      display: inline-block
-      line-height: normal
+      display: table-cell
+      vertical-align: middle
   .slideshow__slide--white
     background: $white
     border-left: 2px solid $grey-rule
+    border-bottom: 1px solid $grey-rule
 
   // This class is only added if the slideshow is available.
   .slideshow
@@ -698,10 +701,12 @@ $team-slide-easing: $ease-in-out-quad
 
     .slideshow__slide
       +position(absolute, 0px 0px 0 0px)
+      display: block  // override table
       height: 100%
       margin: 0
       padding: 0
       // Vertical centering.
       > div
+        display: block  // override table-cell
         position: relative
         top: 50%

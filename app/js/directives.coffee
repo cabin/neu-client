@@ -140,10 +140,11 @@ module.directive 'slideshow', ['$window', ($window) ->
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
         content = slide.children()[0]
+        # Override table-cell display to get the correct height.
+        angular.element(content).css display: 'block'
         angular.element(content).css
           marginTop: "-#{content.clientHeight / 2}px"
         angular.element(slide).css
-          lineHeight: 'normal'
           width: "#{slideWidth}px"
       # Find the offsets for the first and last animated slides.
       startSlidesAt or= elementY(elm)
