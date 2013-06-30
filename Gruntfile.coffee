@@ -58,7 +58,6 @@ module.exports = (grunt) ->
       ]
       # TODO: modernizr, or new grunt-usemin
       '<%= path.dist %>/js/ie.min.js': [
-        'app/ie/Placeholders.js'
         'app/ie/respond.js'
       ]
 

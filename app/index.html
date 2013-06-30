@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="neu" data-placeholder-focus="false" data-placeholder-live="false">
+<html lang="en" ng-app="neu">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -18,9 +18,7 @@
   <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400italic" rel="stylesheet" type="text/css">
   <style>@font-face { font-family: ProximaNova; src: url("/css/fonts/proxima-nova-semibold.eot"); }</style>
   <![endif]-->
-  <!--[if gt IE 8]> -->
   <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic" rel="stylesheet" type="text/css">
-  <!-- <![endif]-->
   <!-- build:css css/neu.min.css -->
   <link href="bower_components/normalize-css/normalize.css" rel="stylesheet">
   <link href="build/css/main.css" rel="stylesheet">
@@ -287,6 +285,7 @@
         </div>
 
         <input type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
+        <!-- This comment avoids a FF box-sizing bug. -->
         <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
 
         <div class="join-us__buttons">
@@ -323,9 +322,7 @@
   <script src="js/gsap/ScrollToPlugin.min.js"></script>
   <!-- endbuild -->
   <!--[if lte IE 9]>
-  <script src="ie/Placeholders.js"></script>
   <script src="ie/respond.js"></script>
-  <script>setTimeout(function () { Placeholders.enable(); }, 250)</script>
   <![endif]-->
   <!-- build:js js/neu.min.js -->
   <script src="build/js/app.js"></script>

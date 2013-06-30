@@ -43,6 +43,34 @@ module.directive 'at2x', ['isRetina', 'preload', (isRetina, preload) ->
 ]
 
 
+# Provide a cross-browser HTML5 `placeholder` attribute implementation.
+module.directive 'placeholder', [() ->
+  restrict: 'A'
+  link: (scope, elm, attrs) ->
+    container = angular.element(document.createElement('div'))
+    label = angular.element(document.createElement('label'))
+    label.text(attrs.placeholder)
+    elm.attr('placeholder', '')
+    elmID = elm.attr('id')
+    if not elmID
+      elmID = "placeholder-id-#{elm.attr('name')}"  # XXX uniqueness!
+      elm.attr('id', elmID)
+    label.attr('for', elmID)
+    # Update the DOM.
+    elm.after(container)
+    container.append(label)
+    container.append(elm)
+    container.addClass('placeholder')
+
+    togglePlaceholder = ->
+      showPlaceholder = elm.val() is ''
+      container.toggleClass('placeholder--is-visible', showPlaceholder)
+
+    elm.bind('change keydown cut paste', -> setTimeout(togglePlaceholder, 0))
+    togglePlaceholder()
+]
+
+
 # Display a shuffle animation when changing values; based on an idea from
 # <http://tutorialzine.com/2011/09/shuffle-letters-effect-jquery/>.
 module.directive 'bindShuffle', ['$timeout', ($timeout) ->

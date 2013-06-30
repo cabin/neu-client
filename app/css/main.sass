@@ -583,13 +583,25 @@ $team-slide-easing: $ease-in-out-quad
     border: none
     border-radius: 2px
     color: $black
+    display: block
     margin-top: 8px
     padding: 8px 16px
     width: 100%
-    @include placeholder
-      color: #ccc
   textarea
     height: 115px
+    .touch &
+      // Weird iPhone bug.
+      padding-left: 12px
+
+.join-us .placeholder
+  font-size: 18px
+  position: relative
+  label
+    +position(absolute, 9px 0 0 16px)
+    color: #ccc
+    display: none
+.join-us .placeholder--is-visible label
+  display: block !important
 
 .join-us__error
   +font-header(10px)
