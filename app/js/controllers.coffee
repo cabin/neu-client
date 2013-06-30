@@ -4,17 +4,17 @@ module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $time
   delay = 4000
   data = [
     {name: 'university', img: '/img/university-1.png',
-    text: 'Cutting-edge,<br>collaborative,<br>&amp; fun.'}
+    text: 'Engineering<br>never looked<br>so good.'}
     {name: 'educators', img: '/img/educators-1.png',
-    text: 'Pioneers in<br>the field,<br>mentors at<br>NEU.'}
+    text: 'Pioneers<br>in the field,<br>mentors<br>at NEU.'}
     {name: 'creators', img: '/img/student-1.png',
     text: 'Thinkers,<br>innovators, &amp;<br>change-makers.'}
-    {name: 'collaborators', img: '/img/university-2.png',
-    text: 'Rocking the fun.'}
-    {name: 'history-makers', img: '/img/student-2.png',
-    text: 'Changing<br>the world<br>one classroom<br>at a time.'}
-    {name: 'innovators', img: '/img/educators-2.png',
-    text: 'Creating what<br>has never been.'}
+    {name: 'classroom', img: '/img/university-2.png',
+    text: 'Hands-on,<br>collaborative<br>&amp; fun.'}
+    {name: 'partners', img: '/img/educators-2.png',
+    text: 'Real-world<br>projects with<br>industry pros.'}
+    {name: 'superhero', img: '/img/student-2.png',
+    text: 'Saving the day<br>one idea at<br>a time.'}
   ]
   index = -1
 
