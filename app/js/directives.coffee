@@ -143,48 +143,83 @@ module.directive 'slideshow', ['$window', ($window) ->
     maskHeight = 600
     body = angular.element($window.document.body)
     bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
-    wrapper = null
+    scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
+    contentWrapper = document.querySelector('.js-content-wrapper')
     slideWidth = startSlidesAt = startTransitionAt = endSlidesAt = null
     transitionMultiplier = 0.65
+    showingSlides = false
+
+    # If the viewport is too small or we're on a touch device, no slides.
+    canShowSlides = ->
+      return false unless slideHeight and slideHeight >= 600
+      return false unless slideWidth >= 768
+      return false if Modernizr.touch
+      true
+
+    enableSlideshow = ->
+      elm.addClass('slideshow')
+      descendingStackingOrder(slides)
+      scrollWrapper.css
+        position: 'fixed'
+        left: '0'
+        right: '0'
+        top: '0'
+      showingSlides = true
+
+    disableSlideshow = ->
+      elm.removeClass('slideshow')
+      elm.removeAttr('style')
+      mask.removeAttr('style')
+      scrollWrapper.removeAttr('style')
+      body.removeAttr('style')
+      angular.forEach slides, (slide) ->
+        slide = angular.element(slide)
+        content = angular.element(slide.children()[0])
+        slide.removeAttr('style')
+        content.removeAttr('style')
+      showingSlides = false
 
     # Stack each element in `elements` underneath its predecessor.
     descendingStackingOrder = (elements) ->
       angular.forEach elements, (element, i) ->
         angular.element(element).css(zIndex: elements.length - i)
 
-    # TODO: Handle turning on/off slideshow on resize?
     adjustSizes = ->
       # Find the slide height and adjust the container.
+      previousSlideHeight = slideHeight
       slideHeight = attrs.slides
       slideHeight or= $window.innerHeight
       slideHeight or= $window.document.documentElement.clientHeight  # IE8
       slideWidth = elm[0].clientWidth
-      # If the viewport is too small or we're on a touch device, abandon ship.
-      return false unless slideHeight and slideHeight >= 600
-      return false unless slideWidth >= 768
-      return false if Modernizr.touch
+      if canShowSlides()
+        enableSlideshow() unless showingSlides
+      else
+        disableSlideshow() if showingSlides
+        return  # nothing else to do
       elm.css(height: "#{slideHeight}px")
-      startTransitionAt = Math.floor(slideWidth * transitionMultiplier)
+      startTransitionAt = Math.floor(slideHeight * transitionMultiplier)
       # Vertically center each slide.
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
-        content = slide.children()[0]
-        # Override table-cell display to get the correct height.
-        angular.element(content).css display: 'block'
-        angular.element(content).css
-          marginTop: "-#{content.clientHeight / 2}px"
-        angular.element(slide).css
-          width: "#{slideWidth}px"
+        contentEl = slide.children()[0]
+        content = angular.element(contentEl)
+        # Override table-cell display to get the correct height; two separate
+        # calls to allow a reflow in between.
+        content.css(display: 'block')
+        content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
+        slide.css(width: "#{slideWidth}px")
       # Find the offsets for the first and last animated slides.
       startSlidesAt or= elementY(elm)
       # Include an extra `startTransitionAt` for a pause on the final slide.
       extraSlidesHeight = (slides.length - 1) * slideHeight + startTransitionAt
       endSlidesAt = startSlidesAt + extraSlidesHeight
       # Ensure the page has enough room to scroll.
-      bodyHeightSansSlides or= body[0].clientHeight - slideHeight
+      if bodyHeightSansSlides and previousSlideHeight isnt slideHeight
+        bodyHeightSansSlides += slideHeight - previousSlideHeight
+      bodyHeightSansSlides = contentWrapper.clientHeight - slideHeight
       minHeight = bodyHeightSansSlides + slideHeight + extraSlidesHeight
       body.css(minHeight: "#{minHeight}px")
-      x = bodyHeightSansSlides + slideHeight + extraSlidesHeight
+      adjustScroll()
 
     # The slide transition only begins after scrolling `transitionMultiplier`
     # (as a percentage) through the slide; adjust the range to accommodate.
@@ -193,6 +228,7 @@ module.directive 'slideshow', ['$window', ($window) ->
       ((offset - startTransitionAt) * slideWidth) / originalRange
 
     adjustScroll = ->
+      return unless showingSlides
       y = $window.scrollY or $window.document.documentElement.scrollTop  # IE8
       # Past the slideshow; make sure that all slides are scrolled off.
       if y >= endSlidesAt
@@ -236,21 +272,27 @@ module.directive 'slideshow', ['$window', ($window) ->
         # Slide the mask up to reveal the first slide.
         ratio = y / startSlidesAt
         mask.css(top: "-#{Math.floor(ratio * maskHeight)}px")
-      wrapper.css(top: "-#{y}px")
+      scrollWrapper.css(top: "-#{y}px")
 
     setup = ->
-      return unless adjustSizes()  # must happen before fixing the wrapper
-      elm.addClass('slideshow')
-      descendingStackingOrder(slides)
-      wrapper = angular.element(document.querySelectorAll('.scroll-wrapper'))
-      wrapper.css
-        position: 'fixed'
-        left: '0'
-        right: '0'
-        top: '0'
-      adjustScroll()
-      angular.element($window).bind('resize', adjustSizes)
+      # From underscore.js.
+      debounce = (func, wait, immediate) ->
+        timeout = result = null
+        ->
+          context = this
+          args = arguments
+          later = ->
+            timeout = null
+            result = func.apply(context, args) unless immediate
+          callNow = immediate and not timeout
+          clearTimeout(timeout)
+          timeout = setTimeout(later, wait)
+          result = func.apply(context, args) if callNow
+          result
+      angular.element($window).bind('resize', debounce(adjustSizes, 100))
       angular.element($window).bind('scroll', adjustScroll)
+      adjustSizes()
+      adjustScroll()
 
     # Set everything up once images load, so we can compute the page height.
     angular.element($window).bind 'load', ->
