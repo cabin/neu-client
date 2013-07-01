@@ -161,6 +161,7 @@ module.directive 'slideshow', ['$window', ($window) ->
       slideWidth = elm[0].clientWidth
       # If the viewport is too small or we're on a touch device, abandon ship.
       return false unless slideHeight and slideHeight >= 600
+      return false unless slideWidth >= 768
       return false if Modernizr.touch
       elm.css(height: "#{slideHeight}px")
       startTransitionAt = Math.floor(slideWidth * transitionMultiplier)
