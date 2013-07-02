@@ -610,6 +610,22 @@ $team-slide-easing: $ease-in-out-quad
   textarea
     height: 115px
 
+.join-us__radio
+  +font-header(12)
+  border-top: 1px solid rgba($white, .3)
+  letter-spacing: 2px
+  margin-bottom: 10px
+  padding-top: 10px
+  text-align: left
+  > label
+    margin-left: 15px
+    @media #{$media-ipad}
+      margin-left: 30px
+      > input
+        margin-right: 5px
+    &:first-child
+      margin-left: 0
+
 .join-us .placeholder
   @extend %text--thinner
   font-size: 18px

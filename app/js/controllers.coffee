@@ -64,7 +64,7 @@ module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $wi
     submitting: false  # avoid multiple submissions
     submitted: false   # hide the form after successful submission
     submissionFailed: false
-  $scope.data = {}
+  $scope.data = {type: 'fan'}
 
   postData = ->
     promise = $http.post('/api/prospects', $scope.data)
