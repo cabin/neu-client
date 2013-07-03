@@ -151,16 +151,20 @@ module.directive 'slideshow', ['$window', ($window) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Shared variables.
-    slides = elm[0].querySelectorAll('.slideshow__slide')
+    slides = angular.element(elm[0].querySelectorAll('.slideshow__slide'))
     return unless slides.length
-    mask = angular.element(elm[0].querySelector('.slideshow__mask'))
-    maskHeight = 600
+    # HTML elements.
     body = angular.element($window.document.body)
-    bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
     contentWrapper = document.querySelector('.js-content-wrapper')
+    mask = angular.element(elm[0].querySelector('.slideshow__mask'))
+    # Sizes.
+    maskHeight = 600
+    bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
     slideWidth = startSlidesAt = startTransitionAt = endSlidesAt = null
+    # Configuration.
     transitionMultiplier = 0.65
+    slideDuration = .2
     showingSlides = false
 
     # If the viewport is too small or we're on a touch device, no slides.
@@ -171,13 +175,22 @@ module.directive 'slideshow', ['$window', ($window) ->
       true
 
     enableSlideshow = ->
-      elm.addClass('slideshow')
-      descendingStackingOrder(slides)
       scrollWrapper.css
         position: 'fixed'
         left: '0'
         right: '0'
         top: '0'
+      elm.addClass('slideshow')
+      descendingStackingOrder(slides)
+      # Vertically center each slide.
+      angular.forEach slides, (slide) ->
+        slide = angular.element(slide)
+        contentEl = slide.children()[0]
+        content = angular.element(contentEl)
+        # Override table-cell display to get the correct height; two separate
+        # calls to force a reflow in between.
+        content.css(display: 'block')
+        content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
       showingSlides = true
 
     disableSlideshow = ->
@@ -198,32 +211,44 @@ module.directive 'slideshow', ['$window', ($window) ->
       angular.forEach elements, (element, i) ->
         angular.element(element).css(zIndex: elements.length - i)
 
+    # Tween `slide` to the given `offset`, which should be a string including
+    # the unit (usually `px`).
+    animateSlide = (slide, offset) ->
+      return if slide.tweening  # one tween at a time per slide
+      slide.tweening = true
+      content = angular.element(slide).children()[0]
+      new $window.TimelineLite
+        autoRemoveChildren: true
+        onComplete: -> slide.tweening = false
+        tweens: [
+          $window.TweenLite.to slide, slideDuration,
+            left: offset
+            ease: $window.Linear.easeNone
+          $window.TweenLite.to content, slideDuration,
+            left: "-#{offset}"
+            ease: $window.Linear.easeNone
+        ]
+
+    # Called on window resize.
     adjustSizes = ->
-      # Find the slide height and adjust the container.
+      # Find the slide dimensions.
       previousSlideHeight = slideHeight
       slideHeight = attrs.slides
       slideHeight or= $window.innerHeight
       slideHeight or= $window.document.documentElement.clientHeight  # IE8
       slideWidth = elm[0].clientWidth
+      # Enable/disable the slideshow based on the computed dimensions.
       if canShowSlides()
         enableSlideshow() unless showingSlides
       else
         disableSlideshow() if showingSlides
         return  # nothing else to do
+      # Fix the container and slide sizes.
       elm.css(height: "#{slideHeight}px")
-      startTransitionAt = Math.floor(slideHeight * transitionMultiplier)
-      # Vertically center each slide.
-      angular.forEach slides, (slide) ->
-        slide = angular.element(slide)
-        contentEl = slide.children()[0]
-        content = angular.element(contentEl)
-        # Override table-cell display to get the correct height; two separate
-        # calls to allow a reflow in between.
-        content.css(display: 'block')
-        content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
-        slide.css(width: "#{slideWidth}px")
+      slides.css(width: "#{slideWidth}px")
       # Find the offsets for the first and last animated slides.
       startSlidesAt or= elementY(elm)
+      startTransitionAt = Math.floor(slideHeight * transitionMultiplier)
       # Include an extra `startTransitionAt` for a pause on the final slide.
       extraSlidesHeight = (slides.length - 1) * slideHeight + startTransitionAt
       endSlidesAt = startSlidesAt + extraSlidesHeight
@@ -235,57 +260,48 @@ module.directive 'slideshow', ['$window', ($window) ->
       body.css(minHeight: "#{minHeight}px")
       adjustScroll()
 
-    # The slide transition only begins after scrolling `transitionMultiplier`
-    # (as a percentage) through the slide; adjust the range to accommodate.
-    rescale = (offset) ->
-      originalRange = slideWidth - startTransitionAt
-      ((offset - startTransitionAt) * slideWidth) / originalRange
-
+    # Called on scroll.
     adjustScroll = ->
-      return unless showingSlides
+      return unless showingSlides  # nothing to do
       y = $window.scrollY or $window.document.documentElement.scrollTop  # IE8
-      # Past the slideshow; make sure that all slides are scrolled off.
+      # Past the slideshow.
       if y >= endSlidesAt
         y -= extraSlidesHeight
+        mask.css(top: "-#{maskHeight}px")
+        # Slide off all slides.
         angular.forEach slides, (slide, i) ->
           return if i is slides.length - 1
           angular.element(slide).css(left: "#{slideWidth}px")
-        mask.css(top: "-#{maskHeight}px")
       # Inside the slideshow.
       else if y >= startSlidesAt
         relativeY = y - startSlidesAt
+        y = startSlidesAt  # don't scroll the container
+        mask.css(top: "-#{maskHeight}px")
         currentSlide = Math.floor(relativeY / slideHeight)
         # It's possible for the computed current slide to exceed the total
         # slides due to the final slide's extra padding. Correct for this.
         currentSlide = Math.min(currentSlide, slides.length - 1)
         yOffset = relativeY - (currentSlide * slideHeight)
-        xOffset = (yOffset / slideHeight) * slideWidth
         angular.forEach slides, (slide, i) ->
-          # Previous slides are off the page.
-          offset = if i < currentSlide
-            slideWidth
-          # The final slide never moves.
-          else if i is slides.length - 1
-            0
-          # The current slide starts moving partway through its scrollHeight.
-          else if i is currentSlide and xOffset >= startTransitionAt
-            rescale(xOffset)
-          else
-            0
-          angular.element(slide).css(left: "#{Math.floor(offset)}px")
-          # XXX testing a swipe instead of slide; refactor or remove
-          c = angular.element(angular.element(slide).children()[0])
-          angular.element(slide).css(overflow: 'hidden')
-          c.css(marginLeft: "-#{Math.floor(offset) * 2}px")
-        y = startSlidesAt  # don't scroll the container
-        mask.css(top: "-#{maskHeight}px")
-      # Before the slideshow; make sure that all slides are reset.
+          return if i is slides.length - 1  # last slide doesn't animate
+          offset = slideWidth
+          offset = 0 if i > currentSlide
+          offset = 0 if i is currentSlide and yOffset < startTransitionAt
+          offset = "#{offset}px"
+          # Don't re-animate if the slide is already in position.
+          return if angular.element(slide).css('left') is offset
+          animateSlide(slide, offset)
+      # Before the slideshow.
       else
-        angular.forEach slides, (slide) ->
-          angular.element(slide).css(left: '0')
         # Slide the mask up to reveal the first slide.
         ratio = y / startSlidesAt
         mask.css(top: "-#{Math.floor(ratio * maskHeight)}px")
+        # Reset slides.
+        slides.css(left: '0')
+        angular.forEach slides, (slide) ->
+          content = angular.element(angular.element(slide).children()[0])
+          content.css(left: '0')
+      # Page scroll.
       scrollWrapper.css(top: "-#{y}px")
 
     setup = ->

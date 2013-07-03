@@ -53,8 +53,7 @@ module.exports = (grunt) ->
         '<%= path.components %>/AngularJS/angular.js'
         '<%= path.components %>/AngularJS/angular-mobile.js'
         'app/js/modernizr.js'
-        'app/js/gsap/TweenLite.min.js'
-        'app/js/gsap/ScrollToPlugin.min.js'
+        'app/js/gsap/*.js'
       ]
       # TODO: modernizr, or new grunt-usemin
       '<%= path.dist %>/js/ie.min.js': [
