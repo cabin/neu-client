@@ -277,9 +277,9 @@
         prospective faculty.</p>
 
         <div class="join-us__radio">
-          <label><input type="radio" name="type" ng-model="data.type" value="fan"> Fan</label>
-          <label><input type="radio" name="type" ng-model="data.type" value="faculty"> Faculty</label>
-          <label><input type="radio" name="type" ng-model="data.type" value="partner"> Partner</label>
+          <label ng-class="{checked: data.type == 'fan'}"><input type="radio" name="type" ng-model="data.type" value="fan"> Fan</label>
+          <label ng-class="{checked: data.type == 'faculty'}"><input type="radio" name="type" ng-model="data.type" value="faculty"> Faculty</label>
+          <label ng-class="{checked: data.type == 'partner'}"><input type="radio" name="type" ng-model="data.type" value="partner"> Partner</label>
         </div>
 
         <input name="name" type="text" ng-model="data.name" placeholder="Name" required>

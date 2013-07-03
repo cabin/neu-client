@@ -618,13 +618,26 @@ $team-slide-easing: $ease-in-out-quad
   padding-top: 10px
   text-align: left
   > label
+    +retina-image('../img/icon/radio-unchecked', 14px 14px)
+    background-position: 0 0
+    background-repeat: no-repeat
     margin-left: 15px
+    line-height: 14px
+    padding-left: 20px
+    cursor: pointer
+    &.checked
+      +retina-image('../img/icon/radio-checked', 14px 14px)
+    &:first-child
+      margin-left: 0
+    > input
+      // IE does not allow modification of form inputs with `display: none`.
+      position: absolute
+      z-index: -1
     @media #{$media-ipad}
+      padding-left: 24px
       margin-left: 30px
       > input
         margin-right: 5px
-    &:first-child
-      margin-left: 0
 
 .join-us .placeholder
   @extend %text--thinner
