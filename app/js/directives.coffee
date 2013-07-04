@@ -193,17 +193,23 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
       showingSlides = true
 
+    # Older webkit fails to actually remove styles when removing the `style`
+    # attribute; setting it to the empty string first is a workaround.
+    removeStyle = (element) ->
+      element.attr('style', '')
+      element.removeAttr('style')
+
     disableSlideshow = ->
       elm.removeClass('slideshow')
-      elm.removeAttr('style')
-      mask.removeAttr('style')
-      scrollWrapper.removeAttr('style')
-      body.removeAttr('style')
+      removeStyle(elm)
+      removeStyle(mask)
+      removeStyle(scrollWrapper)
+      removeStyle(body)
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
         content = angular.element(slide.children()[0])
-        slide.removeAttr('style')
-        content.removeAttr('style')
+        removeStyle(slide)
+        removeStyle(content)
       showingSlides = false
 
     # Stack each element in `elements` underneath its predecessor.
