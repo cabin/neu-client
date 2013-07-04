@@ -341,7 +341,7 @@ module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScr
   link: (scope, elm, attrs) ->
     chars = []
     angular.forEach elm[0].childNodes, (node) ->
-      return unless node.nodeType is Node.TEXT_NODE
+      return unless node.nodeType is 3  # Node.TEXT_NODE
       frag = document.createDocumentFragment()
       angular.forEach node.nodeValue, (c) ->
         text = document.createTextNode(c)
