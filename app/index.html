@@ -33,17 +33,17 @@
   </div>
 
   <div class="full-bg splash" ng-controller="SplashCtrl">
-    <div class="splash__header">A new breed of <em bind-shuffle="sel.name">university</em></div>
+    <div class="splash__header">A new breed of <em neu-bind-shuffle="sel.name">university</em></div>
     <img class="splash__img" ng-src="{{sel.img}}" src="/img/university-1.png" width="650" height="420" alt>
     <div class="splash__drip"></div>
     <div class="splash__description" ng-bind-html-unsafe="sel.text">Cutting-edge,<br>collaborative,<br>&amp; fun.</div>
 
-    <a class="splash__scroller" href="#slideshow" smooth-scroll></a>
+    <a class="splash__scroller" href="#slideshow" neu-smooth-scroll></a>
   </div>
 
   <h2 class="full-bg full-bg--black header-band">Launching Fall 2014</h2>
 
-  <div class="slideshow-pre" slideshow>
+  <div class="slideshow-pre" neu-slideshow>
     <div class="slideshow__mask"></div>
     <div id="slideshow" class="l-pad">
       <div class="slideshow__slide slideshow__slide--white">
@@ -201,7 +201,7 @@
       ng-swipe-right="prev()">
 
       <div class="team" ng-if="showMultiple || index == 0" ng-animate="animate()">
-        <img class="team__img" src="/img/team/Scott.png" at2x alt width="80" height="80">
+        <img class="team__img" src="/img/team/Scott.png" neu-at2x alt width="80" height="80">
         <div class="team__name">Scott Kauffman</div>
         <div class="team__title">President &amp; CEO</div>
         <div class="team__details">
@@ -212,7 +212,7 @@
       </div>
 
       <div class="team" ng-if="showMultiple || index == 1" ng-animate="animate()">
-        <img class="team__img" src="/img/team/Lueny.png" at2x alt width="80" height="80">
+        <img class="team__img" src="/img/team/Lueny.png" neu-at2x alt width="80" height="80">
         <div class="team__name">Lueny Morell</div>
         <div class="team__title">Provost &amp; Chief Academic Officer</div>
         <div class="team__details">
@@ -223,7 +223,7 @@
       </div>
 
       <div class="team" ng-if="showMultiple || index == 2" ng-animate="animate()">
-        <img class="team__img" src="/img/team/UniversityVentures.png" at2x alt width="80" height="80">
+        <img class="team__img" src="/img/team/UniversityVentures.png" neu-at2x alt width="80" height="80">
         <div class="team__name">University Ventures</div>
         <div class="team__title">Investment</div>
         <div class="team__details">
@@ -234,7 +234,7 @@
       </div>
 
       <div class="team" ng-if="showMultiple || index == 3" ng-animate="animate()">
-        <img class="team__img" src="/img/team/Cabin.png" at2x alt width="80" height="80">
+        <img class="team__img" src="/img/team/Cabin.png" neu-at2x alt width="80" height="80">
         <div class="team__name">Cabin</div>
         <div class="team__title">Design &amp; Technology</div>
         <div class="team__details">
@@ -245,7 +245,7 @@
       </div>
 
       <div class="team" ng-if="showMultiple || index == 4" ng-animate="animate()">
-        <img class="team__img" src="/img/team/OMFGCO.png" at2x alt width="80" height="80">
+        <img class="team__img" src="/img/team/OMFGCO.png" neu-at2x alt width="80" height="80">
         <div class="team__name">OMFGCO</div>
         <div class="team__title">Design</div>
         <div class="team__details">
@@ -255,7 +255,7 @@
       </div>
 
       <div class="team" ng-if="showMultiple || index == 5" ng-animate="animate()">
-        <img class="team__img" src="/img/team/Clairvoyant.png" at2x alt width="80" height="80">
+        <img class="team__img" src="/img/team/Clairvoyant.png" neu-at2x alt width="80" height="80">
         <div class="team__name">Clairvoyant</div>
         <div class="team__title">Educational Technology</div>
         <div class="team__details">

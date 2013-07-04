@@ -31,7 +31,7 @@ identify = (element) ->
 # For images with an `at2x` attribute, and only on retina displays, attempt to
 # load a retina asset (<filename>@2x.<ext>) and swap it out for the existing
 # asset on success.
-module.directive 'at2x', ['isRetina', 'preload', (isRetina, preload) ->
+module.directive 'neuAt2x', ['isRetina', 'preload', (isRetina, preload) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Do nothing unless the display has sufficient resolution.
@@ -40,7 +40,7 @@ module.directive 'at2x', ['isRetina', 'preload', (isRetina, preload) ->
     # Find the retina asset URL; either the value of the `at2x` attribute, if
     # given, or with '@2x' inserted just prior to the file extension.
     retinaSrc = ->
-      return attrs.at2x if attrs.at2x
+      return attrs.neuAt2x if attrs.neuAt2x
       chunks = attrs.src.split('.')
       # Give up if there is no file extension.
       return '' if chunks.length < 2
@@ -87,7 +87,7 @@ module.directive 'placeholder', ['$timeout', ($timeout) ->
 
 # Display a shuffle animation when changing values; based on an idea from
 # <http://tutorialzine.com/2011/09/shuffle-letters-effect-jquery/>.
-module.directive 'bindShuffle', ['$timeout', ($timeout) ->
+module.directive 'neuBindShuffle', ['$timeout', ($timeout) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     firstTime = true
@@ -109,7 +109,7 @@ module.directive 'bindShuffle', ['$timeout', ($timeout) ->
       shuffleTimer = $timeout((-> shuffle(start + 1, value)), delay)
       return  # throw away implicit return value
 
-    scope.$watch attrs.bindShuffle, (value) ->
+    scope.$watch attrs.neuBindShuffle, (value) ->
       # Don't animate the initial value.
       if firstTime
         firstTime = false
@@ -124,7 +124,7 @@ module.directive 'bindShuffle', ['$timeout', ($timeout) ->
 # Provide a smooth scrolling animation to the given in-page href.
 # TODO: Revisit this implementation; pulling in 25k of TweenLite is a bit
 # excessive for some smooth scrolling.
-module.directive 'smoothScroll', ['$window', ($window) ->
+module.directive 'neuSmoothScroll', ['$window', ($window) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     return unless attrs.href.indexOf('#') is 0
@@ -147,7 +147,7 @@ module.directive 'smoothScroll', ['$window', ($window) ->
 # On scroll, the wrapper element is offset upwards until the slideshow arrives
 # at the top of the viewport. Then, each slide is offset upwards in turn until
 # the last one, at which point the wrapper picks up the offset again.
-module.directive 'slideshow', ['$window', ($window) ->
+module.directive 'neuSlideshow', ['$window', ($window) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Shared variables.

@@ -2,7 +2,7 @@ describe 'directives', ->
   beforeEach ->
     module('neu.directives')
 
-  describe 'at2x', ->
+  describe 'neuAt2x', ->
     $compile = $rootScope = wantsRetina = preload = preloadSuccess = null
 
     beforeEach ->
@@ -21,25 +21,25 @@ describe 'directives', ->
         $rootScope = _$rootScope_
 
     it 'should preload the specified asset', ->
-      element = $compile('<img at2x="bar">')($rootScope)
+      element = $compile('<img neu-at2x="bar">')($rootScope)
       expect(preload).toHaveBeenCalledWith('bar', jasmine.any(Function))
 
     it 'should swap the asset on successful preload', ->
-      element = $compile('<img src="foo" at2x="bar">')($rootScope)
+      element = $compile('<img src="foo" neu-at2x="bar">')($rootScope)
       expect(element.attr('src')).toEqual('bar')
 
     it 'should attempt to guess the asset name when not given', ->
-      element = $compile('<img src="foo.png" at2x>')($rootScope)
+      element = $compile('<img src="foo.png" neu-at2x>')($rootScope)
       expect(element.attr('src')).toEqual('foo@2x.png')
 
     it 'should not swap the asset on failed preload', ->
       preloadSuccess = false
-      element = $compile('<img src="foo" at2x="bar">')($rootScope)
+      element = $compile('<img src="foo" neu-at2x="bar">')($rootScope)
       expect(element.attr('src')).toEqual('foo')
 
     it 'should do nothing on non-retina displays', ->
       wantsRetina = false
-      element = $compile('<img src="foo" at2x="bar">')($rootScope)
+      element = $compile('<img src="foo" neu-at2x="bar">')($rootScope)
       expect(preload).not.toHaveBeenCalled()
       expect(element.attr('src')).toEqual('foo')
 
