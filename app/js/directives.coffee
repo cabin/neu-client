@@ -334,3 +334,53 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
       else
         setup()
 ]
+
+
+module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScrollTop) ->
+  restrict: 'A'
+  link: (scope, elm, attrs) ->
+    chars = []
+    angular.forEach elm[0].childNodes, (node) ->
+      return unless node.nodeType is Node.TEXT_NODE
+      frag = document.createDocumentFragment()
+      angular.forEach node.nodeValue, (c) ->
+        text = document.createTextNode(c)
+        if c.match(/\s/)
+          frag.appendChild(text)
+        else
+          span = document.createElement('span')
+          span.style.color = '#e3e3e3'
+          span.appendChild(text)
+          frag.appendChild(span)
+          chars.push(span)
+      angular.element(node).replaceWith(frag)
+
+    scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
+    pageHeight = offset = 0
+    setSizes = ->
+      pageHeight = $window.innerHeight
+      pageHeight or= $window.document.documentElement.clientHeight  # IE8
+      offset = pageHeight - 100
+
+    checkScroll = ->
+      y = Math.abs(parseInt(scrollWrapper.css('top'), 10))
+      y or= getScrollTop()
+      sprinkle() if y >= elementY(elm) - offset
+
+    sprinkle = ->
+      teardown()
+      angular.forEach chars, (char, i) ->
+        f = -> $window.TweenLite.to(char, .75, {color: '#fc6138'})
+        setTimeout(f, Math.random() * 1500)
+
+    setup = ->
+      angular.element($window).bind('scroll', checkScroll)
+      angular.element($window).bind('resize', setSizes)
+      setSizes()
+
+    teardown = ->
+      angular.element($window).unbind('scroll', checkScroll)
+      angular.element($window).unbind('resize', setSizes)
+
+    setTimeout(setup, 500)  # allow time for slideshow setup
+]
