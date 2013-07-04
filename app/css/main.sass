@@ -541,21 +541,21 @@ $team-slide-distance: 300px
 $team-slide-duration: 300ms
 $team-slide-easing: $ease-in-out-quad
 
-.team-left-enter
-  +animation(team-left-enter $team-slide-duration $team-slide-easing)
-.team-left-leave
-  +animation(team-left-leave $team-slide-duration $team-slide-easing)
-.team-right-enter
-  +animation(team-right-enter $team-slide-duration $team-slide-easing)
-.team-right-leave
-  +animation(team-right-leave $team-slide-duration $team-slide-easing)
+.team-left-show
+  +animation(team-left-show $team-slide-duration $team-slide-easing)
+.team-left-hide
+  +animation(team-left-hide $team-slide-duration $team-slide-easing)
+.team-right-show
+  +animation(team-right-show $team-slide-duration $team-slide-easing)
+.team-right-hide
+  +animation(team-right-hide $team-slide-duration $team-slide-easing)
 
-+keyframes(team-left-enter)
++keyframes(team-left-show)
   from
     +transform(translateX($team-slide-distance))
   to
     +transform(translateX(0))
-+keyframes(team-left-leave)
++keyframes(team-left-hide)
   from
     +transform(translateX(0))
     opacity: 1
@@ -564,12 +564,12 @@ $team-slide-easing: $ease-in-out-quad
   to
     +transform(translateX(-$team-slide-distance))
     opacity: 0
-+keyframes(team-right-enter)
++keyframes(team-right-show)
   from
     +transform(translateX(-$team-slide-distance))
   to
     +transform(translateX(0))
-+keyframes(team-right-leave)
++keyframes(team-right-hide)
   from
     +transform(translateX(0))
     opacity: 1
