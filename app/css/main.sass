@@ -490,11 +490,19 @@ $team-top-margin: 40px
   @media #{$media-desk}
     +width(1 of 3)
 
+.team__link
+  color: $black
+  text-decoration: none
+  &:hover .team__img
+    +retina-image('../img/icon/team-ring', 88px 88px)
+
 .team__img
-  +size(80px)
+  +size(80px + 8px)
+  padding: 4px
 
 .team__name
-  margin-top: 20px
+  display: inline-block
+  padding-top: 20px
   text-transform: uppercase
 
 .team__title
