@@ -319,6 +319,8 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
           timeout = setTimeout(later, wait)
           result = func.apply(context, args) if callNow
           result
+      y = getScrollTop()
+      $timeout((-> $window.scrollTo(0, y)), 0) if y
       angular.element($window).bind('resize', debounce(adjustSizes, 100))
       angular.element($window).bind('scroll', adjustScroll)
       adjustSizes()
