@@ -20,3 +20,11 @@ module.factory 'preload', ['$window', ($window) ->
     img.onerror = error if error?
     img.src = src
 ]
+
+
+module.factory 'getScrollTop', ['$window', ($window) ->
+  if $window.scrollY?
+    -> $window.scrollY
+  else
+    -> $window.document.documentElement.scrollTop  # IE8
+]

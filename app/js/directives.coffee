@@ -147,7 +147,7 @@ module.directive 'neuSmoothScroll', ['$window', ($window) ->
 # On scroll, the wrapper element is offset upwards until the slideshow arrives
 # at the top of the viewport. Then, each slide is offset upwards in turn until
 # the last one, at which point the wrapper picks up the offset again.
-module.directive 'neuSlideshow', ['$window', ($window) ->
+module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($window, getScrollTop, $timeout) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Shared variables.
@@ -263,7 +263,7 @@ module.directive 'neuSlideshow', ['$window', ($window) ->
     # Called on scroll.
     adjustScroll = ->
       return unless showingSlides  # nothing to do
-      y = $window.scrollY or $window.document.documentElement.scrollTop  # IE8
+      y = getScrollTop()
       # Past the slideshow.
       if y >= endSlidesAt
         y -= extraSlidesHeight
