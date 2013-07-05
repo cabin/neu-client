@@ -26,6 +26,11 @@
     .no-touch &
       background-attachment: fixed
       background-size: cover
+  // Chrome on retina has a bug here that I have yet to track down.
+  // background-attachment: fixed in a position: fixed container...
+  +hidpi(2)
+    .no-touch &
+      background-attachment: scroll
 
 // Droplet-style vertical arrow.
 .drip
