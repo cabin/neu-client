@@ -246,28 +246,46 @@ $splash-image-height: 420px
 
 .break-the-mold
   @extend .grid__item
-  +width(1 of 2)
-  > .callout
-    width: 220px
-
-.break-the-mold--left
-  > .callout, .callout-img
-    margin-right: 20px
-    float: right
-
-.break-the-mold--right
-  > .callout, .callout-img
-    margin-left: 20px
-    float: left
+  @media #{$media-small}
+    +width(auto)
+    > .callout
+      margin: 30px auto 20px
 
 .callout-img--white-dudes, .callout-img--everyone-else
-  +size(297px 218px)
-
+  +size(259px 150px)
+  margin-top: 0
 .callout-img--white-dudes
-  +retina-image(/img/white-dudes, 297px 218px)
-
+  +retina-image(/img/icons-dudes-sm, 259px 150px)
 .callout-img--everyone-else
-  +retina-image(/img/everyone-else, 297px 218px)
+  +retina-image(/img/icons-others-sm, 259px 150px)
+
+@media #{$media-ipad}
+  .break-the-mold
+    +clearfix
+    +width(1 of 2)
+    position: relative
+    > .callout
+      +position(absolute, 0 0 0px 0)
+      width: 220px
+    > .callout-img
+      margin: 40px auto 80px
+  .break-the-mold--left
+    > .callout, .callout-img
+      margin-right: 20px
+      float: right
+      right: 0
+  .break-the-mold--right
+    > .callout, .callout-img
+      margin-left: 20px
+      float: left
+      left: $grid-gutter
+
+  .callout-img--white-dudes, .callout-img--everyone-else
+    +size(300px 220px)
+  .callout-img--white-dudes
+    +retina-image(/img/icons-dudes-lg, 300px 220px)
+  .callout-img--everyone-else
+    +retina-image(/img/icons-others-lg, 300px 220px)
 
 .callout-img--california
   +position(absolute, 0px 0 0 50%)
