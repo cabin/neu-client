@@ -38,42 +38,40 @@
     <div class="splash__drip"></div>
     <div class="splash__description" ng-bind-html-unsafe="sel.text">Cutting-edge,<br>collaborative,<br>&amp; fun.</div>
 
-    <a class="splash__scroller" href="#slideshow" neu-smooth-scroll></a>
+    <a class="scroller scroller--splash" href="#slideshow" neu-smooth-scroll></a>
   </div>
 
   <h2 class="full-bg full-bg--black header-band">Launching Fall 2014</h2>
 
   <div class="slideshow-pre" neu-slideshow>
     <div class="slideshow__mask"></div>
-    <div id="slideshow">
-      <div class="slideshow__slide slideshow__slide--white">
-        <div>
-          <div class="whisper">When you see the word</div>
-          <div class="callout callout--tight callout--huge">engineering</div>
-        </div>
-      </div>
-      <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
-        <div class="whisper">what comes to mind?</div>
-      </div>
-      <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
-        <div>
-          <div class="whisper">is it&hellip;</div>
-          <div class="callout callout--semi-tight">for geeks only</div>
-          <div class="callout callout--semi-tight">too hard</div>
-          <div class="callout callout--semi-tight"><s>creative</s></div>
-          <div class="callout callout--semi-tight">?</div>
-        </div>
-      </div>
-      <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
-        <div class="whisper">This might come as a surprise, but</div>
-      </div>
-      <div class="full-bg full-bg--black l-pad slideshow__slide">
-        <div>
-          <div class="callout callout--big">Times are changin&rsquo;</div>
-          <div class="whisper">and engineering is changing, too.</div>
-        </div>
+    <div class="slideshow__slide slideshow__slide--white" id="slideshow">
+      <div>
+        <div class="whisper">When you see the word</div>
+        <div class="callout callout--tight callout--huge">engineering</div>
       </div>
     </div>
+    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+      <div class="whisper">what comes to mind?</div>
+    </div>
+    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+      <div>
+        <div class="callout callout--semi-tight">for geeks only?</div>
+        <div class="callout callout--semi-tight">too hard?</div>
+        <div class="callout callout--semi-tight"><s>creative</s>?</div>
+      </div>
+    </div>
+    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+      <div class="whisper">This might come as a surprise, but</div>
+    </div>
+    <div class="full-bg full-bg--black l-pad slideshow__slide">
+      <div>
+        <div class="callout callout--big">Times are changin&rsquo;</div>
+        <div class="whisper">and engineering is changing, too.</div>
+      </div>
+    </div>
+
+    <a class="scroller scroller--slideshow" ng-if="slideshowEnabled" ng-click="nextSlide()"></a>
   </div>
 
   <div class="full-bg full-bg--grey">

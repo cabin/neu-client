@@ -145,8 +145,9 @@ module.directive 'neuSmoothScroll', ['$window', ($window) ->
 # page is affixed to the top of the viewport.
 #
 # On scroll, the wrapper element is offset upwards until the slideshow arrives
-# at the top of the viewport. Then, each slide is offset upwards in turn until
-# the last one, at which point the wrapper picks up the offset again.
+# at the top of the viewport. Then, scrolling produces no visible effect
+# between slide thresholds, at which point the slide is animated off the
+# screen. After the last slide, the wrapper picks up the offset again.
 module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($window, getScrollTop, $timeout) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
@@ -165,7 +166,16 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
     # Configuration.
     transitionMultiplier = 0.65
     slideDuration = .2
-    showingSlides = false
+
+    scope.slideshowEnabled = false
+    scope.nextSlide = ->
+      y = getScrollTop() + slideHeight
+      if y >= endSlidesAt
+        # Scroll past the slideshow rather than cutting off the last slide.
+        y = endSlidesAt + slideHeight
+      $window.TweenLite.to $window, .4,
+        scrollTo: {y: y}
+        ease: $window.Power2.easeInOut
 
     # If the viewport is too small or we're on a touch device, no slides.
     canShowSlides = ->
@@ -182,7 +192,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         top: '0'
       elm.addClass('slideshow')
       descendingStackingOrder(slides)
-      # Vertically center each slide.
+      # Vertically center each slide; assumes a single child element.
       angular.forEach slides, (slide) ->
         slide = angular.element(slide)
         contentEl = slide.children()[0]
@@ -191,7 +201,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         # calls to force a reflow in between.
         content.css(display: 'block')
         content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
-      showingSlides = true
+      scope.$apply(-> scope.slideshowEnabled = true)
 
     # Older webkit fails to actually remove styles when removing the `style`
     # attribute; setting it to the empty string first is a workaround.
@@ -210,7 +220,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         content = angular.element(slide.children()[0])
         removeStyle(slide)
         removeStyle(content)
-      showingSlides = false
+      scope.$apply(-> scope.slideshowEnabled = false)
 
     # Stack each element in `elements` underneath its predecessor.
     descendingStackingOrder = (elements) ->
@@ -245,9 +255,9 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
       slideWidth = elm[0].clientWidth
       # Enable/disable the slideshow based on the computed dimensions.
       if canShowSlides()
-        enableSlideshow() unless showingSlides
+        enableSlideshow() unless scope.slideshowEnabled
       else
-        disableSlideshow() if showingSlides
+        disableSlideshow() if scope.slideshowEnabled
         return  # nothing else to do
       # Fix the container and slide sizes.
       elm.css(height: "#{slideHeight}px")
@@ -268,7 +278,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
 
     # Called on scroll.
     adjustScroll = ->
-      return unless showingSlides  # nothing to do
+      return unless scope.slideshowEnabled  # nothing to do
       y = getScrollTop()
       # Past the slideshow.
       if y >= endSlidesAt

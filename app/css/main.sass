@@ -89,8 +89,8 @@ $splash-image-height: 420px
   @media #{$media-ipad}
     width: 200px
 
-.splash__scroller
-  +position(absolute, 0 0 30px 50%)
+.scroller
+  border-radius: 30px
   display: block
   @media #{$media-small}
     +retina-image('../img/icon/scroll-sm', 30px 30px)
@@ -100,6 +100,13 @@ $splash-image-height: 420px
     +retina-image('../img/icon/scroll-lg', 60px 60px)
     +size(60px)
     margin-left: -30px
+
+.scroller--splash
+  +position(absolute, 0 0 30px 50%)
+
+.scroller--slideshow
+  +position(absolute, 0 0 90px 50%)
+  z-index: 30
 
 @media #{$media-ipad}
   .splash__img
@@ -149,7 +156,7 @@ $splash-image-height: 420px
   &:before
     +position(absolute, 45% -5px 0 -5px)
     +transform(rotate(-3.7deg))
-    background-color: $black
+    background-color: $orange
     content: ""
     height: 2px
     opacity: .9
