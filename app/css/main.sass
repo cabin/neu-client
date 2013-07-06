@@ -132,16 +132,6 @@ $splash-image-height: 420px
   &:first-child
     margin-top: 0
 
-.callout--with-rule
-  @media #{$media-small}
-    &:before
-      background: $grey-rule
-      content: ""
-      display: block
-      height: 1px
-      margin: 0 auto 40px
-      width: 75px
-
 .callout em
   +font-sizes(30, 60)
   color: $orange
@@ -154,35 +144,36 @@ $splash-image-height: 420px
       font-size: 80px
 
 .callout s
-  +font-sizes(24, 48)
-  display: inline-block
-  position: relative
   text-decoration: none
-  &:first-of-type
-    margin-top: 5px
-  &:after
-    // TODO: Apply this to Chrome only; it has the opposite effect on Mobile
-    // Safari.
-    // +backface-visibility(hidden)  // improves rendering on Chrome
-    +position(absolute, 45% -7px 0 -7px)
-    background-color: $orange
+  position: relative
+  &:before
+    +position(absolute, 45% -5px 0 -5px)
+    +transform(rotate(-3.7deg))
+    background-color: $black
     content: ""
-    height: 3px
+    height: 2px
     opacity: .9
+    // This improves rendering on Chrome/Safari, but has the opposite effect
+    // on Mobile Safari; rely on touch detection for now.
+    .no-touch &
+      +backface-visibility(hidden)  // improves rendering on Chrome
   @media #{$media-ipad}
-    &:first-of-type
-      margin-top: 20px
-    &:after
-      height: 5px
-  &:nth-of-type(1):after
-    +transform(rotate(-1.8deg))
-  &:nth-of-type(2):after
-    +transform(rotate(2.5deg))
-  &:nth-of-type(3):after
-    +transform(rotate(-.7deg))
+    &:before
+      height: 3px
+      left: -10px
+      right: -10px
+
+.callout--tight
+  margin-top: 0
+
+.callout--semi-tight
+  margin-top: 15px
 
 .callout--big
   +font-sizes(24, 48)
+
+.callout--huge
+  +font-sizes(30, 80)
 
 .callout--year
   +font-sizes(12, 18)
@@ -271,31 +262,30 @@ $splash-image-height: 420px
     margin-top: 60px
     margin-bottom: 60px
 
-.callout-img--woman, .callout-img--bang
-  height: 129px
-  @media #{$media-ipad}
-    height: 258px
+.break-the-mold
+  @extend .grid__item
+  +width(1 of 2)
+  > .callout
+    width: 220px
 
-.callout-img--pie
-  +retina-image(/img/icon-pie-chart-sm, 150px 150px, gif)
-  +size(150px)
-  margin-left: auto
-  margin-right: auto
-  @media #{$media-ipad}
-    +retina-image(/img/icon-pie-chart-lg, 200px 200px, gif)
-    +size(200px)
-    margin: 60px auto
+.break-the-mold--left
+  > .callout, .callout-img
+    margin-right: 20px
+    float: right
 
-.callout-img__women
-  +retina-image(/img/icon-lady-dark-sm, 26px 55px)
-  +size(26px 55px)
-  margin: 0 auto
-  position: relative
-  top: 45px
-  @media #{$media-ipad}
-    +retina-image(/img/icon-lady-dark-lg, 38px 80px)
-    +size(38px 80px)
-    top: 60px
+.break-the-mold--right
+  > .callout, .callout-img
+    margin-left: 20px
+    float: left
+
+.callout-img--white-dudes, .callout-img--everyone-else
+  +size(297px 218px)
+
+.callout-img--white-dudes
+  +retina-image(/img/white-dudes, 297px 218px)
+
+.callout-img--everyone-else
+  +retina-image(/img/everyone-else, 297px 218px)
 
 .callout-img--california
   +position(absolute, 0px 0 0 50%)
@@ -717,7 +707,6 @@ $team-slide-easing: $ease-in-out-quad
     padding: 80px 0
 
 .share__header
-  @extend .callout
   line-height: 1.1
   @media #{$media-ipad}
     margin-bottom: 20px
@@ -760,21 +749,26 @@ $team-slide-easing: $ease-in-out-quad
   background-position: center top
   height: 100px
 
-// HACK
-.slideshow__slide
-  .callout:first-child
-    margin-top: 40px
-.slideshow__slide.full-bg
-  .callout
-    margin-top: 0
 .slideshow-pre
   margin-top: 1px
 
-@media #{$media-ipad}
-  // HACK
-  .slideshow-pre .l-pad
-    padding-bottom: 0
+@media #{$media-small}
+  #slideshow
+    margin-top: 40px
+  .slideshow__slide
+    margin-bottom: 40px
+    &:last-child
+      margin-bottom: 0
+  .slideshow__slide--with-rule
+    &:before
+      background: $grey-rule
+      content: ""
+      display: block
+      height: 1px
+      margin: 0 auto 40px
+      width: 75px
 
+@media #{$media-ipad}
   // Vertical centering.
   .slideshow__slide
     display: table
@@ -786,8 +780,9 @@ $team-slide-easing: $ease-in-out-quad
       vertical-align: middle
   .slideshow__slide--white
     background: $white
-    border-left: 2px solid $grey-rule
     border-bottom: 1px solid $grey-rule
+    &:last-child
+      border-width: 0 !important
 
   // This class is only added if the slideshow is available.
   .slideshow
@@ -813,3 +808,6 @@ $team-slide-easing: $ease-in-out-quad
         top: 50%
       &:first-child
         background-color: $grey-bg
+
+    .slideshow__slide--white
+      border-left: 2px solid $grey-rule
