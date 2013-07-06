@@ -2,30 +2,26 @@ module = angular.module('neu.controllers', [])
 
 module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $timeout, preload) ->
   delay = 4000
-  data = [
-    {name: 'university', img: '/img/university-1.png',
-    text: 'Engineering<br>never looked<br>so good.'}
-    {name: 'educators', img: '/img/educators-1.png',
+  $scope.data = [
+    {name: 'university', img: '/img/University.png',
+    text: 'Industry-connected,<br>collaborative,<br>&amp; fun.'}
+    {name: 'educators', img: '/img/Educators.png',
     text: 'Pioneers<br>in the field,<br>mentors<br>at NEU.'}
-    {name: 'creators', img: '/img/student-1.png',
+    {name: 'creators', img: '/img/Creators.png',
     text: 'Thinkers,<br>innovators, &amp;<br>change-makers.'}
-    {name: 'classroom', img: '/img/university-2.png',
-    text: 'Hands-on,<br>collaborative<br>&amp; fun.'}
-    {name: 'partners', img: '/img/educators-2.png',
-    text: 'Real-world<br>projects with<br>industry pros.'}
-    {name: 'superhero', img: '/img/student-2.png',
-    text: 'Saving the day<br>one idea at<br>a time.'}
+    {name: 'classroom', img: '/img/Classroom.png',
+    text: 'The coolest<br>maker-space<br>around.'}
   ]
   index = -1
 
-  for item in data
+  for item in $scope.data
     preload(item.img)
 
   cycle = ->
     index += 1
-    if index >= data.length
+    if index >= $scope.data.length
       index = 0
-    $scope.sel = data[index]
+    $scope.sel = $scope.data[index]
     $timeout(cycle, delay)
     # Avoid the implicit return of `$timeout()`s return value, which is a
     # promise and would otherwise be leaking.

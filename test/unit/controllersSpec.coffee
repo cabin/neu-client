@@ -18,7 +18,7 @@ describe 'controllers', ->
         $timeout = _$timeout_
 
     it 'should preload all necessary images', ->
-      expect(preload.calls.length).toEqual(6)
+      expect(preload.calls.length).toEqual($scope.data.length)
 
     it 'should cycle through the data', ->
       initialSel = $scope.sel
@@ -28,7 +28,7 @@ describe 'controllers', ->
     it 'should wrap to the beginning of the data when reaching the end', ->
       initialSel = $scope.sel
       wrapped = false
-      for i in [1..7]
+      for i in [1..$scope.data.length + 1]
         $timeout.flush()
         if $scope.sel is initialSel
           wrapped = true
