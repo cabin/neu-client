@@ -353,43 +353,24 @@ $splash-image-height: 420px
     height: 400px
 
 .palo-alto__ribbon
-  $width: 160px
-  $height: 40px
-  +font-header(12, 18)
   @extend .l-centered
-  background: $orange
+  +font-header(12, 18)
+  +retina-image(/img/ribbon-sm, 160px 80px)
+  +size(160px 80px)
   color: $white
-  height: $height
   line-height: 1.1
-  margin-bottom: $height + 15px
-  overflow: visible
   padding-top: 8px
-  position: relative
+  position: relative  // for stacking order
   text-align: center
-  width: $width
-  z-index: 1
-  &:after
-    +position(absolute, 100% 0 0 0px)
-    +size(0)
-    border: ($width / 2) solid transparent
-    border-top: $height solid $orange
-    content: ""
-    pointer-events: none
-    z-index: -1
   @media #{$media-ipad}
-    $height: 65px
-    $width: 260px
-    height: $height
+    +retina-image(/img/ribbon-lg, 260px 130px)
+    +size(260px 130px)
     padding-top: 15px
-    width: $width
-    &:after
-      border-width: $width / 2
-      border-top-width: $height
 
 .palo-alto__ribbon__hq
   +font-body(8, 11)
-  letter-spacing: 1px
   border-bottom: 1px solid rgba($white, .3)
+  letter-spacing: 1px
   margin: 0 20px 8px
   opacity: .7
   padding-bottom: 8px
@@ -405,11 +386,12 @@ $splash-image-height: 420px
   font-style: italic
   line-height: 1.2
   margin-left: 20px
+  margin-top: 15px
   max-width: 120px
   @media #{$media-ipad}
-    max-width: 240px
     margin-left: 110px
-    margin-top: 40px
+    margin-top: 30px
+    max-width: 240px
 
 
 // Highlights/brass tacks  /////////////
