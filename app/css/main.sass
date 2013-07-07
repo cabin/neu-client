@@ -260,6 +260,17 @@ $splash-image-height: 420px
     > .callout
       margin: 30px auto 20px
 
+@media #{$media-small}
+  .break-the-mold--right
+    margin-top: 40px
+    &:before
+      background: $grey-rule
+      content: ""
+      display: block
+      height: 1px
+      margin: 0 auto
+      width: 75px
+
 .callout-img--white-dudes, .callout-img--everyone-else
   +size(259px 150px)
   margin-top: 0
