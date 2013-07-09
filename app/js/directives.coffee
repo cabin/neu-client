@@ -53,6 +53,15 @@ debounce = (func, wait, immediate) ->
     result
 
 
+# Shuffle an array, Fisher-Yates style.
+shuffle = (array) ->
+  i = array.length
+  while --i
+    j = Math.floor(Math.random() * (i + 1))
+    [array[i], array[j]] = [array[j], array[i]]
+  array
+
+
 # Tween the page to the new scroll position.
 scrollSmoothly = (to) ->
   TweenLite.to(window, .4, scrollTo: {y: to}, ease: Power2.easeInOut)
@@ -127,7 +136,7 @@ module.directive 'neuBindShuffle', ['$timeout', ($timeout) ->
     randomChar = (characters) ->
       characters.charAt(Math.floor(Math.random() * characters.length))
 
-    shuffle = (start, value) ->
+    shuffleChars = (start, value) ->
       return if start > value.length
       shuffled = []
       for char, i in value
@@ -136,7 +145,7 @@ module.directive 'neuBindShuffle', ['$timeout', ($timeout) ->
         else if i < start + step
           shuffled.push(randomChar(value))
       elm.text(shuffled.join(''))
-      shuffleTimer = $timeout((-> shuffle(start + 1, value)), delay)
+      shuffleTimer = $timeout((-> shuffleChars(start + 1, value)), delay)
       return  # throw away implicit return value
 
     scope.$watch attrs.neuBindShuffle, (value) ->
@@ -147,7 +156,7 @@ module.directive 'neuBindShuffle', ['$timeout', ($timeout) ->
       # Clear out any existing animations, then start shuffling one character
       # in at a time.
       $timeout.cancel(shuffleTimer)
-      shuffle(-step, value)
+      shuffleChars(-step, value)
 ]
 
 
@@ -403,9 +412,13 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
 ]
 
 
+# One-off directive for tracking scroll position to "sprinkle" (tween color)
+# text as it comes into view.
 module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScrollTop) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
+    fromColor = '#e3e3e3'
+    toColor = '#fc6138'
     chars = []
     angular.forEach elm[0].childNodes, (node) ->
       return unless node.nodeType is 3  # Node.TEXT_NODE
@@ -416,10 +429,11 @@ module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScr
           frag.appendChild(text)
         else
           span = document.createElement('span')
-          span.style.color = '#e3e3e3'
+          span.style.color = fromColor
           span.appendChild(text)
           frag.appendChild(span)
           chars.push(span)
+      chars = shuffle(chars)
       angular.element(node).replaceWith(frag)
 
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
@@ -432,22 +446,25 @@ module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScr
     checkScroll = ->
       y = Math.abs(parseInt(scrollWrapper.css('top'), 10))
       y or= getScrollTop()
-      sprinkle() if y >= elementY(elm) - offset
+      target = elementY(elm) - offset
+      sprinkle() if not sprinkled and y >= target
+      desprinkle() if sprinkled and y <= target - 200
 
+    sprinkled = false
     sprinkle = ->
-      teardown()
       angular.forEach chars, (char, i) ->
-        f = -> $window.TweenLite.to(char, .75, {color: '#fc6138'})
-        setTimeout(f, Math.random() * 1500)
+        f = -> $window.TweenLite.to(char, .3, {color: toColor})
+        setTimeout(f, i * 40)
+      sprinkled = true
+
+    desprinkle = ->
+      angular.element(chars).css(color: fromColor)
+      sprinkled = false
 
     setup = ->
       angular.element($window).bind('scroll', checkScroll)
       angular.element($window).bind('resize', setSizes)
       setSizes()
-
-    teardown = ->
-      angular.element($window).unbind('scroll', checkScroll)
-      angular.element($window).unbind('resize', setSizes)
 
     setTimeout(setup, 500)  # allow time for slideshow setup
 ]
