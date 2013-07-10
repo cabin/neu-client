@@ -28,6 +28,36 @@ identify = (element) ->
   return id
 
 
+# Algorithm from underscore.js.
+sortedIndex = (array, obj) ->
+  [low, high] = [0, array.length]
+  while low < high
+    mid = (low + high) >>> 1
+    if array[mid] < obj then low = mid + 1 else high = mid
+  return low
+
+
+# From underscore.js.
+debounce = (func, wait, immediate) ->
+  timeout = result = null
+  ->
+    context = this
+    args = arguments
+    later = ->
+      timeout = null
+      result = func.apply(context, args) unless immediate
+    callNow = immediate and not timeout
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    result = func.apply(context, args) if callNow
+    result
+
+
+# Tween the page to the new scroll position.
+scrollSmoothly = (to) ->
+  TweenLite.to(window, .4, scrollTo: {y: to}, ease: Power2.easeInOut)
+
+
 # For images with an `at2x` attribute, and only on retina displays, attempt to
 # load a retina asset (<filename>@2x.<ext>) and swap it out for the existing
 # asset on success.
@@ -131,9 +161,7 @@ module.directive 'neuSmoothScroll', ['$window', ($window) ->
     id = attrs.href.slice(1)
     elm.bind 'click', (event) ->
       event.preventDefault()
-      $window.TweenLite.to $window, .4,
-        scrollTo: {y: elementY($window.document.getElementById(id))}
-        ease: $window.Power2.easeInOut
+      scrollSmoothly(elementY($window.document.getElementById(id)))
 ]
 
 
@@ -159,28 +187,43 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
     contentWrapper = document.querySelector('.js-content-wrapper')
     mask = angular.element(elm[0].querySelector('.slideshow__mask'))
-    # Sizes.
+    # Sizes and positions.
     maskHeight = 600
-    bodyHeightSansSlides = slideHeight = extraSlidesHeight = null
-    slideWidth = startSlidesAt = startTransitionAt = endSlidesAt = null
+    pageWidth = scrollOffsets = slideOffsets = null
     # Configuration.
-    transitionMultiplier = 0.65
     slideDuration = .2
+    maxScrollPerSlide = 600
 
     scope.slideshowEnabled = false
     scope.nextSlide = ->
-      y = getScrollTop() + slideHeight
-      if y >= endSlidesAt
-        # Scroll past the slideshow rather than cutting off the last slide.
-        y = endSlidesAt + slideHeight
-      $window.TweenLite.to $window, .4,
-        scrollTo: {y: y}
-        ease: $window.Power2.easeInOut
+      pos = currentSegment(scrollOffsets, getScrollTop())
+      pos = Math.min(pos + 1, scrollOffsets.length - 1)
+      # Snap to next slide in the slideshow; animate elsewhere.
+      if 1 < pos < slides.length + 1
+        $window.scrollTo(0, scrollOffsets[pos])
+      else
+        scrollSmoothly(scrollOffsets[pos])
+
+    scope.previousSlide = ->
+      pos = currentSegment(scrollOffsets, getScrollTop())
+      pos = Math.max(pos - 1, 0)
+      # Safe to smooth scroll everywhere, since the slide transition point is
+      # on the front side of the animation.
+      return scrollSmoothly(scrollOffsets[pos])
+
+    # Return the index into scrollOffsets whose value is immediately previous
+    # to the given value (that is, find which "chunk" y should be showing).
+    currentSegment = (array, obj) ->
+      # sortedIndex just ensures the array remains sorted, while we are using
+      # each point in the array as a threshold and want to know in which
+      # segment we belong.
+      pos = sortedIndex(array, obj)
+      pos -= 1 unless obj is array[pos]
+      return pos
 
     # If the viewport is too small or we're on a touch device, no slides.
-    canShowSlides = ->
-      return false unless slideHeight and slideHeight >= 600
-      return false unless slideWidth >= 768
+    canShowSlides = (w, h) ->
+      return false unless h and h >= 600 and w > 768
       return false if Modernizr.touch
       true
 
@@ -247,32 +290,38 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
 
     # Called on window resize.
     adjustSizes = ->
-      # Find the slide dimensions.
-      previousSlideHeight = slideHeight
-      slideHeight = attrs.slides
-      slideHeight or= $window.innerHeight
-      slideHeight or= $window.document.documentElement.clientHeight  # IE8
-      slideWidth = elm[0].clientWidth
+      # Find the page dimensions.
+      pageHeight = $window.innerHeight
+      pageHeight or= $window.document.documentElement.clientHeight  # IE8
+      pageWidth = elm[0].clientWidth
+
       # Enable/disable the slideshow based on the computed dimensions.
-      if canShowSlides()
+      if canShowSlides(pageWidth, pageHeight)
         enableSlideshow() unless scope.slideshowEnabled
       else
         disableSlideshow() if scope.slideshowEnabled
         return  # nothing else to do
+
       # Fix the container and slide sizes.
-      elm.css(height: "#{slideHeight}px")
-      slides.css(width: "#{slideWidth}px")
-      # Find the offsets for the first and last animated slides.
-      startSlidesAt or= elementY(elm)
-      startTransitionAt = Math.floor(slideHeight * transitionMultiplier)
-      # Include an extra `startTransitionAt` for a pause on the final slide.
-      extraSlidesHeight = (slides.length - 1) * slideHeight + startTransitionAt
-      endSlidesAt = startSlidesAt + extraSlidesHeight
+      elm.css(height: "#{pageHeight}px")
+      slides.css(width: "#{pageWidth}px")
+      slideScroll = Math.min(pageHeight, maxScrollPerSlide)
+
+      # slideOffsets records the top of each slide and the "bottom" of the
+      # final slide (the point at which page scroll should be unlocked).
+      # scrollOffsets records the top of the page, the top of each slide, and
+      # the point at which the slideshow has been completely scrolled off the
+      # page (in other words, the top of the next element).
+      slideshowTop = elementY(elm)
+      slideOffsets = []
+      angular.forEach slides, (_, i) ->
+        slideOffsets.push(slideshowTop + slideScroll * i)
+      scrollOffsets = [0].concat(slideOffsets)
+      slideOffsets.push(slideOffsets[slideOffsets.length - 1] + slideScroll)
+      scrollOffsets.push(slideOffsets[slideOffsets.length - 1] + pageHeight)
+
       # Ensure the page has enough room to scroll.
-      if bodyHeightSansSlides and previousSlideHeight isnt slideHeight
-        bodyHeightSansSlides += slideHeight - previousSlideHeight
-      bodyHeightSansSlides = contentWrapper.clientHeight - slideHeight
-      minHeight = bodyHeightSansSlides + slideHeight + extraSlidesHeight
+      minHeight = contentWrapper.clientHeight + slides.length * slideScroll
       body.css(minHeight: "#{minHeight}px")
       adjustScroll()
 
@@ -280,67 +329,69 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
     adjustScroll = ->
       return unless scope.slideshowEnabled  # nothing to do
       y = getScrollTop()
-      # Past the slideshow.
-      if y >= endSlidesAt
-        y -= extraSlidesHeight
-        mask.css(top: "-#{maskHeight}px")
-        # Slide off all slides.
-        angular.forEach slides, (slide, i) ->
-          return if i is slides.length - 1
-          angular.element(slide).css(left: "#{slideWidth}px")
-      # Inside the slideshow.
-      else if y >= startSlidesAt
-        relativeY = y - startSlidesAt
-        y = startSlidesAt  # don't scroll the container
-        mask.css(top: "-#{maskHeight}px")
-        currentSlide = Math.floor(relativeY / slideHeight)
-        # It's possible for the computed current slide to exceed the total
-        # slides due to the final slide's extra padding. Correct for this.
-        currentSlide = Math.min(currentSlide, slides.length - 1)
-        yOffset = relativeY - (currentSlide * slideHeight)
-        angular.forEach slides, (slide, i) ->
-          return if i is slides.length - 1  # last slide doesn't animate
-          offset = slideWidth
-          offset = 0 if i > currentSlide
-          offset = 0 if i is currentSlide and yOffset < startTransitionAt
-          offset = "#{offset}px"
-          # Don't re-animate if the slide is already in position.
-          return if angular.element(slide).css('left') is offset
-          animateSlide(slide, offset)
-      # Before the slideshow.
-      else
+      currentSlide = currentSegment(slideOffsets, y)
+
+      # Before the first slide.
+      if currentSlide < 0
         # Slide the mask up to reveal the first slide.
-        ratio = y / startSlidesAt
+        ratio = y / slideOffsets[0]
         mask.css(top: "-#{Math.floor(ratio * maskHeight)}px")
         # Reset slides.
         slides.css(left: '0')
         angular.forEach slides, (slide) ->
           content = angular.element(angular.element(slide).children()[0])
           content.css(left: '0')
-      # Page scroll.
+
+      # Inside the slideshow.
+      else if currentSlide < slides.length
+        y = slideOffsets[0]  # don't scroll the container
+        mask.css(top: "-#{maskHeight}px")
+        angular.forEach slides, (slide, i) ->
+          return if i is slides.length - 1  # last slide doesn't animate
+          offset = "#{if i >= currentSlide then 0 else pageWidth}px"
+          # Don't re-animate if the slide is already in position.
+          return if angular.element(slide).css('left') is offset
+          animateSlide(slide, offset)
+
+      # After the last slide.
+      else
+        # Remove slide height from scrollWrapper's offset.
+        y -= slideOffsets[slides.length] - slideOffsets[0]
+        mask.css(top: "-#{maskHeight}px")
+        # Slide off all slides.
+        angular.forEach slides, (slide, i) ->
+          return if i is slides.length - 1
+          slide = angular.element(slide)
+          content = angular.element(slide.children()[0])
+          slide.css(left: "#{pageWidth}px")
+          content.css(left: "-#{pageWidth}px")
+
+      # Scroll the page.
       scrollWrapper.css(top: "-#{y}px")
 
     setup = ->
-      # From underscore.js.
-      debounce = (func, wait, immediate) ->
-        timeout = result = null
-        ->
-          context = this
-          args = arguments
-          later = ->
-            timeout = null
-            result = func.apply(context, args) unless immediate
-          callNow = immediate and not timeout
-          clearTimeout(timeout)
-          timeout = setTimeout(later, wait)
-          result = func.apply(context, args) if callNow
-          result
       y = getScrollTop()
       $timeout((-> $window.scrollTo(0, y)), 0) if y
       angular.element($window).bind('resize', debounce(adjustSizes, 100))
       angular.element($window).bind('scroll', adjustScroll)
+      angular.element($window.document).bind('keydown', keydownHandler)
       adjustSizes()
       adjustScroll()
+
+    # Try to improve slideshow experience for users paging with a keyboard.
+    keydownHandler = (event) ->
+      return unless scope.slideshowEnabled
+      # Ignore modified keypresses.
+      return if event.shiftKey or event.metaKey or event.altKey or event.ctrlKey
+      y = getScrollTop()
+      # Don't take over scrolling beyond the slideshow.
+      return unless y < scrollOffsets[scrollOffsets.length - 1]
+      if event.keyCode is 33  # pgup
+        scope.previousSlide()
+        event.preventDefault()
+      else if event.keyCode in [32, 34]  # space, pgdn
+        scope.nextSlide()
+        event.preventDefault()
 
     # Set everything up once images load, so we can compute the page height.
     angular.element($window).bind 'load', ->
