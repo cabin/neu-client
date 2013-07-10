@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <a class="scroller scroller--slideshow" ng-if="slideshowEnabled" ng-click="nextSlide()"></a>
+    <a class="scroller scroller--slideshow" ng-cloak ng-if="slideshowEnabled" ng-click="nextSlide()"></a>
   </div>
 
   <div class="full-bg full-bg--grey">
@@ -373,6 +373,5 @@
   <script src="build/js/directives.js"></script>
   <script src="build/js/services.js"></script>
   <!-- endbuild -->
-</div>
 </body>
 </html>
