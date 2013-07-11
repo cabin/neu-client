@@ -37,22 +37,6 @@ sortedIndex = (array, obj) ->
   return low
 
 
-# From underscore.js.
-debounce = (func, wait, immediate) ->
-  timeout = result = null
-  ->
-    context = this
-    args = arguments
-    later = ->
-      timeout = null
-      result = func.apply(context, args) unless immediate
-    callNow = immediate and not timeout
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-    result = func.apply(context, args) if callNow
-    result
-
-
 # Shuffle an array, Fisher-Yates style.
 shuffle = (array) ->
   i = array.length
@@ -185,7 +169,7 @@ module.directive 'neuSmoothScroll', ['$window', ($window) ->
 # at the top of the viewport. Then, scrolling produces no visible effect
 # between slide thresholds, at which point the slide is animated off the
 # screen. After the last slide, the wrapper picks up the offset again.
-module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($window, getScrollTop, $timeout) ->
+module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Shared variables.
@@ -201,11 +185,11 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
     pageWidth = scrollOffsets = slideOffsets = null
     # Configuration.
     slideDuration = .2
-    maxScrollPerSlide = 600
+    maxScrollPerSlide = 800
 
     scope.slideshowEnabled = false
     scope.nextSlide = ->
-      pos = currentSegment(scrollOffsets, getScrollTop())
+      pos = currentSegment(scrollOffsets, scope.page.scroll)
       pos = Math.min(pos + 1, scrollOffsets.length - 1)
       # Snap to next slide in the slideshow; animate elsewhere.
       if 1 < pos < slides.length + 1
@@ -214,7 +198,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         scrollSmoothly(scrollOffsets[pos])
 
     scope.previousSlide = ->
-      pos = currentSegment(scrollOffsets, getScrollTop())
+      pos = currentSegment(scrollOffsets, scope.page.scroll)
       pos = Math.max(pos - 1, 0)
       # Safe to smooth scroll everywhere, since the slide transition point is
       # on the front side of the animation.
@@ -253,7 +237,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         # calls to force a reflow in between.
         content.css(display: 'block')
         content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
-      scope.$apply(-> scope.slideshowEnabled = true)
+      scope.slideshowEnabled = true
 
     # Older webkit fails to actually remove styles when removing the `style`
     # attribute; setting it to the empty string first is a workaround.
@@ -272,7 +256,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         content = angular.element(slide.children()[0])
         removeStyle(slide)
         removeStyle(content)
-      scope.$apply(-> scope.slideshowEnabled = false)
+      scope.slideshowEnabled = false
 
     # Stack each element in `elements` underneath its predecessor.
     descendingStackingOrder = (elements) ->
@@ -298,11 +282,8 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
         ]
 
     # Called on window resize.
-    adjustSizes = ->
-      # Find the page dimensions.
-      pageHeight = $window.innerHeight
-      pageHeight or= $window.document.documentElement.clientHeight  # IE8
-      pageWidth = elm[0].clientWidth
+    adjustSizes = (pw, pageHeight) ->
+      pageWidth = pw  # global
 
       # Enable/disable the slideshow based on the computed dimensions.
       if canShowSlides(pageWidth, pageHeight)
@@ -335,9 +316,8 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
       adjustScroll()
 
     # Called on scroll.
-    adjustScroll = ->
+    adjustScroll = (y) ->
       return unless scope.slideshowEnabled  # nothing to do
-      y = getScrollTop()
       currentSlide = currentSegment(slideOffsets, y)
 
       # Before the first slide.
@@ -379,20 +359,23 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
       scrollWrapper.css(top: "-#{y}px")
 
     setup = ->
-      y = getScrollTop()
+      y = scope.page.scroll
       $timeout((-> $window.scrollTo(0, y)), 0) if y
-      angular.element($window).bind('resize', debounce(adjustSizes, 100))
-      angular.element($window).bind('scroll', adjustScroll)
+
+      scope.$watch(
+        '[page.width, page.height]',
+        ((value) -> adjustSizes(value[0], value[1])),
+        true)
+      scope.$watch('page.scroll', adjustScroll)
+      scope.$digest()
       angular.element($window.document).bind('keydown', keydownHandler)
-      adjustSizes()
-      adjustScroll()
 
     # Try to improve slideshow experience for users paging with a keyboard.
     keydownHandler = (event) ->
       return unless scope.slideshowEnabled
       # Ignore modified keypresses.
       return if event.shiftKey or event.metaKey or event.altKey or event.ctrlKey
-      y = getScrollTop()
+      y = scope.page.scroll
       # Don't take over scrolling beyond the slideshow.
       return unless y < scrollOffsets[scrollOffsets.length - 1]
       if event.keyCode is 33  # pgup
@@ -414,7 +397,7 @@ module.directive 'neuSlideshow', ['$window', 'getScrollTop', '$timeout', ($windo
 
 # One-off directive for tracking scroll position to "sprinkle" (tween color)
 # text as it comes into view.
-module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScrollTop) ->
+module.directive 'neuSprinkleText', ['$window', ($window) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     fromColor = '#e3e3e3'
@@ -438,14 +421,12 @@ module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScr
 
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
     pageHeight = offset = 0
-    setSizes = ->
-      pageHeight = $window.innerHeight
-      pageHeight or= $window.document.documentElement.clientHeight  # IE8
+    setSizes = (pageHeight) ->
       offset = pageHeight - 100
 
-    checkScroll = ->
+    checkScroll = (value) ->
       y = Math.abs(parseInt(scrollWrapper.css('top'), 10))
-      y or= getScrollTop()
+      y or= value
       target = elementY(elm) - offset
       sprinkle() if not sprinkled and y >= target
       desprinkle() if sprinkled and y <= target - 200
@@ -462,9 +443,9 @@ module.directive 'neuSprinkleText', ['$window', 'getScrollTop', ($window, getScr
       sprinkled = false
 
     setup = ->
-      angular.element($window).bind('scroll', checkScroll)
-      angular.element($window).bind('resize', setSizes)
-      setSizes()
+      scope.$watch('page.scroll', checkScroll)
+      scope.$watch('page.height', setSizes)
+      setSizes(scope.page.height)
 
     setTimeout(setup, 500)  # allow time for slideshow setup
 ]

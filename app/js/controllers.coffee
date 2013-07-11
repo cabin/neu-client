@@ -35,8 +35,8 @@ module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
   sections = [0...$scope.sectionCount]
   animateDirection = null
 
-  $scope.$watch 'windowWidth', ->
-    $scope.showMultiple = $scope.windowWidth >= 768
+  $scope.$watch 'page.width', (value) ->
+    $scope.showMultiple = value >= 768
 
   $scope.index = 0
 

@@ -34,12 +34,38 @@ module.run ['$window', ($window) ->
   ga('send', 'pageview')
 ]
 
-# Keep track of the viewport's width through resize events.
+
+# From underscore.js.
+debounce = (func, wait, immediate) ->
+  timeout = result = null
+  ->
+    context = this
+    args = arguments
+    later = ->
+      timeout = null
+      result = func.apply(context, args) unless immediate
+    callNow = immediate and not timeout
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    result = func.apply(context, args) if callNow
+    result
+
+# Centralize tracking of viewport size and scroll amount.
 # TODO: Investigate whether there's a better solution here; hacking away at the
 # root scope seems like too much. And maybe use Modernizr.mq?
-module.run ['$window', '$rootScope', ($window, $rootScope) ->
+module.run ['$window', '$rootScope', 'getScrollTop', ($window, $rootScope, getScrollTop) ->
+  $rootScope.page = {}
   w = -> $window.innerWidth or $window.document.documentElement.clientWidth
-  $rootScope.windowWidth = w()
-  angular.element($window).bind 'resize', ->
-    $rootScope.$apply(-> $rootScope.windowWidth = w())
+  h = -> $window.innerHeight or $window.document.documentElement.clientHeight
+
+  (updateSizes = -> $rootScope.$apply ->
+    $rootScope.page.width = w()
+    $rootScope.page.height = h()
+  )()
+  (updateScroll = -> $rootScope.$apply ->
+    $rootScope.page.scroll = getScrollTop()
+  )()
+
+  angular.element($window).bind('resize', debounce(updateSizes, 100))
+  angular.element($window).bind('scroll', updateScroll)
 ]
