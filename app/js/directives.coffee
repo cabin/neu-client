@@ -420,14 +420,14 @@ module.directive 'neuSprinkleText', ['$window', ($window) ->
       angular.element(node).replaceWith(frag)
 
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
-    pageHeight = offset = 0
-    setSizes = (pageHeight) ->
-      offset = pageHeight - 100
+
+    target = 0
+    findTarget = (pageHeight) ->
+      target = elementY(elm) - (pageHeight - 100)
 
     checkScroll = (value) ->
       y = Math.abs(parseInt(scrollWrapper.css('top'), 10))
       y or= value
-      target = elementY(elm) - offset
       sprinkle() if not sprinkled and y >= target
       desprinkle() if sprinkled and y <= target - 200
 
