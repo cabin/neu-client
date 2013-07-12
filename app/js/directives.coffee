@@ -395,11 +395,11 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
 ]
 
 
-# One-off directive for tracking scroll position to "sprinkle" (tween color)
-# text as it comes into view.
-module.directive 'neuSprinkleText', ['$window', ($window) ->
+# One-off directive for creating an animation at the end of the slideshow.
+module.directive 'neuPostSlides', ['$window', ($window) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
+    # Set up the text sprinkle.
     fromColor = '#e3e3e3'
     toColor = '#fc6138'
     chars = []
@@ -419,7 +419,9 @@ module.directive 'neuSprinkleText', ['$window', ($window) ->
       chars = shuffle(chars)
       angular.element(node).replaceWith(frag)
 
+    # Page elements; I feel dirty for reaching outside the directive. :/
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
+    scrollHint = angular.element(document.getElementById('js-scroll-hint'))
 
     target = 0
     findTarget = (pageHeight) ->
@@ -431,21 +433,29 @@ module.directive 'neuSprinkleText', ['$window', ($window) ->
       sprinkle() if not sprinkled and y >= target
       desprinkle() if sprinkled and y <= target - 200
 
+    timeline = null
     sprinkled = false
     sprinkle = ->
-      angular.forEach chars, (char, i) ->
-        f = -> $window.TweenLite.to(char, .3, {color: toColor})
-        setTimeout(f, i * 40)
       sprinkled = true
+      tweens = []
+      angular.forEach chars, (char) ->
+        tweens.push($window.TweenLite.to(char, .3, {color: toColor}))
+      timeline = new $window.TimelineLite
+        autoRemoveChildren: true
+        tweens: tweens
+        align: 'start'
+        stagger: .04
+      timeline.add(-> scrollHint.addClass('is-visible'))
 
     desprinkle = ->
+      timeline.kill?()
+      scrollHint.removeClass('is-visible')
       angular.element(chars).css(color: fromColor)
       sprinkled = false
 
     setup = ->
+      scope.$watch('page.height', findTarget)
       scope.$watch('page.scroll', checkScroll)
-      scope.$watch('page.height', setSizes)
-      setSizes(scope.page.height)
 
     setTimeout(setup, 500)  # allow time for slideshow setup
 ]
