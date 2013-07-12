@@ -403,21 +403,27 @@ module.directive 'neuPostSlides', ['$window', ($window) ->
     fromColor = '#e3e3e3'
     toColor = '#fc6138'
     chars = []
-    angular.forEach elm[0].childNodes, (node) ->
-      return unless node.nodeType is 3  # Node.TEXT_NODE
-      frag = document.createDocumentFragment()
-      angular.forEach node.nodeValue, (c) ->
-        text = document.createTextNode(c)
-        if c.match(/\s/)
-          frag.appendChild(text)
-        else
-          span = document.createElement('span')
-          span.style.color = fromColor
-          span.appendChild(text)
-          frag.appendChild(span)
-          chars.push(span)
-      chars = shuffle(chars)
-      angular.element(node).replaceWith(frag)
+
+    # Don't sprinkle text on Mobile Safari; suspension of scripts while
+    # scrolling makes it feel awkward.
+    if Modernizr.touch
+      elm.css(color: toColor)
+    else
+      angular.forEach elm[0].childNodes, (node) ->
+        return unless node.nodeType is 3  # Node.TEXT_NODE
+        frag = document.createDocumentFragment()
+        angular.forEach node.nodeValue, (c) ->
+          text = document.createTextNode(c)
+          if c.match(/\s/)
+            frag.appendChild(text)
+          else
+            span = document.createElement('span')
+            span.style.color = fromColor
+            span.appendChild(text)
+            frag.appendChild(span)
+            chars.push(span)
+        chars = shuffle(chars)
+        angular.element(node).replaceWith(frag)
 
     # Page elements; I feel dirty for reaching outside the directive. :/
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
@@ -438,8 +444,9 @@ module.directive 'neuPostSlides', ['$window', ($window) ->
     sprinkle = ->
       sprinkled = true
       tweens = []
-      angular.forEach chars, (char) ->
-        tweens.push($window.TweenLite.to(char, .3, {color: toColor}))
+      if not Modernizr.touch
+        angular.forEach chars, (char) ->
+          tweens.push($window.TweenLite.to(char, .3, {color: toColor}))
       timeline = new $window.TimelineLite
         autoRemoveChildren: true
         tweens: tweens
