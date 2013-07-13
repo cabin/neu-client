@@ -66,6 +66,16 @@ module.run ['$window', '$rootScope', 'getScrollTop', ($window, $rootScope, getSc
     $rootScope.page.scroll = getScrollTop()
   )()
 
+  handleOrientationChange = ->
+    # Thanks to <http://mrdarcymurphy.tumblr.com/post/5574489334/>.
+    ss = $window.document.styleSheets[0]
+    try
+      ss.addRule('force-reflow', 'position: relative')
+    catch e
+      # ignored
+    updateSizes()
+
   angular.element($window).bind('resize', debounce(updateSizes, 100))
+  angular.element($window).bind('orientationchange', handleOrientationChange)
   angular.element($window).bind('scroll', updateScroll)
 ]
