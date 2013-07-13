@@ -3,13 +3,13 @@ module = angular.module('neu.controllers', [])
 module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $timeout, preload) ->
   delay = 4000
   $scope.data = [
-    {name: 'university', img: '/img/University.png',
+    {name: 'university', img: '/img/marquee/University.png',
     text: 'Industry-connected,<br>collaborative,<br>&amp; fun.'}
-    {name: 'educators', img: '/img/Educators.png',
+    {name: 'educators', img: '/img/marquee/Educators.png',
     text: 'Pioneers<br>in the field,<br>mentors<br>at NEU.'}
-    {name: 'creators', img: '/img/Creators.png',
+    {name: 'creators', img: '/img/marquee/Creators.png',
     text: 'Thinkers,<br>innovators, &amp;<br>change-makers.'}
-    {name: 'classroom', img: '/img/Classroom2.png',
+    {name: 'classroom', img: '/img/marquee/Classroom.png',
     text: 'The coolest<br>maker-space<br>around.'}
   ]
   index = -1

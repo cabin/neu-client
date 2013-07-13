@@ -74,11 +74,16 @@ module.exports = (grunt) ->
           '<%= path.dist %>/index.html': 'app/index.html'
         ]
     rev:
-      src: ['<%= path.dist %>/**/*.{css,js}']
+      src: [
+        '<%= path.dist %>/**/*.{css,js}'
+        '<%= path.dist %>/img/*.{gif,jpg,jpeg,png}'
+        '<%= path.dist %>/img/team/*.{gif,jpg,jpeg,png}'
+      ]
     useminPrepare:
       html: '<%= path.dist %>/index.html'
     usemin:
       html: ['<%= path.dist %>/index.html']
+      css: ['<%= path.dist %>/css/*.css']
 
     connect:
       server:
