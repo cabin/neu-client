@@ -20,7 +20,7 @@ module.run ['$window', 'getScrollTop', ($window, getScrollTop) ->
 module.run ['$window', ($window) ->
   trackingID = 'UA-42012866-1'
   domain = 'neu.me'
-  if $window.location.host in ['localhost', 'neu.dev', 'staging.neu.me']
+  if $window.location.host isnt domain
     trackingID = 'UA-42012866-2'
     domain = "staging.#{domain}"
 
