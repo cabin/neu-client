@@ -181,8 +181,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
     contentWrapper = document.querySelector('.js-content-wrapper')
     mask = angular.element(elm[0].querySelector('.slideshow__mask'))
     # Sizes and positions.
-    maskHeight = 600
-    pageWidth = scrollOffsets = slideOffsets = null
+    pageWidth = maskHeight = scrollOffsets = slideOffsets = null
     # Configuration.
     slideDuration = .2
     maxScrollPerSlide = 800
@@ -309,6 +308,10 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
       scrollOffsets = [0].concat(slideOffsets)
       slideOffsets.push(slideOffsets[slideOffsets.length - 1] + slideScroll)
       scrollOffsets.push(slideOffsets[slideOffsets.length - 1] + pageHeight)
+
+      # Ensure the mask covers the slideshow.
+      maskHeight = pageHeight - slideshowTop
+      mask.css(height: "#{maskHeight}px")
 
       # Ensure the page has enough room to scroll.
       minHeight = contentWrapper.clientHeight + slides.length * slideScroll
