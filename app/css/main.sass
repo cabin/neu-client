@@ -371,6 +371,41 @@
 
 // Palo Alto  //////////////////////////
 
+.silicon-valley
+  position: relative
+  height: 30px
+  @media #{$media-ipad}
+    height: 60px
+
+.silicon-valley__arrow
+  $w: 320px
+  $h: 64px
+  +font-header(12, 18)
+  +position(absolute, 0px 0 0 50%)
+  +retina-image(/img/flag-sm, $w $h)
+  +size($w $h + 30px)
+  background-position: center bottom
+  background-repeat: no-repeat
+  color: $white
+  line-height: 1.1
+  margin-left: -($w / 2)
+  padding-top: 18px
+  z-index: 2
+  @media #{$media-ipad}
+    $w: 600px
+    $h: 120px
+    +retina-image(/img/flag-lg, $w $h)
+    +size($w $h + 60px)
+    margin-left: -($w / 2)
+    padding-top: 42px
+
+.silicon-valley__arrow__heart
+  +font-body(14, 18)
+  font-style: italic
+  letter-spacing: 0
+  padding-bottom: 5px
+  text-transform: none
+
 .palo-alto
   height: 180px
   overflow: hidden
@@ -378,46 +413,19 @@
   @media #{$media-ipad}
     height: 400px
 
-.palo-alto__ribbon
-  @extend .l-centered
-  +font-header(12, 18)
-  +retina-image(/img/ribbon-sm, 160px 80px)
-  +size(160px 80px)
-  color: $white
-  line-height: 1.1
-  padding-top: 8px
-  position: relative  // for stacking order
-  text-align: center
-  @media #{$media-ipad}
-    +retina-image(/img/ribbon-lg, 260px 130px)
-    +size(260px 130px)
-    padding-top: 15px
-
-.palo-alto__ribbon__hq
-  +font-body(8, 11)
-  border-bottom: 1px solid rgba($white, .3)
-  letter-spacing: 1px
-  margin: 0 20px 8px
-  opacity: .7
-  padding-bottom: 8px
-  @media #{$media-ipad}
-    margin: 0 30px 15px
-    padding-bottom: 12px
-
 .palo-alto__text
   @extend %text--thinner
   +font-sizes(14, 18)
-  +position(absolute, 0 0 0 50%)
+  +position(absolute, 80px 0 0 50%)
   color: $grey-text
   font-style: italic
   line-height: 1.2
   margin-left: 20px
-  margin-top: 15px
   max-width: 120px
   @media #{$media-ipad}
     margin-left: 110px
-    margin-top: 30px
     max-width: 240px
+    top: 160px
 
 
 // Highlights/brass tacks  /////////////
