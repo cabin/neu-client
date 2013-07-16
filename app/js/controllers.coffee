@@ -1,35 +1,5 @@
 module = angular.module('neu.controllers', [])
 
-module.controller('SplashCtrl', ['$scope', '$timeout', 'preload', ($scope, $timeout, preload) ->
-  delay = 4000
-  $scope.data = [
-    {name: 'university', img: '/img/marquee/University.png',
-    text: 'Industry-connected,<br>collaborative,<br>&amp; fun.'}
-    {name: 'educators', img: '/img/marquee/Educators.png',
-    text: 'Pioneers<br>in the field,<br>mentors<br>at NEU.'}
-    {name: 'creators', img: '/img/marquee/Creators.png',
-    text: 'Thinkers,<br>innovators, &amp;<br>change-makers.'}
-    {name: 'classroom', img: '/img/marquee/Classroom.png',
-    text: 'The coolest<br>maker-space<br>around.'}
-  ]
-  index = -1
-
-  for item in $scope.data
-    preload(item.img)
-
-  cycle = ->
-    index += 1
-    if index >= $scope.data.length
-      index = 0
-    $scope.sel = $scope.data[index]
-    $timeout(cycle, delay)
-    # Avoid the implicit return of `$timeout()`s return value, which is a
-    # promise and would otherwise be leaking.
-    return
-  cycle()
-])
-
-
 module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
   $scope.sectionCount = 6  # NOTE: this must reflect the total team sections.
   sections = [0...$scope.sectionCount]

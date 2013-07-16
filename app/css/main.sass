@@ -13,71 +13,67 @@
 
 // Site header  ////////////////////////
 
+.splash
+  background-color: $orange
+  background-image: url(/img/marquee-pattern.gif), url(/img/marquee-university.gif)
+  background-position: center center
+  background-repeat: repeat, no-repeat
+  background-size: 100px 100px, auto 300px
+  height: 300px
+  padding-top: 97px
+  +hidpi(1.5)
+    background-image: url(/img/marquee-pattern@2x.gif), url(/img/marquee-university.gif)
+  @media #{$media-ipad}
+    background-size: auto
+    height: 430px
+    padding-top: 109px
+
 .logo
   +hide-text
-  +retina-image(/img/logo-white-sm, 90px 33px)
-  +size(90px 30px)
+  +retina-image(/img/logo-white-150, 150px 106px)
+  +size(150px 106px)
   background-position: center center
   background-repeat: no-repeat
-  padding: 50px 0
   @media #{$media-ipad}
-    +retina-image(/img/logo-white-lg, 120px 44px)
-    +size(120px 44px)
-    padding: 90px 0
+    +retina-image(/img/logo-white-300, 300px 212px)
+    +size(300px 212px)
 
-
-// Splash section  /////////////////////
-
-.splash
-  @extend %text--thinner
-  +radial-gradient(circle at 20% 80%, #dee0df, #8c9896, $fallback: #a0aaa9)
-  height: 320px
-  padding-top: 35px
+.title
+  height: 110px
+  line-height: 1
+  padding-top: 23px
   position: relative
-  @media #{$media-ipad}
-    height: 600px
-
-.splash__header
-  @extend .l-centered
-  +font-body(15, 18)
-  letter-spacing: 1px
   text-align: center
+  background: $white
+  @media #{$media-ipad}
+    height: 150px
+    padding-top: 30px
+
+.title__header
+  +font-body(11, 14)
+  letter-spacing: 1px
   text-transform: uppercase
   em
     +font-header(30, 48)
     display: block
-    line-height: 1.1
     font-style: normal
-  @media #{$media-ipad}
-    padding-top: 25px
+    letter-spacing: 3px
+    padding: 5px 0 2px
+    @media #{$media-ipad}
+      padding: 8px 0 4px
 
-$splash-image-width: 650px
-$splash-image-height: 420px
-
-.splash__img
-  +position(absolute, 0 0 0px -85px)
-  +size(($splash-image-width / 2) ($splash-image-height / 2))
-  @media #{$media-ipad}
-    +size($splash-image-width $splash-image-height)
-    left: 50%
-    margin-left: -($splash-image-width / 2)
-
-.splash__description
-  +font-sizes(18, 24)
-  +position(absolute, 130px 0 0 50%)
+.title__description
+  @extend %text--thinner
+  +font-body(14, 18)
   font-style: italic
-  line-height: 1
-  margin-left: 20px
-  width: 100px
-  @media #{$media-ipad}
-    left: 50%
-    margin-left: 200px
-    top: 270px
-    width: 200px
+
+
+// Scroll arrows  //////////////////////
 
 .scroller
   border-radius: 30px
   display: block
+  z-index: 30
   @media #{$media-small}
     +retina-image('../img/icon/scroll-sm', 30px 30px)
     +size(30px)
@@ -87,12 +83,16 @@ $splash-image-height: 420px
     +size(60px)
     margin-left: -30px
 
-.scroller--splash
-  +position(absolute, 0 0 30px 50%)
+.scroller--title
+  +position(absolute, 0 0 -30px 50%)
+  @media #{$media-small}
+    +retina-image('../img/icon/scroll-arrow-white-sm', 30px 30px)
+    bottom: -15px
+  @media #{$media-ipad}
+    +retina-image('../img/icon/scroll-arrow-white-lg', 60px 60px)
 
 .scroller--slideshow
   +position(absolute, 0 0 90px 50%)
-  z-index: 30
 
 
 // Callouts  ///////////////////////////
@@ -770,9 +770,12 @@ $team-slide-easing: $ease-in-out-quad
 // Slideshow  //////////////////////////
 
 .slideshow__mask
+  // Background position and default height must account for .title height.
   background-image: url(/img/marquee-bottom.gif)
-  background-position: center top
-  height: 100px
+  background-position: center 110px
+  height: 210px
+  @media #{$media-ipad}
+    background-position: center 150px
 
 .slideshow-pre
   margin-top: 1px
