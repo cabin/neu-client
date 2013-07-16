@@ -4,37 +4,6 @@ describe 'controllers', ->
   beforeEach ->
     module('neu.controllers')
 
-  describe 'SplashCtrl', ->
-    preload = $timeout = null
-
-    beforeEach ->
-      module ($provide) ->
-        preload = jasmine.createSpy('preload')
-        $provide.factory('preload', -> preload)
-        return null
-      inject ($controller, $rootScope, _$timeout_) ->
-        $scope = $rootScope.$new()
-        $controller('SplashCtrl', $scope: $scope)
-        $timeout = _$timeout_
-
-    it 'should preload all necessary images', ->
-      expect(preload.calls.length).toEqual($scope.data.length)
-
-    it 'should cycle through the data', ->
-      initialSel = $scope.sel
-      $timeout.flush()
-      expect($scope.sel).not.toEqual(initialSel)
-
-    it 'should wrap to the beginning of the data when reaching the end', ->
-      initialSel = $scope.sel
-      wrapped = false
-      for i in [1..$scope.data.length + 1]
-        $timeout.flush()
-        if $scope.sel is initialSel
-          wrapped = true
-          break
-      expect(wrapped).toBe(true)
-
   describe 'TeamCtrl', ->
     beforeEach ->
       inject ($controller, $rootScope) ->
