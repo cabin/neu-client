@@ -44,6 +44,7 @@
   padding-top: 23px
   position: relative
   text-align: center
+  background: $white
   @media #{$media-ipad}
     height: 150px
     padding-top: 30px
@@ -768,9 +769,12 @@ $team-slide-easing: $ease-in-out-quad
 // Slideshow  //////////////////////////
 
 .slideshow__mask
+  // Background position and default height must account for .title height.
   background-image: url(/img/marquee-bottom.gif)
-  background-position: center top
-  height: 100px
+  background-position: center 110px
+  height: 210px
+  @media #{$media-ipad}
+    background-position: center 150px
 
 .slideshow-pre
   margin-top: 1px
