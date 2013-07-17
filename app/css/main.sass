@@ -545,7 +545,7 @@ $team-top-margin: 40px
   top: 60px
   -webkit-tap-highlight-color: transparent
   z-index: 1
-  .team-left-leave ~ &, .team-right-leave ~ &
+  .team-left-hide ~ &, .team-right-hide ~ &
     +transition-duration(0)
     opacity: 0
   @media #{$media-ipad}
@@ -583,7 +583,7 @@ $team-slide-easing: $ease-in-out-quad
     +transform(translateX(0))
     opacity: 1
   50%
-    opacity: .2
+    opacity: 0
   to
     +transform(translateX(-$team-slide-distance))
     opacity: 0
@@ -597,7 +597,7 @@ $team-slide-easing: $ease-in-out-quad
     +transform(translateX(0))
     opacity: 1
   50%
-    opacity: .2
+    opacity: 0
   to
     +transform(translateX($team-slide-distance))
     opacity: 0
