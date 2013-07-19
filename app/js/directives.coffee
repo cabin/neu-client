@@ -284,6 +284,11 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
     # Called on window resize.
     adjustSizes = (pw, pageHeight) ->
       pageWidth = pw  # global
+      slideshowTop = elementY(elm)
+
+      # Ensure the mask reaches the bottom of the first viewport.
+      maskHeight = pageHeight - slideshowTop
+      mask.css(height: "#{maskHeight}px")
 
       # Enable/disable the slideshow based on the computed dimensions.
       if canShowSlides(pageWidth, pageHeight)
@@ -302,17 +307,12 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
       # scrollOffsets records the top of the page, the top of each slide, and
       # the point at which the slideshow has been completely scrolled off the
       # page (in other words, the top of the next element).
-      slideshowTop = elementY(elm)
       slideOffsets = []
       angular.forEach slides, (_, i) ->
         slideOffsets.push(slideshowTop + slideScroll * i)
       scrollOffsets = [0].concat(slideOffsets)
       slideOffsets.push(slideOffsets[slideOffsets.length - 1] + slideScroll)
       scrollOffsets.push(slideOffsets[slideOffsets.length - 1] + pageHeight)
-
-      # Ensure the mask covers the slideshow.
-      maskHeight = pageHeight - slideshowTop
-      mask.css(height: "#{maskHeight}px")
 
       # Ensure the page has enough room to scroll.
       minHeight = contentWrapper.clientHeight + slides.length * slideScroll
