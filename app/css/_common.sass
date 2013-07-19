@@ -62,6 +62,10 @@
     &.is-visible
       display: block
 
+.drip--mobile
+  @media #{$media-ipad}
+    display: none
+
 // Use <span class="wbr"/> for text that should be on its own line on mobile,
 // or .wbr--big for text for >mobile.
 @media #{$media-small}

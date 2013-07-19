@@ -259,7 +259,7 @@
 
 @media #{$media-small}
   .break-the-mold--right
-    margin-top: 40px
+    margin-top: 20px
     &:before
       background: $grey-rule
       content: ""
@@ -348,6 +348,7 @@
   border-top: 1px solid rgba($white, .3)
   margin: 40px 0 10px
   padding-top: 8px
+  text-align: center
   text-transform: uppercase
   @media #{$media-ipad}
     margin: 80px 0 20px
@@ -357,6 +358,7 @@
   letter-spacing: 1px
   line-height: 1.1
   opacity: .6
+  text-align: center
   em
     @extend %text--body
     font-size: 11px
@@ -469,11 +471,17 @@
   margin: 0 auto
   @media #{$media-small}
     border-bottom: 1px solid $grey-rule
-    margin-bottom: 20px
-    padding-bottom: 20px
+    margin-bottom: 30px
+    padding-bottom: 30px
     margin-top: 15px
   @media #{$media-ipad}
     margin-top: 20px
+
+.beta__text--last
+  @media #{$media-small}
+    border-bottom: none
+    margin-bottom: -30px
+    padding-bottom: 0
 
 
 // Meet the team  //////////////////////
