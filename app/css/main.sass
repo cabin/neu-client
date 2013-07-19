@@ -20,23 +20,23 @@
   background-repeat: repeat, no-repeat
   background-size: 100px 100px, auto 300px
   height: 300px
-  padding-top: 97px
+  padding-top: 67px
   +hidpi(1.5)
     background-image: url(/img/marquee-pattern@2x.gif), url(/img/marquee-university.gif)
   @media #{$media-ipad}
     background-size: 100px 100px, auto
     height: 430px
-    padding-top: 109px
+    padding-top: 105px
 
 .logo
   +hide-text
-  +retina-image(/img/logo-white-150, 150px 106px)
-  +size(150px 106px)
+  +retina-image(/img/logo-white-sm, 150px 165px)
+  +size(150px 165px)
   background-position: center center
   background-repeat: no-repeat
   @media #{$media-ipad}
-    +retina-image(/img/logo-white-300, 300px 212px)
-    +size(300px 212px)
+    +retina-image(/img/logo-white, 200px 220px)
+    +size(200px 220px)
 
 .title
   height: 90px
@@ -226,13 +226,13 @@
 // Meet NEU.
 .callout--logo
   +hide-text
-  +retina-image(/img/logo-orange-150, 150px 106px)
-  +size(150px 106px)
+  +retina-image(/img/logo-orange-sm, 150px 165px)
+  +size(150px 165px)
   font: 0/0 a !important  // IE 8
   margin: 30px auto
   @media #{$media-ipad}
-    +retina-image(/img/logo-orange-300, 300px 212px)
-    +size(300px 212px)
+    +retina-image(/img/logo-orange, 200px 220px)
+    +size(200px 220px)
     margin: 60px auto
 
 // Graphical callouts, which usually appear next to text callouts.
