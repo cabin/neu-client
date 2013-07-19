@@ -89,6 +89,8 @@ module.exports = (grunt) ->
     usemin:
       html: ['<%= path.dist %>/index.html']
       css: ['<%= path.dist %>/css/*.css']
+      options:
+        dirs: ['<%= path.dist %>']
 
     connect:
       server:
