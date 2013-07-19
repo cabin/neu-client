@@ -39,32 +39,29 @@
     +size(300px 212px)
 
 .title
-  height: 110px
+  height: 90px
   line-height: 1
-  padding-top: 23px
+  padding-top: 26px
   position: relative
   text-align: center
   background: $white
   @media #{$media-ipad}
     height: 150px
-    padding-top: 30px
+    padding-top: 40px
 
 .title__header
-  +font-body(11, 14)
+  @extend %text--thinner
+  +font-body(16, 30)
   letter-spacing: 1px
+  margin-bottom: 5px
   text-transform: uppercase
-  em
-    +font-header(30, 48)
-    display: block
-    font-style: normal
-    letter-spacing: 3px
-    padding: 5px 0 2px
-    @media #{$media-ipad}
-      padding: 8px 0 4px
+  @media #{$media-ipad}
+    letter-spacing: 2px
+    margin-bottom: 7px
 
 .title__description
   @extend %text--thinner
-  +font-body(14, 18)
+  +font-body(16, 30)
   font-style: italic
 
 
@@ -793,8 +790,8 @@ $team-slide-easing: $ease-in-out-quad
 .slideshow__mask
   // Background position and default height must account for .title height.
   background-image: url(/img/marquee-bottom.gif)
-  background-position: center 110px
-  height: 210px
+  background-position: center 90px
+  height: 190px
   @media #{$media-ipad}
     background-position: center 150px
 
