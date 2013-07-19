@@ -78,6 +78,9 @@ module.exports = (grunt) ->
         '<%= path.dist %>/**/*.{css,js}'
         '<%= path.dist %>/img/*.{gif,jpg,jpeg,png}'
         '<%= path.dist %>/img/team/*.{gif,jpg,jpeg,png}'
+        # TODO: This is to work around the at2x directive not knowing how to
+        # find revved image filenames; may be a better way?
+        '!<%= path.dist %>/img/**/*@2x.*'
       ]
     useminPrepare:
       html: '<%= path.dist %>/index.html'
