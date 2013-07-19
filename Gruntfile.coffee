@@ -81,6 +81,8 @@ module.exports = (grunt) ->
         # TODO: This is to work around the at2x directive not knowing how to
         # find revved image filenames; may be a better way?
         '!<%= path.dist %>/img/**/*@2x.*'
+        # Don't rename the Facebook image.
+        '!<%= path.dist %>/img/mark-1500.png'
       ]
     useminPrepare:
       html: '<%= path.dist %>/index.html'
