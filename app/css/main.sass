@@ -428,42 +428,55 @@
     top: 160px
 
 
-// Highlights/brass tacks  /////////////
+// Beta program  ///////////////////////
 
-.highlight
-  +width(1 of 1)
-  @extend .grid__item
+.beta-heading, .beta-outcome
+  +font-header(18, 30)
   text-align: center
 
-  @media #{$media-small-ipad}
-    &:first-child:before
-      background: $grey-rule
-      content: ""
-      display: block
-      height: 1px
-      margin: 40px auto 40px
-      width: 75px
+.beta-subheading
+  @extend %text--thinner
+  +font-body(14, 18)
+  font-style: italic
+  text-align: center
 
+.beta-outcome
+  color: $orange
+
+.beta
+  margin: 50px auto
+  padding: 0
+  text-align: center
+  @media #{$media-ipad}
+    +retina-image(/img/funnel-arrow-m, 340px 350px, gif)
+    +size(680 350)
+    background-position: center top
+    background-repeat: no-repeat
   @media #{$media-desk}
-    +width(1 of 4)
-    position: relative
-    text-align: left
-    &:before
-      +position(absolute, 40px 0 0 ($grid-gutter / 2 + 3))
-      background-color: $grey-rule
-      content: ""
-      display: block
-      height: 160px
-      width: 1px
+    +retina-image(/img/funnel-arrow-lg, 440px 350px, gif)
+    width: 880px
 
-.highlight__header
-  +font-header(15)
-  margin: 40px 0 15px
+.beta__item
+  list-style: none
+  margin: 0
+  padding: 0
+  @media #{$media-ipad}
+    float: left
+    width: 170px
+  @media #{$media-desk}
+    width: 220px
 
-.highlight__text
-  font-size: 18px
+.beta__text
+  +font-header(16, 16)
+  max-width: 140px
   margin: 0 auto
-  max-width: 320px
+  @media #{$media-small}
+    border-bottom: 1px solid $grey-rule
+    margin-bottom: 20px
+    padding-bottom: 20px
+    margin-top: 15px
+  @media #{$media-ipad}
+    margin-top: 20px
 
 
 // Meet the team  //////////////////////
