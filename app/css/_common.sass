@@ -60,19 +60,7 @@
     &:after
       +retina-image('../img/icon/dot-black-lg', 11px 11px)
     &.is-visible
-      +animation(drip-down 500ms $ease-in-out-quad)
       display: block
-      height: 150px
-
-+keyframes(drip-down)
-  from
-    +transform(scale(0))
-    height: 0
-  50%
-    +transform(scale(1))
-    height: 0
-  to
-    height: 150px
 
 // Use <span class="wbr"/> for text that should be on its own line on mobile,
 // or .wbr--big for text for >mobile.

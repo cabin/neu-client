@@ -46,6 +46,13 @@ shuffle = (array) ->
   array
 
 
+# Older webkit fails to actually remove styles when removing the `style`
+# attribute; setting it to the empty string first is a workaround.
+removeStyle = (element) ->
+  element.attr('style', '')
+  element.removeAttr('style')
+
+
 # Tween the page to the new scroll position.
 scrollSmoothly = (to) ->
   TweenLite.to(window, .4, scrollTo: {y: to}, ease: Power2.easeInOut)
@@ -237,12 +244,6 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
         content.css(display: 'block')
         content.css(marginTop: "-#{contentEl.clientHeight / 2}px")
       scope.slideshowEnabled = true
-
-    # Older webkit fails to actually remove styles when removing the `style`
-    # attribute; setting it to the empty string first is a workaround.
-    removeStyle = (element) ->
-      element.attr('style', '')
-      element.removeAttr('style')
 
     disableSlideshow = ->
       elm.removeClass('slideshow')
@@ -455,7 +456,11 @@ module.directive 'neuPostSlides', ['$window', ($window) ->
         tweens: tweens
         align: 'start'
         stagger: .04
-      timeline.add(-> scrollHint.addClass('is-visible'))
+      timeline.add ->
+        scrollHint.addClass('is-visible')
+        $window.TweenLite.set(scrollHint, {scale: 0, height: 0})
+      timeline.add($window.TweenLite.to(scrollHint, .25, {scale: 1}))
+      timeline.add($window.TweenLite.to(scrollHint, .25, {height: '150px'}))
 
     desprinkle = ->
       timeline.kill?()
