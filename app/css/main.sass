@@ -623,6 +623,27 @@ $team-slide-easing: $ease-in-out-quad
 
 // Join us  ////////////////////////////
 
+.join-container
+  position: relative
+
+.join-container.join-container--is-submitted
+  padding-bottom: 150px  // thanks height
+  @media #{$media-ipad}
+    padding-bottom: 300px
+
+.join-thanks
+  @extend %text--thinner
+  +position(absolute, 0 0px 0px 0px)
+  font-size: 24px
+  font-style: italic
+  height: 150px
+  line-height: 150px
+  text-align: center
+  z-index: -1
+  @media #{$media-ipad}
+    height: 300px
+    line-height: 300px
+
 .join-us
   @extend .l-centered
   max-width: 400px

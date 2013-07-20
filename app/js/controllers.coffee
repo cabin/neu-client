@@ -24,7 +24,7 @@ module.controller('TeamCtrl', ['$scope', '$window', ($scope, $window) ->
 ])
 
 
-module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $window) ->
+module.controller('JoinCtrl', ['$scope', '$rootScope', '$http', '$window', '$timeout', ($scope, $rootScope, $http, $window, $timeout) ->
   $scope.state =
     invalid: false     # avoid showing errors until initial submission
     submitting: false  # avoid multiple submissions
@@ -42,6 +42,10 @@ module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $wi
       $scope.state.submissionFailed = true
       $window.ga('send', 'event', 'Initial sign-up form', 'Failed submission')
 
+  # Notify the slideshow that content height may have changed.
+  pageContentChanged = ->
+    $rootScope.contentChanged = new Date()
+
   $scope.submit = ->
     return if $scope.state.submitting
     if $scope.form.$valid
@@ -49,6 +53,14 @@ module.controller('JoinCtrl', ['$scope', '$http', '$window', ($scope, $http, $wi
       postData()
       # Make sure Mobile Safari closes the keyboard.
       $window.document.activeElement.blur()
+      # Enable the slideshow directive to maintain appropriate page size while
+      # the page content is changing.
+      i = 50
+      do updatePageSize = ->
+        if --i
+          pageContentChanged()
+          $timeout(updatePageSize, 10)
+        return
     else
       $scope.state.invalid = true
 ])

@@ -367,7 +367,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
       $timeout((-> $window.scrollTo(0, y)), 0) if y
 
       scope.$watch(
-        '[page.width, page.height]',
+        '[page.width, page.height, contentChanged]',
         ((value) -> adjustSizes(value[0], value[1])),
         true)
       scope.$watch('page.scroll', adjustScroll)

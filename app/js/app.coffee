@@ -58,13 +58,13 @@ module.run ['$window', '$rootScope', 'getScrollTop', ($window, $rootScope, getSc
   w = -> $window.innerWidth or $window.document.documentElement.clientWidth
   h = -> $window.innerHeight or $window.document.documentElement.clientHeight
 
-  (updateSizes = -> $rootScope.$apply ->
-    $rootScope.page.width = w()
-    $rootScope.page.height = h()
-  )()
-  (updateScroll = -> $rootScope.$apply ->
+  do updateSizes = ->
+    $rootScope.$apply ->
+      $rootScope.page.width = w()
+      $rootScope.page.height = h()
+    updateScroll?()  # in case previous scrollTop is now out of range
+  do updateScroll = -> $rootScope.$apply ->
     $rootScope.page.scroll = getScrollTop()
-  )()
 
   handleOrientationChange = ->
     # Thanks to <http://mrdarcymurphy.tumblr.com/post/5574489334/>.
