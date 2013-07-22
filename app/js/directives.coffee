@@ -372,6 +372,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
         true)
       scope.$watch('viewport.scroll', adjustScroll)
       scope.$digest()
+      scope.$emit('slideshowLoaded')
       angular.element($window.document).bind('keydown', keydownHandler)
 
     # Try to improve slideshow experience for users paging with a keyboard.
@@ -476,9 +477,9 @@ module.directive 'neuPostSlides', ['$window', '$timeout', ($window, $timeout) ->
       angular.element(chars).css(color: '')
       sprinkled = false
 
-    setup = ->
+    # Wait for the slideshow to load, since it may adjust target offset.
+    scope.$on 'slideshowLoaded', ->
       scope.$watch('viewport.height', findTarget)
       scope.$watch('viewport.scroll', checkScroll)
-
-    setTimeout(setup, 500)  # allow time for slideshow setup
+      scope.$digest()
 ]
