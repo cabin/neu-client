@@ -400,34 +400,28 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
 
 
 # One-off directive for creating an animation at the end of the slideshow.
-module.directive 'neuPostSlides', ['$window', ($window) ->
+module.directive 'neuPostSlides', ['$window', '$timeout', ($window, $timeout) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     # Set up the text sprinkle.
-    fromColor = '#e3e3e3'
-    toColor = '#fc6138'
+    toColor = '#ff6138'
     chars = []
 
-    # Don't sprinkle text on Mobile Safari; suspension of scripts while
-    # scrolling makes it feel awkward.
-    if Modernizr.touch
-      elm.css(color: toColor)
-    else
-      angular.forEach elm[0].childNodes, (node) ->
-        return unless node.nodeType is 3  # Node.TEXT_NODE
-        frag = document.createDocumentFragment()
-        angular.forEach node.nodeValue, (c) ->
-          text = document.createTextNode(c)
-          if c.match(/\s/)
-            frag.appendChild(text)
-          else
-            span = document.createElement('span')
-            span.style.color = fromColor
-            span.appendChild(text)
-            frag.appendChild(span)
-            chars.push(span)
-        chars = shuffle(chars)
-        angular.element(node).replaceWith(frag)
+    angular.forEach elm[0].childNodes, (node) ->
+      return unless node.nodeType is 3  # Node.TEXT_NODE
+      frag = document.createDocumentFragment()
+      angular.forEach node.nodeValue, (c) ->
+        text = document.createTextNode(c)
+        if c.match(/\s/)
+          frag.appendChild(text)
+        else
+          span = document.createElement('span')
+          span.appendChild(text)
+          frag.appendChild(span)
+          chars.push(span)
+      chars = shuffle(chars)
+      angular.element(chars).addClass('sprinkle-text')
+      angular.element(node).replaceWith(frag)
 
     # Page elements; I feel dirty for reaching outside the directive. :/
     scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
@@ -448,14 +442,27 @@ module.directive 'neuPostSlides', ['$window', ($window) ->
     sprinkle = ->
       sprinkled = true
       tweens = []
-      if not Modernizr.touch
+      duration = .3
+      stagger = .04
+      delay = 0
+      # Mobile Safari needs to use a CSS animation here since scripts are
+      # suspended while scrolling; other platforms get the standard
+      # tween/timeline.
+      if Modernizr.touch
+        addClass = (el) ->
+          angular.element(el).addClass('sprinkle-text--active')
+        angular.forEach chars, (char, i) ->
+          $timeout((-> addClass(char)), stagger * i * 1000)
+        delay = stagger * chars.length + duration
+      else
         angular.forEach chars, (char) ->
-          tweens.push($window.TweenLite.to(char, .3, {color: toColor}))
+          tweens.push($window.TweenLite.to(char, duration, {color: toColor}))
       timeline = new $window.TimelineLite
         autoRemoveChildren: true
         tweens: tweens
         align: 'start'
-        stagger: .04
+        stagger: stagger
+        delay: delay
       timeline.add ->
         scrollHint.addClass('is-visible')
         $window.TweenLite.set(scrollHint, {scale: 0, height: 0})
@@ -465,7 +472,8 @@ module.directive 'neuPostSlides', ['$window', ($window) ->
     desprinkle = ->
       timeline.kill?()
       scrollHint.removeClass('is-visible')
-      angular.element(chars).css(color: fromColor)
+      angular.element(chars).removeClass('sprinkle-text--active')
+      angular.element(chars).css(color: '')
       sprinkled = false
 
     setup = ->

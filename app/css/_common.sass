@@ -137,3 +137,12 @@ $button-text-offset: 1px
       border-width: 0 1px
       display: inline-block
       padding: 8px 30px 9px
+
+
+// Animation helpers  //////////////////
+
+.sprinkle-text
+  color: $grey-rule
+.sprinkle-text--active
+  +transition(color 300ms ease-in)
+  color: $orange
