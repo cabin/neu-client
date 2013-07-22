@@ -54,17 +54,17 @@ debounce = (func, wait, immediate) ->
 # TODO: Investigate whether there's a better solution here; hacking away at the
 # root scope seems like too much. And maybe use Modernizr.mq?
 module.run ['$window', '$rootScope', 'getScrollTop', ($window, $rootScope, getScrollTop) ->
-  $rootScope.page = {}
+  $rootScope.viewport = {}
   w = -> $window.innerWidth or $window.document.documentElement.clientWidth
   h = -> $window.innerHeight or $window.document.documentElement.clientHeight
 
   do updateSizes = ->
     $rootScope.$apply ->
-      $rootScope.page.width = w()
-      $rootScope.page.height = h()
+      $rootScope.viewport.width = w()
+      $rootScope.viewport.height = h()
     updateScroll?()  # in case previous scrollTop is now out of range
   do updateScroll = -> $rootScope.$apply ->
-    $rootScope.page.scroll = getScrollTop()
+    $rootScope.viewport.scroll = getScrollTop()
 
   handleOrientationChange = ->
     # Thanks to <http://mrdarcymurphy.tumblr.com/post/5574489334/>.

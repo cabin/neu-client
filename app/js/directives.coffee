@@ -195,7 +195,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
 
     scope.slideshowEnabled = false
     scope.nextSlide = ->
-      pos = currentSegment(scrollOffsets, scope.page.scroll)
+      pos = currentSegment(scrollOffsets, scope.viewport.scroll)
       pos = Math.min(pos + 1, scrollOffsets.length - 1)
       # Snap to next slide in the slideshow; animate elsewhere.
       if 1 < pos < slides.length + 1
@@ -204,7 +204,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
         scrollSmoothly(scrollOffsets[pos])
 
     scope.previousSlide = ->
-      pos = currentSegment(scrollOffsets, scope.page.scroll)
+      pos = currentSegment(scrollOffsets, scope.viewport.scroll)
       pos = Math.max(pos - 1, 0)
       # Safe to smooth scroll everywhere, since the slide transition point is
       # on the front side of the animation.
@@ -282,25 +282,25 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
         ]
 
     # Called on window resize.
-    adjustSizes = (pw, pageHeight) ->
+    adjustSizes = (pw, viewportHeight) ->
       pageWidth = pw  # global
       slideshowTop = elementY(elm)
 
       # Ensure the mask reaches the bottom of the first viewport.
-      maskHeight = pageHeight - slideshowTop
+      maskHeight = viewportHeight - slideshowTop
       mask.css(height: "#{maskHeight}px")
 
       # Enable/disable the slideshow based on the computed dimensions.
-      if canShowSlides(pageWidth, pageHeight)
+      if canShowSlides(pageWidth, viewportHeight)
         enableSlideshow() unless scope.slideshowEnabled
       else
         disableSlideshow() if scope.slideshowEnabled
         return  # nothing else to do
 
       # Fix the container and slide sizes.
-      elm.css(height: "#{pageHeight}px")
+      elm.css(height: "#{viewportHeight}px")
       slides.css(width: "#{pageWidth}px")
-      slideScroll = Math.min(pageHeight, maxScrollPerSlide)
+      slideScroll = Math.min(viewportHeight, maxScrollPerSlide)
 
       # slideOffsets records the top of each slide and the "bottom" of the
       # final slide (the point at which page scroll should be unlocked).
@@ -312,7 +312,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
         slideOffsets.push(slideshowTop + slideScroll * i)
       scrollOffsets = [0].concat(slideOffsets)
       slideOffsets.push(slideOffsets[slideOffsets.length - 1] + slideScroll)
-      scrollOffsets.push(slideOffsets[slideOffsets.length - 1] + pageHeight)
+      scrollOffsets.push(slideOffsets[slideOffsets.length - 1] + viewportHeight)
 
       # Ensure the page has enough room to scroll.
       minHeight = contentWrapper.clientHeight + slides.length * slideScroll
@@ -363,14 +363,14 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
       scrollWrapper.css(top: "-#{y}px")
 
     setup = ->
-      y = scope.page.scroll
+      y = scope.viewport.scroll
       $timeout((-> $window.scrollTo(0, y)), 0) if y
 
       scope.$watch(
-        '[page.width, page.height, contentChanged]',
+        '[viewport.width, viewport.height, contentChanged]',
         ((value) -> adjustSizes(value[0], value[1])),
         true)
-      scope.$watch('page.scroll', adjustScroll)
+      scope.$watch('viewport.scroll', adjustScroll)
       scope.$digest()
       angular.element($window.document).bind('keydown', keydownHandler)
 
@@ -379,7 +379,7 @@ module.directive 'neuSlideshow', ['$window', '$timeout', ($window, $timeout) ->
       return unless scope.slideshowEnabled
       # Ignore modified keypresses.
       return if event.shiftKey or event.metaKey or event.altKey or event.ctrlKey
-      y = scope.page.scroll
+      y = scope.viewport.scroll
       # Don't take over scrolling beyond the slideshow.
       return unless y < scrollOffsets[scrollOffsets.length - 1]
       if event.keyCode is 33  # pgup
@@ -428,8 +428,8 @@ module.directive 'neuPostSlides', ['$window', '$timeout', ($window, $timeout) ->
     scrollHint = angular.element(document.getElementById('js-scroll-hint'))
 
     target = 0
-    findTarget = (pageHeight) ->
-      target = elementY(elm) - (pageHeight - 100)
+    findTarget = (viewportHeight) ->
+      target = elementY(elm) - (viewportHeight - 100)
 
     checkScroll = (value) ->
       y = Math.abs(parseInt(scrollWrapper.css('top'), 10))
@@ -477,8 +477,8 @@ module.directive 'neuPostSlides', ['$window', '$timeout', ($window, $timeout) ->
       sprinkled = false
 
     setup = ->
-      scope.$watch('page.height', findTarget)
-      scope.$watch('page.scroll', checkScroll)
+      scope.$watch('viewport.height', findTarget)
+      scope.$watch('viewport.scroll', checkScroll)
 
     setTimeout(setup, 500)  # allow time for slideshow setup
 ]
