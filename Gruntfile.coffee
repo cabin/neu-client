@@ -15,6 +15,7 @@ module.exports = (grunt) ->
           'angular-1.1.x': '1.1.5'
           'bourbon': '3.1.6'
           'normalize-css': '2.1.2'
+          'greensock-js': '1.9.8'
 
     clean: ['<%= path.build %>', '<%= path.dist %>']
 
