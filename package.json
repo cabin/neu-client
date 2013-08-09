@@ -1,7 +1,7 @@
 {
   "name": "neu-site",
   "author": "http://madebycabin.com/",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/cabin/neu.git"
@@ -10,15 +10,17 @@
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-connect": "~0.3.0",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-sass": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
-    "grunt-bowerful": "~0.3.0",
     "grunt-data-uri": "~0.1.1",
     "grunt-karma": "~0.4.4",
+    "grunt-modernizr": "~0.3.0",
+    "grunt-ngmin": "0.0.3",
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~0.1.12"
   }

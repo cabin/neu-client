@@ -1,5 +1,6 @@
 deps = [
   'ngMobile'
+  'cabin.at2x'
   'neu.controllers'
   'neu.directives'
   'neu.services'

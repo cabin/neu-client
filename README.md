@@ -3,9 +3,10 @@
 To set up a development and build environment:
 
     % gem install sass
+    % npm install -g bower
     % npm install -g grunt-cli
     % npm install
-    % grunt bowerful
+    % bower install
 
 Note that I made a fix to grunt-data-uri which, as of this commit, has not yet
 been released upstream. The fix is on [my branch][], and there is a relevant

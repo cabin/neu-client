@@ -4,68 +4,55 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: pkg
     path:
-      build: 'app/build'
-      components: 'app/bower_components'
+      app: 'app'
+      build: '.tmp'
+      components: 'bower_components'
       dist: 'dist'
-
-    bowerful:
-      dist:
-        store: '<%= path.components %>'
-        packages:
-          'angular-1.1.x': '1.1.5'
-          'bourbon': '3.1.6'
-          'normalize-css': '2.1.2'
-          'greensock-js': '1.9.8'
 
     clean: ['<%= path.build %>', '<%= path.dist %>']
 
     sass:
       dist:
         expand: true
-        cwd: 'app'
+        cwd: '<%= path.app %>'
         src: ['css/**/*.{sass,scss}', '!css/**/_*']
-        dest: '<%= path.build %>/.tmp'
+        dest: '<%= path.build %>'
         ext: '.css'
       options:
         loadPath: '<%= path.components %>'
     dataUri:
       dist:
-        src: ['<%= path.build %>/.tmp/css/*.css']
+        src: ['<%= path.build %>/css/*.css']
         dest: '<%= path.build %>/css'
         options:
-          target: ['app/img/icon/**/*']
-          baseDir: 'app/build'
+          target: ['<%= path.app %>/img/icon/**/*']
+          baseDir: '<%= path.build %>'
     coffee:
       dist:
         expand: true
-        cwd: 'app'
+        cwd: '<%= path.app %>'
         src: 'js/**/*.coffee'
         dest: '<%= path.build %>'
         ext: '.js'
-
-    cssmin:
-      '<%= path.dist %>/css/neu.min.css': [
-        '<%= path.components %>/normalize-css/normalize.css'
-        '<%= path.build %>/css/**/*.css'
-      ]
-    uglify:
-      '<%= path.dist %>/js/neu.min.js': ['<%= path.build %>/js/**/*.js']
-      '<%= path.dist %>/js/vendor.min.js': [
-        '<%= path.components %>/AngularJS/angular.js'
-        '<%= path.components %>/AngularJS/angular-mobile.js'
-        'app/js/modernizr.js'
-        'app/js/gsap/*.js'
-      ]
-      # TODO: modernizr, or new grunt-usemin
-      '<%= path.dist %>/js/ie.min.js': [
-        'app/ie/respond.js'
+    modernizr:
+      devFile: 'remote'
+      outputFile: '<%= path.build %>/js/modernizr.js'
+      parseFiles: false
+      extra:
+        load: false
+      tests: [
+        'forms_placeholder'
+        'touch'
       ]
 
     copy:
       build:
         files: [
+          {expand: true, src: '<%= path.components %>/**', dest: '<%= path.build %>'}
           {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.build %>'}
+          {expand: true, cwd: 'app', src: 'img/**', dest: '<%= path.build %>'}
           {expand: true, cwd: 'app', src: 'ie/**', dest: '<%= path.build %>'}
+          {'<%= path.build %>/index.html': '<%= path.app %>/index.html'}
         ]
       dist:
         files: [
@@ -85,8 +72,13 @@ module.exports = (grunt) ->
         # Don't rename the Facebook image.
         '!<%= path.dist %>/img/mark-1500.png'
       ]
+    ngmin:
+      dist:
+        '<%= path.dist %>/js/neu.min.js': '<%= path.dist %>/js/neu.min.js'
     useminPrepare:
-      html: '<%= path.dist %>/index.html'
+      html: '<%= path.build %>/index.html'
+      options:
+        dest: '<%= path.dist %>'
     usemin:
       html: ['<%= path.dist %>/index.html']
       css: ['<%= path.dist %>/css/*.css']
@@ -96,7 +88,7 @@ module.exports = (grunt) ->
     connect:
       server:
         options:
-          base: 'app'
+          base: '<%= path.build %>'
 
     watch:
       grunt:
@@ -131,15 +123,23 @@ module.exports = (grunt) ->
   for dep of pkg.devDependencies when dep.indexOf('grunt-') is 0
     grunt.loadNpmTasks(dep)
 
-  grunt.registerTask('build', ['sass', 'dataUri', 'coffee', 'copy:build'])
+  grunt.registerTask('build', [
+    'sass'
+    'dataUri'
+    'coffee'
+    'modernizr'
+    'copy:build'
+  ])
   grunt.registerTask('test', ['build', 'karma:unitSingle'])
   grunt.registerTask('dist', [
     'clean'
-    'useminPrepare'
     'build'
-    'cssmin'
-    'uglify'
     'copy:dist'
+    'useminPrepare'
+    'concat'
+    'cssmin'
+    'ngmin'
+    'uglify'
     'rev'
     'usemin'
   ])
