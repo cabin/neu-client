@@ -56,11 +56,16 @@ debounce = (func, wait, immediate) ->
 # root scope seems like too much. And maybe use Modernizr.mq?
 module.run ['$window', '$rootScope', 'getScrollTop', ($window, $rootScope, getScrollTop) ->
   $rootScope.viewport = {}
+  # Always use documentElement.clientWidth for the width; it accounts for any
+  # visible scrollbar. Use window.innerHeight for height if it's available,
+  # since we *don't* want to account for the browser chrome in iOS.
+  w = -> $window.document.documentElement.clientWidth
+  h = -> $window.innerHeight or $window.document.documentElement.clientHeight
 
   do updateSizes = ->
     $rootScope.$apply ->
-      $rootScope.viewport.width = $window.document.documentElement.clientWidth
-      $rootScope.viewport.height = $window.document.documentElement.clientHeight
+      $rootScope.viewport.width = w()
+      $rootScope.viewport.height = h()
     updateScroll?()  # in case previous scrollTop is now out of range
   do updateScroll = -> $rootScope.$apply ->
     $rootScope.viewport.scroll = getScrollTop()
