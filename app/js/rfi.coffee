@@ -36,3 +36,39 @@ angular.module('neu.rfi', [])
           $scope.state.submitting = false
           $scope.state.submissionFailed = true
           alert("Submission failed (probably because there's no API server...)")
+
+
+  .directive 'neuRfiSelect', ($timeout) ->
+    restrict: 'A'
+    require: '^select'
+    link: (scope, elm, attrs) ->
+      wrapper = angular.element('<div class="custom-select"></div>')
+      indicator = angular.element('<a class="custom-select__indicator"></a>')
+      container = angular.element('<div class="custom-select__container"></div>')
+      wrapper.append(indicator)
+      wrapper.append(container)
+
+      closeMenu = -> wrapper.removeClass('is-open')
+      angular.element(document).bind('click', closeMenu)
+
+      wrapper.bind 'click', (event) ->
+        event.stopPropagation()
+        if wrapper.hasClass('is-open')
+          container.children().removeClass('is-selected')
+          opt = angular.element(event.target)
+          opt.addClass('is-selected')
+          elm.val(opt.data('value'))
+          elm.triggerHandler('change')
+        wrapper.toggleClass('is-open')
+
+      # Give the select directive time to create its options, then mirror them.
+      $timeout ->
+        for option in elm.children()
+          option = angular.element(option)
+          opt = angular.element('<a class="custom-select__option"></a>')
+          opt.text(option.text())
+          opt.data('value', option.val())
+          opt.toggleClass('is-selected', elm.val() is option.val())
+          container.append(opt)
+        elm.after(wrapper)
+        elm.css(display: 'none')  # XXX

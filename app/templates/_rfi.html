@@ -13,8 +13,8 @@
     <div class="site-footer__subhead">Get in Touch</div>
 
     <div class="col-s">
-      <select name="type" ng-model="data.type" name="type"
-        ng-options="type.key as type.value for type in types">
+      <select name="type" ng-model="data.type" name="type" neu-rfi-select
+        ng-options="type.key as type.value for type in types"></select>
 
       <input name="fname" type="text" ng-model="data.fname" placeholder="First name" required>
       <input name="lname" type="text" ng-model="data.lname" placeholder="Last name" required>

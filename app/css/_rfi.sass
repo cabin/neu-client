@@ -1,10 +1,10 @@
-.rfi
-  $input-font-size: 15px
-  $input-line-height: 20px
-  $input-margin: 8px
-  $input-padding: 8px
-  $input-height: $input-line-height + 2 * $input-padding
+$input-font-size: 15px
+$input-line-height: 20px
+$input-margin: 8px
+$input-padding: 8px
+$input-height: $input-line-height + 2 * $input-padding
 
+.rfi
   @extend .grid
   margin-top: 40px
   margin-bottom: 70px
@@ -22,6 +22,7 @@
     width: 100%
   textarea
     height: $input-height * 2 + $input-margin
+    resize: none
 
   .button
     height: $input-height
@@ -30,13 +31,71 @@
     padding: 0
     width: 100px
 
-  .rfi__checkbox
-    float: left
-    font-size: 11px
-    margin-right: 20px
-    margin-top: $input-margin
-    text-transform: uppercase
-    width: 180px
+.rfi__checkbox
+  float: left
+  font-size: 11px
+  margin-right: 20px
+  margin-top: $input-margin
+  padding-left: 20px
+  position: relative
+  text-transform: uppercase
+  width: 180px
+  > input
+    +position(absolute, 0px 0 0 0px)
+
+
+$custom-select-padding: 5px
+.custom-select
+  @extend %gotham-bold
+  background: $white
+  border-radius: 2px
+  color: $black
+  height: $input-height
+  margin-top: $input-margin
+  position: relative
+
+.custom-select__indicator
+  +position(absolute, $custom-select-padding $custom-select-padding $custom-select-padding 0)
+  background: $orange
+  width: $input-height - $custom-select-padding * 2
+  z-index: 2
+  .custom-select.is-open &
+    display: none
+
+.custom-select__container
+  +position(absolute, 0px 0px 0 0px)
+  border-radius: 2px
+  background: $white
+  padding: $custom-select-padding
+  .custom-select.is-open &
+    left: -$custom-select-padding
+    right: -$custom-select-padding
+    top: -$custom-select-padding
+
+.custom-select__option
+  $vmiddle-correction: 2px
+  border-radius: 2px
+  display: none
+  line-height: $input-height - $custom-select-padding * 2 - $vmiddle-correction
+  padding: 0 $input-padding * 2 - $custom-select-padding
+  padding-top: $vmiddle-correction
+  .custom-select.is-open &
+    display: block
+.custom-select__option.is-selected
+  display: block
+.custom-select.is-open .custom-select__option
+  background: $grey-f3
+  line-height: $input-height
+  margin-top: 2px
+  &:first-child
+    margin-top: 0
+  &:hover
+    background: $orange
+    color: $white
+  &.is-selected:after
+    float: right
+    content: "•"
+
 
 .rfi__error
   @extend %gotham-bold
