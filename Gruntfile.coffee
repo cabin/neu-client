@@ -44,6 +44,15 @@ module.exports = (grunt) ->
         'forms_placeholder'
         'touch'
       ]
+    jinja:
+      options:
+        contextRoot: '<%= path.app %>/context'
+        templateDirs: ['<%= path.app %>/templates']
+      dist:
+        expand: true
+        dest: '<%= path.build %>'
+        cwd: '<%= path.app %>/templates'
+        src: ['**/!(_)*.html']
 
     copy:
       build:
@@ -95,7 +104,6 @@ module.exports = (grunt) ->
         files: ['Gruntfile.coffee']
       options:
         livereload: true
-        nospawn: true
       sass:
         files: ['app/css/**/*.{sass,scss}']
         tasks: ['sass', 'dataUri']
@@ -103,8 +111,8 @@ module.exports = (grunt) ->
         files: ['app/js/**/*.coffee']
         tasks: ['coffee', 'karma:unit:run']
       html:
-        files: ['app/*.html']
-        livereload: true
+        files: ['app/templates/**/*.html', 'app/context/**/*.js{,on}']
+        tasks: ['jinja']
       karma:
         files: ['test/unit/**/*.coffee']
         tasks: ['karma:unit:run']
@@ -124,6 +132,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks(dep)
 
   grunt.registerTask('build', [
+    'jinja'
     'sass'
     'dataUri'
     'coffee'

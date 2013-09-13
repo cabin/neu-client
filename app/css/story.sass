@@ -1,0 +1,889 @@
+// Naming conventions:
+// .component-name
+// .component-name--modifier
+//   .component-name__sub-object
+//   .component-name__sub-object--modifier
+// Similar to BEM.
+
+@import globals
+@import base
+@import layout
+@import common
+
+
+// Site header  ////////////////////////
+
+.splash
+  background-color: $orange
+  background-image: url(/img/marquee-pattern.gif), url(/img/marquee-university.gif)
+  background-position: center center
+  background-repeat: repeat, no-repeat
+  background-size: 100px 100px, auto 300px
+  height: 300px
+  padding-top: 67px
+  +hidpi(1.5)
+    background-image: url(/img/marquee-pattern@2x.gif), url(/img/marquee-university.gif)
+  @media #{$media-ipad}
+    background-size: 100px 100px, auto
+    height: 430px
+    padding-top: 105px
+
+.logo
+  +hide-text
+  +retina-image(/img/logo-white-sm, 150px 165px)
+  +size(150px 165px)
+  background-position: center center
+  background-repeat: no-repeat
+  @media #{$media-ipad}
+    +retina-image(/img/logo-white, 200px 220px)
+    +size(200px 220px)
+
+.title
+  height: 90px
+  line-height: 1
+  padding-top: 26px
+  position: relative
+  text-align: center
+  background: $white
+  @media #{$media-ipad}
+    height: 150px
+    padding-top: 40px
+
+.title__header
+  @extend %text--thinner
+  +font-body(16, 30)
+  letter-spacing: 1px
+  margin-bottom: 5px
+  text-transform: uppercase
+  @media #{$media-ipad}
+    letter-spacing: 2px
+    margin-bottom: 7px
+
+.title__description
+  @extend %text--thinner
+  +font-body(16, 30)
+  font-style: italic
+
+
+// Scroll arrows  //////////////////////
+
+.scroller
+  border-radius: 30px
+  display: block
+  z-index: 30
+  @media #{$media-small}
+    +retina-image('../img/icon/scroll-sm', 30px 30px)
+    +size(30px)
+    margin-left: -15px
+  @media #{$media-ipad}
+    +retina-image('../img/icon/scroll-lg', 60px 60px)
+    +size(60px)
+    margin-left: -30px
+
+.scroller--title
+  +position(absolute, 0 0 -30px 50%)
+  @media #{$media-small}
+    +retina-image('../img/icon/scroll-arrow-white-sm', 30px 30px)
+    bottom: -15px
+  @media #{$media-ipad}
+    +retina-image('../img/icon/scroll-arrow-white-lg', 60px 60px)
+
+.scroller--slideshow
+  +position(absolute, 0 0 90px 50%)
+
+
+// Callouts  ///////////////////////////
+
+.overview
+  padding: 50px 30px
+
+.whisper
+  @extend %text--thinner
+  +font-body(18, 24)
+  font-style: italic
+  text-align: center
+
+.whisper--big
+  +font-sizes(18, 36)
+
+.callout
+  +font-header(15, 30)
+  margin-top: 40px
+  text-align: center
+  &:first-child
+    margin-top: 0
+  .whisper
+    +font-sizes(15, 30)
+    color: $orange
+    letter-spacing: 0
+    padding-bottom: 5px
+    text-transform: none
+
+.callout em
+  +font-sizes(30, 60)
+  color: $orange
+  display: block
+  font-style: normal
+  line-height: 1
+  margin-top: 5px
+  @media #{$media-ipad}
+    &.callout__huge
+      font-size: 80px
+
+.callout s
+  text-decoration: none
+  position: relative
+  &:before
+    +position(absolute, 45% -5px 0 -5px)
+    +transform(rotate(-3.7deg))
+    background-color: $orange
+    content: ""
+    height: 2px
+    opacity: .9
+    // This improves rendering on Chrome/Safari, but has the opposite effect
+    // on Mobile Safari; rely on touch detection for now.
+    .no-touch &
+      +backface-visibility(hidden)
+  @media #{$media-ipad}
+    &:before
+      height: 3px
+      left: -10px
+      right: -10px
+
+.callout--tight
+  margin-top: 0
+
+.callout--semi-tight
+  margin-top: 15px
+
+.callout--big
+  +font-sizes(24, 48)
+
+.callout--huge
+  +font-sizes(30, 80)
+
+.callout--year
+  +font-sizes(12, 18)
+  margin-top: 0
+
+.callout--small
+  +font-sizes(15, 18)
+
+
+// Things engineers do  ////////////////
+
+.callout.engineers-can
+  +font-sizes(24, 30)
+
+.engineers-can ul
+  +clearfix
+  list-style: none
+  padding: 0
+
+.engineers-can__item
+  +font-sizes(15, 18)
+  background-repeat: no-repeat
+
+@media #{$media-small}
+  .engineers-can__item
+    background-position: 20px 10px
+    border-bottom: 1px solid $grey-rule
+    height: 80px
+    padding: 20px 0 10px
+    padding-left: 120px
+    text-align: left
+    width: 270px
+    margin: 0 auto
+    &:first-child
+      border-top: 1px solid $grey-rule
+  .engineers-can__item--build
+    +retina-image('../img/icon/illy-bridge-sm', 74px 60px)
+  .engineers-can__item--cure
+    +retina-image('../img/icon/illy-cure-sm', 74px 60px)
+  .engineers-can__item--send
+    +retina-image('../img/icon/illy-space-sm', 74px 60px)
+
+@media #{$media-ipad}
+  .engineers-can__item
+    +width(1 of 3)
+    background-position: center 20px
+    border-bottom: 1px solid transparent
+    display: inline-block
+    float: left
+    margin-bottom: 30px
+    padding: 170px 40px 60px
+  .engineers-can__item--build
+    +retina-image('../img/icon/illy-bridge-lg', 160px 130px)
+  .engineers-can__item--cure
+    +retina-image('../img/icon/illy-cure-lg', 160px 130px)
+    border-color: $grey-rule
+  .engineers-can__item--send
+    +retina-image('../img/icon/illy-space-lg', 160px 130px)
+
+
+// More callouts further down...  //////
+
+// Meet NEU.
+.callout--logo
+  +hide-text
+  +retina-image(/img/logo-orange-sm, 150px 165px)
+  +size(150px 165px)
+  font: 0/0 a !important  // IE 8
+  margin: 30px auto
+  @media #{$media-ipad}
+    +retina-image(/img/logo-orange, 200px 220px)
+    +size(200px 220px)
+    margin: 60px auto
+
+// Graphical callouts, which usually appear next to text callouts.
+.callout-img
+  background-repeat: no-repeat
+  background-position: center center
+  margin-top: 40px
+
+.callout-img--america
+  +retina-image(/img/map-us-sm, 260px 103px, gif)
+  height: 103px
+  @media #{$media-ipad}
+    +retina-image(/img/map-us-lg, 680px 270px, gif)
+    height: 270px
+    margin-top: 60px
+    margin-bottom: 60px
+
+.break-the-mold
+  @extend .grid__item
+  @media #{$media-small}
+    +width(auto)
+    > .callout, > .callout-img
+      margin: 30px auto 20px
+
+@media #{$media-small}
+  .break-the-mold--right
+    margin-top: 20px
+    &:before
+      background: $grey-rule
+      content: ""
+      display: block
+      height: 1px
+      margin: 0 auto
+      width: 75px
+
+.callout-img--white-dudes, .callout-img--everyone-else
+  +size(260px 150px)
+  margin-top: 0
+.callout-img--white-dudes
+  +retina-image(/img/icons-dudes-sm, 260px 150px)
+.callout-img--everyone-else
+  +retina-image(/img/icons-others-sm, 260px 150px)
+
+@media #{$media-ipad}
+  .break-the-mold
+    +clearfix
+    +width(1 of 2)
+    position: relative
+    > .callout
+      +position(absolute, 0 0 0px 0)
+      width: 220px
+    > .callout-img
+      margin: 40px auto 80px
+  .break-the-mold--left
+    > .callout, .callout-img
+      margin-right: 20px
+      float: right
+      right: 0
+  .break-the-mold--right
+    > .callout, .callout-img
+      margin-left: 20px
+      float: left
+      left: $grid-gutter
+
+  .callout-img--white-dudes, .callout-img--everyone-else
+    +size(300px 220px)
+  .callout-img--white-dudes
+    +retina-image(/img/icons-dudes-lg, 300px 220px)
+  .callout-img--everyone-else
+    +retina-image(/img/icons-others-lg, 300px 220px)
+
+.callout-img--california
+  +position(absolute, 0px 0 0 50%)
+  +retina-image(/img/map-cali-sm, 111px 180px, gif)
+  +size(111px 180px)
+  margin-left: -110px
+  margin-top: 0
+  @media #{$media-ipad}
+    +retina-image(/img/map-cali-lg, 246px 400px, gif)
+    +size(246px 400px)
+    margin-left: -100px
+    margin-top: 20px
+
+.callout-img--california__pointer
+  +retina-image('../img/icon/pointer-sm', 30px 30px)
+  +size(30px 30px)
+  margin-top: 55px
+  margin-left: -3px
+  @media #{$media-ipad}
+    +retina-image('../img/icon/pointer-lg', 60px 60px)
+    +size(60px 60px)
+    margin-top: 130px
+
+
+// Pull quote  /////////////////////////
+
+.quote
+  @extend %text--thinner
+  @media #{$media-ipad}
+    text-align: center
+.quote__text
+  +font-sizes(30, 50)
+  +retina-image('../img/icon/quotes-sm', 30px 30px)
+  background-position: center 20px
+  background-repeat: no-repeat
+  padding-top: 60px
+  @media #{$media-ipad}
+    +retina-image('../img/icon/quotes-lg', 60px 60px)
+    background-position: center 30px
+    padding-top: 120px
+.quote__author-name
+  +font-sizes(18, 24)
+  border-top: 1px solid rgba($white, .3)
+  margin: 40px 0 10px
+  padding-top: 8px
+  text-align: center
+  text-transform: uppercase
+  @media #{$media-ipad}
+    margin: 80px 0 20px
+    padding-top: 20px
+.quote__author-title
+  +font-header(10)
+  letter-spacing: 1px
+  line-height: 1.1
+  opacity: .6
+  text-align: center
+  em
+    @extend %text--body
+    font-size: 11px
+    font-style: italic
+    letter-spacing: 0
+    line-height: 2
+    text-transform: none
+
+
+// Palo Alto  //////////////////////////
+
+.silicon-valley
+  position: relative
+  height: 30px
+  @media #{$media-ipad}
+    height: 60px
+
+.silicon-valley__arrow
+  $w: 320px
+  $h: 64px
+  +font-header(12, 18)
+  +position(absolute, 0px 0 0 50%)
+  +retina-image(/img/flag-sm, $w $h)
+  +size($w $h + 30px)
+  background-position: center bottom
+  background-repeat: no-repeat
+  color: $white
+  line-height: 1.1
+  margin-left: -($w / 2)
+  padding-top: 18px
+  z-index: 2
+  @media #{$media-ipad}
+    $w: 600px
+    $h: 120px
+    +retina-image(/img/flag-lg, $w $h)
+    +size($w $h + 60px)
+    margin-left: -($w / 2)
+    padding-top: 42px
+
+.silicon-valley__arrow__heart
+  +font-body(14, 18)
+  font-style: italic
+  letter-spacing: 0
+  padding-bottom: 5px
+  text-transform: none
+
+.palo-alto
+  height: 180px
+  overflow: hidden
+  position: relative
+  @media #{$media-ipad}
+    height: 400px
+
+.palo-alto__text
+  @extend %text--thinner
+  +font-sizes(14, 18)
+  +position(absolute, 80px 0 0 50%)
+  color: $grey-text
+  font-style: italic
+  line-height: 1.2
+  margin-left: 20px
+  max-width: 120px
+  @media #{$media-ipad}
+    margin-left: 110px
+    max-width: 240px
+    top: 160px
+
+
+// Beta program  ///////////////////////
+
+.beta-heading, .beta-outcome
+  +font-header(18, 30)
+  text-align: center
+
+.beta-subheading
+  @extend %text--thinner
+  +font-body(14, 18)
+  font-style: italic
+  text-align: center
+
+.beta-outcome
+  color: $orange
+
+.beta
+  margin: 50px auto
+  padding: 0
+  text-align: center
+  @media #{$media-ipad}
+    +retina-image(/img/funnel-arrow-m, 340px 350px, gif)
+    +size(680 350)
+    background-position: center top
+    background-repeat: no-repeat
+  @media #{$media-desk}
+    +retina-image(/img/funnel-arrow-lg, 440px 350px, gif)
+    width: 880px
+
+.beta__item
+  list-style: none
+  margin: 0
+  padding: 0
+  @media #{$media-ipad}
+    float: left
+    width: 170px
+  @media #{$media-desk}
+    width: 220px
+
+.beta__text
+  +font-header(16, 16)
+  max-width: 140px
+  margin: 0 auto
+  @media #{$media-small}
+    border-bottom: 1px solid $grey-rule
+    margin-bottom: 30px
+    padding-bottom: 30px
+    margin-top: 15px
+  @media #{$media-ipad}
+    margin-top: 20px
+
+.beta__text--last
+  @media #{$media-small}
+    border-bottom: none
+    margin-bottom: -30px
+    padding-bottom: 0
+
+
+// Meet the team  //////////////////////
+
+.team-header
+  +font-header(24, 30)
+  line-height: 1.1
+  margin: 0
+  text-align: center
+
+.team-subheader
+  +font-sizes(10, 11)
+  text-align: center
+  text-transform: uppercase
+  margin-top: 15px
+  &:before
+    background: $grey-rule
+    content: ""
+    display: block
+    height: 1px
+    margin: 0 auto 15px
+    width: 130px
+  @media #{$media-ipad}
+    margin-top: 20px
+    &:before
+      margin: 0 auto 20px
+
+$team-top-margin: 40px
+
+.team-container
+  @extend .grid
+  height: 286px + $team-top-margin
+  position: relative
+  @media #{$media-ipad}
+    height: auto
+
+.team
+  @extend .grid__item
+  +position(absolute, 0px 0px 0px 0px)
+  +transform(translate3d(0, 0, 0))  // performance on Mobile Safari
+  font-size: 18px
+  margin-top: $team-top-margin
+  text-align: center
+  @media #{$media-ipad}
+    +width(1 of 2)
+    position: static
+  @media #{$media-desk}
+    +width(1 of 3)
+
+.team__link
+  color: $black
+  text-decoration: none
+  &:hover .team__img
+    +retina-image('../img/icon/team-ring', 88px 88px)
+
+.team__img
+  +size(80px + 8px)
+  padding: 4px
+
+.team__name
+  display: inline-block
+  padding-top: 20px
+  text-transform: uppercase
+
+.team__title
+  font-style: italic
+
+.team__details
+  margin: 20px auto 0
+  max-width: 320px
+  @media #{$media-desk}
+    text-align: left
+
+.team__arrow
+  +size(23px 44px)
+  +transition(opacity ease-in 100ms)
+  opacity: 1
+  position: absolute
+  top: 60px
+  -webkit-tap-highlight-color: transparent
+  z-index: 1
+  .team-left-hide ~ &, .team-right-hide ~ &
+    +transition-duration(0)
+    opacity: 0
+  @media #{$media-ipad}
+    display: none
+
+.team__arrow--left
+  +retina-image('../img/icon/arrow-left', 23px 44px)
+  left: $grid-gutter  // account for .grid negative margin
+
+.team__arrow--right
+  +retina-image('../img/icon/arrow-right', 23px 44px)
+  right: 0
+
+// Slide transitions.
+$team-slide-distance: 300px
+$team-slide-duration: 300ms
+$team-slide-easing: $ease-in-out-quad
+
+.team-left-show
+  +animation(team-left-show $team-slide-duration $team-slide-easing)
+.team-left-hide
+  +animation(team-left-hide $team-slide-duration $team-slide-easing)
+.team-right-show
+  +animation(team-right-show $team-slide-duration $team-slide-easing)
+.team-right-hide
+  +animation(team-right-hide $team-slide-duration $team-slide-easing)
+
++keyframes(team-left-show)
+  from
+    +transform(translateX($team-slide-distance))
+  to
+    +transform(translateX(0))
++keyframes(team-left-hide)
+  from
+    +transform(translateX(0))
+    opacity: 1
+  50%
+    opacity: 0
+  to
+    +transform(translateX(-$team-slide-distance))
+    opacity: 0
++keyframes(team-right-show)
+  from
+    +transform(translateX(-$team-slide-distance))
+  to
+    +transform(translateX(0))
++keyframes(team-right-hide)
+  from
+    +transform(translateX(0))
+    opacity: 1
+  50%
+    opacity: 0
+  to
+    +transform(translateX($team-slide-distance))
+    opacity: 0
+
+
+// Join us  ////////////////////////////
+
+.join-container
+  position: relative
+
+.join-container.join-container--is-submitted
+  padding-bottom: 150px  // thanks height
+  @media #{$media-ipad}
+    padding-bottom: 300px
+
+.join-thanks
+  @extend %text--thinner
+  +position(absolute, 0 0px 0px 0px)
+  font-size: 24px
+  font-style: italic
+  height: 150px
+  line-height: 150px
+  text-align: center
+  z-index: -1
+  @media #{$media-ipad}
+    height: 300px
+    line-height: 300px
+
+.join-us
+  @extend .l-centered
+  max-width: 400px
+  text-align: center
+
+.join-us__header
+  +font-header(24, 30)
+  line-height: 1.1
+  margin: 0
+  margin-bottom: 40px
+
+.join-us
+  #{$all-text-inputs}, textarea
+    @extend %text--thinner
+    font-size: 18px
+    border: none
+    border-radius: 2px
+    color: $black
+    display: block
+    margin-top: 8px
+    padding: 8px 16px
+    width: 100%
+    +placeholder
+      color: #ccc
+  textarea
+    height: 115px
+
+.join-us__radio
+  +font-header(12)
+  border-top: 1px solid rgba($white, .3)
+  letter-spacing: 2px
+  margin-bottom: 12px
+  padding-top: 12px
+  text-align: left
+  > label
+    +retina-image('../img/icon/radio-unchecked', 14px 14px)
+    background-position: 0 0
+    background-repeat: no-repeat
+    margin-left: 15px
+    line-height: 14px
+    padding-left: 20px
+    cursor: pointer
+    &.checked
+      +retina-image('../img/icon/radio-checked', 14px 14px)
+    &:first-child
+      margin-left: 0
+    > input
+      // IE does not allow modification of form inputs with `display: none`.
+      position: absolute
+      z-index: -1
+    @media #{$media-ipad}
+      padding-left: 24px
+      margin-left: 30px
+      > input
+        margin-right: 5px
+
+.join-us .placeholder
+  @extend %text--thinner
+  font-size: 18px
+  position: relative
+  label
+    +position(absolute, 9px 0 0 16px)
+    color: #ccc
+    display: none
+.join-us .placeholder--is-visible label
+  display: block !important
+
+.join-us__error
+  +font-header(10px)
+  +retina-image('../img/icon/error-chevron', 16px 16px)
+  background-color: #ffdfd7
+  background-position: 15px 7px
+  background-repeat: no-repeat
+  border-radius: 2px
+  color: $orange
+  letter-spacing: 1px
+  margin-top: 1px
+  padding: 9px 20px 7px 41px
+  text-align: left
+
+.join-us__error--form
+  clear: both
+  margin-top: 20px
+
+.join-us__nospam
+  +font-header(10)
+  float: left
+  letter-spacing: 1px
+  line-height: 1.1
+  margin-left: 15px
+  margin-top: 14px
+  opacity: .6
+  text-align: left
+
+.join-us__buttons
+  +clearfix
+  margin-top: 5px
+
+.join-us .button
+  float: left
+
+.join-us textarea
+  resize: none
+
+
+// Animation following successful submission.
+.join-us--done
+  +animation(join-us--done 300ms ease-in-out 150ms)
+  box-shadow: inset 0 3px 4px -2px rgba($black, .4), inset 0 -3px 4px -2px rgba($black, .4)
++keyframes(join-us--done)
+  from
+    height: 550px
+  to
+    height: 0
+.join-us__poof-hide
+  +animation(join-us__poof-hide 300ms ease-in-out)
+  +transform(translateZ(0))
++keyframes(join-us__poof-hide)
+  from
+    +transform(translateZ(0) scale(1))
+    opacity: 1
+  to
+    +transform(translateZ(0) scale(.5))
+    opacity: 0
+
+
+// Share buttons  //////////////////////
+
+.share
+  margin-top: 5px
+  padding: 40px 0
+  @media #{$media-ipad}
+    padding: 80px 0
+
+.share__header
+  line-height: 1.1
+  @media #{$media-ipad}
+    margin-bottom: 20px
+
+.share__icons
+  text-align: center
+
+.share-icon
+  +hide-text
+  +size(50px)
+  display: inline-block
+  margin: 5px
+  @media #{$media-ipad}
+    +size(70px)
+    margin: 18px
+
+@mixin share-icon($type)
+  +retina-image("../img/icon/social-#{$type}-sm", 50px 50px)
+  &:hover
+    +retina-image("../img/icon/social-#{$type}-hover-sm", 50px 50px)
+  @media #{$media-ipad}
+    +retina-image("../img/icon/social-#{$type}-lg", 70px 70px)
+    &:hover
+      +retina-image("../img/icon/social-#{$type}-hover-lg", 70px 70px)
+
+.share-icon--facebook
+  +share-icon(facebook)
+.share-icon--gplus
+  +share-icon(gplus)
+.share-icon--linkedin
+  +share-icon(linkedin)
+.share-icon--twitter
+  +share-icon(twitter)
+
+
+// Slideshow  //////////////////////////
+
+.slideshow__mask
+  // Background position and default height must account for .title height.
+  background-image: url(/img/marquee-bottom.gif)
+  background-position: center 90px
+  min-height: 140px
+  @media #{$media-ipad}
+    background-position: center 150px
+    min-height: 250px
+
+.slideshow-pre
+  margin-top: 1px
+
+@media #{$media-small}
+  #slideshow
+    padding-top: 40px
+  .slideshow__slide
+    margin-bottom: 40px
+    &:last-child
+      margin-bottom: 0
+  .slideshow__slide--with-rule
+    &:before
+      background: $grey-rule
+      content: ""
+      display: block
+      height: 1px
+      margin: 0 auto 40px
+      width: 75px
+
+@media #{$media-ipad}
+  // Vertical centering.
+  .slideshow__slide
+    display: table
+    height: 600px
+    text-align: center
+    width: 100%
+    > div
+      display: table-cell
+      vertical-align: middle
+  .slideshow__slide--white
+    background: $white
+    border-bottom: 1px solid $grey-rule
+    &:last-child
+      border-width: 0 !important
+
+  // This class is only added if the slideshow is available.
+  .slideshow
+    overflow: hidden
+    position: relative
+
+    .slideshow__mask
+      +position(absolute, 0px 0px 0 0px)
+      height: 600px
+      z-index: 20
+
+    .slideshow__slide
+      +position(absolute, 0px 0px 0 0px)
+      display: block  // override table
+      height: 100%
+      margin: 0
+      overflow: hidden
+      padding: 0
+      // Vertical centering.
+      > div
+        display: block  // override table-cell
+        position: relative
+        top: 50%
+      &:first-child
+        background-color: $grey-bg
+
+    .slideshow__slide--white
+      border-left: 2px solid $grey-rule

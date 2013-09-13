@@ -1,0 +1,15 @@
+<nav>
+  <ul class="site-header__nav">
+    {% for name, url in nav_items %}
+      <li{% if current_nav == name %} class="is-selected"{% endif %}>
+        <a href="{{ url }}">
+          <hr class="site-header__nav__indicator">
+          {% if name == "Program" %}
+            <span class="site-header__nav__beta">Beta</span>
+          {% endif %}
+          {{ name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

@@ -1,0 +1,131 @@
+.rfi
+  $input-font-size: 15px
+  $input-line-height: 20px
+  $input-margin: 8px
+  $input-padding: 8px
+  $input-height: $input-line-height + 2 * $input-padding
+
+  @extend .grid
+  margin-top: 40px
+  margin-bottom: 70px
+
+  #{$all-text-inputs}, textarea
+    border: none
+    border-radius: 2px
+    color: $black
+    display: block
+    font-size: $input-font-size
+    height: $input-height  // for cross-browser conformity
+    line-height: $input-line-height
+    margin-top: $input-margin
+    padding: $input-padding $input-padding * 2
+    width: 100%
+  textarea
+    height: $input-height * 2 + $input-margin
+
+  .button
+    height: $input-height
+    line-height: $input-height
+    margin-top: $input-margin
+    padding: 0
+    width: 100px
+
+  .rfi__checkbox
+    float: left
+    font-size: 11px
+    margin-right: 20px
+    margin-top: $input-margin
+    text-transform: uppercase
+    width: 180px
+
+.rfi__error
+  @extend %gotham-bold
+  background: $orange
+  border-radius: 2px
+  color: $white
+  font-size: 11px
+  margin-top: 1px
+  padding: 8px 16px
+
+
+.rfi-complete
+  background: $blue-light
+  color: $black
+  padding: 40px 0
+.rfi-complete__heading
+  @extend %gotham-bold
+  float: left
+  font-size: $heading-font-size
+  padding-right: 40px
+  vertical-align: baseline
+.rfi-complete__text
+  float: left
+  font-size: $body-font-size
+
+
+// XXX for reference...
+
+  .join-us__radio
+    +font-header(12)
+    border-top: 1px solid rgba($white, .3)
+    letter-spacing: 2px
+    margin-bottom: 12px
+    padding-top: 12px
+    text-align: left
+    > label
+      +retina-image('../img/icon/radio-unchecked', 14px 14px)
+      background-position: 0 0
+      background-repeat: no-repeat
+      margin-left: 15px
+      line-height: 14px
+      padding-left: 20px
+      cursor: pointer
+      &.checked
+        +retina-image('../img/icon/radio-checked', 14px 14px)
+      &:first-child
+        margin-left: 0
+      > input
+        // IE does not allow modification of form inputs with `display: none`.
+        position: absolute
+        z-index: -1
+      @media #{$media-ipad}
+        padding-left: 24px
+        margin-left: 30px
+        > input
+          margin-right: 5px
+
+  .join-us .placeholder
+    @extend %text--thinner
+    font-size: 18px
+    position: relative
+    label
+      +position(absolute, 9px 0 0 16px)
+      color: #ccc
+      display: none
+  .join-us .placeholder--is-visible label
+    display: block !important
+
+  .join-us__error--form
+    clear: both
+    margin-top: 20px
+
+
+  // Animation following successful submission.
+  .join-us--done
+    +animation(join-us--done 300ms ease-in-out 150ms)
+    box-shadow: inset 0 3px 4px -2px rgba($black, .4), inset 0 -3px 4px -2px rgba($black, .4)
+  +keyframes(join-us--done)
+    from
+      height: 550px
+    to
+      height: 0
+  .join-us__poof-hide
+    +animation(join-us__poof-hide 300ms ease-in-out)
+    +transform(translateZ(0))
+  +keyframes(join-us__poof-hide)
+    from
+      +transform(translateZ(0) scale(1))
+      opacity: 1
+    to
+      +transform(translateZ(0) scale(.5))
+      opacity: 0
