@@ -62,3 +62,6 @@ describe 'controllers', ->
         $scope.submit()
         $httpBackend.flush()
         expect($scope.state.submissionFailed).toBe(true)
+
+  # TODO: test me!
+  xdescribe 'neuRfiSelect', ->

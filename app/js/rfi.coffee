@@ -31,11 +31,11 @@ angular.module('neu.rfi', [])
       $http.post('/api/...', $scope.data)
         .success (data, status, headers, config) ->
           $scope.state.submitted = true
-          alert('Submission successful')
+          console.log('Submission successful')
         .error (data, status, headers, config) ->
           $scope.state.submitting = false
           $scope.state.submissionFailed = true
-          alert("Submission failed (probably because there's no API server...)")
+          console.log("Submission failed (probably because there's no API server...)")
 
 
   .directive 'neuRfiSelect', ($timeout) ->
@@ -71,4 +71,4 @@ angular.module('neu.rfi', [])
           opt.toggleClass('is-selected', elm.val() is option.val())
           container.append(opt)
         elm.after(wrapper)
-        elm.css(display: 'none')  # XXX
+        elm.css(display: 'none')
