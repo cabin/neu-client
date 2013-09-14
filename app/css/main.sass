@@ -181,3 +181,16 @@ ol.rule-list
     +background-image(linear-gradient($orange, lighten($orange, 5%)))
   &[disabled]
     opacity: .6
+
+
+// For browsers that don't support HTML5 placeholders.
+// TODO: refactor into a site-wide forms module
+.placeholder
+  position: relative
+  > label
+    +position(absolute, 8px 0 0 16px)
+    font-size: $input-font-size
+    color: $grey-93
+    display: none
+.placeholder.is-visible label
+  display: block !important
