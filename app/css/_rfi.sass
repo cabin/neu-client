@@ -45,6 +45,10 @@ $submit-duration: 300ms
     width: 100px
 
 .rfi__checkbox
+  background-image: url(XXX)
+  background-position: left top
+  background-repeat: no-repeat
+  background-size: 20px 20px
   float: left
   font-size: 11px
   margin-right: 20px
@@ -53,8 +57,11 @@ $submit-duration: 300ms
   position: relative
   text-transform: uppercase
   width: 180px
+  &.checked
+    background-image: url(XXX)
   > input
     +position(absolute, 0px 0 0 0px)
+    //XXX z-index: -1
 
 
 $custom-select-padding: 5px
