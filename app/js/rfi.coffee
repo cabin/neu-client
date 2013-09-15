@@ -51,12 +51,18 @@ angular.module('neu.rfi', [])
       closeMenu = -> wrapper.removeClass('is-open')
       angular.element(document).bind('click', closeMenu)
 
+      # Track changes to the backing `select`.
+      elm.bind 'change', ->
+        newVal = elm.val()
+        for opt in container.children()
+          opt = angular.element(opt)
+          opt.toggleClass('is-selected', opt.data('value') is newVal)
+
+      # Open and close the popup menu; send selections to the backing `select`.
       wrapper.bind 'click', (event) ->
         event.stopPropagation()
         if wrapper.hasClass('is-open')
-          container.children().removeClass('is-selected')
           opt = angular.element(event.target)
-          opt.addClass('is-selected')
           elm.val(opt.data('value'))
           elm.triggerHandler('change')
         wrapper.toggleClass('is-open')
