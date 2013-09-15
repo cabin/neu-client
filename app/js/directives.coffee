@@ -81,20 +81,6 @@ module.directive 'neuBindShuffle', ['$timeout', ($timeout) ->
 ]
 
 
-# Provide a smooth scrolling animation to the given in-page href.
-# TODO: Revisit this implementation; pulling in 25k of TweenLite is a bit
-# excessive for some smooth scrolling.
-module.directive 'neuSmoothScroll', ['$window', ($window) ->
-  restrict: 'A'
-  link: (scope, elm, attrs) ->
-    return unless attrs.href.indexOf('#') is 0
-    id = attrs.href.slice(1)
-    elm.bind 'click', (event) ->
-      event.preventDefault()
-      scrollSmoothly(elementY($window.document.getElementById(id)))
-]
-
-
 # One-off directive for handling an in-page slideshow controlled via scrolling.
 # The idea is similar to some parallax-scrolling effects: the page's content
 # height is computed as if the slides were positioned statically, then the body

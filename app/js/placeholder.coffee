@@ -1,4 +1,4 @@
-module = angular.module('neu.placeholder', [])
+angular.module('neu.placeholder', [])
 
   # Based on Prototype's implementation; get the `id` of the given `element`,
   # generating one first if necessary.

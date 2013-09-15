@@ -1,11 +1,12 @@
 deps = [
   'ngMobile'
   'cabin.at2x'
+  'neu.scrolling'
   'neu.placeholder'
   'neu.rfi'
-  'neu.controllers'
-  'neu.directives'
-  'neu.services'
+  #'neu.controllers'
+  #'neu.directives'
+  #'neu.services'
 ]
 
 module = angular.module('neu', deps)
