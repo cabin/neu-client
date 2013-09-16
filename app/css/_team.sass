@@ -36,3 +36,71 @@
   > .heading
     text-align: center
     color: $grey-93
+
+
+
+// XXX for reference
+  .team__arrow
+    +size(23px 44px)
+    +transition(opacity ease-in 100ms)
+    opacity: 1
+    position: absolute
+    top: 60px
+    -webkit-tap-highlight-color: transparent
+    z-index: 1
+    .team-left-hide ~ &, .team-right-hide ~ &
+      +transition-duration(0)
+      opacity: 0
+    @media #{$media-ipad}
+      display: none
+
+  .team__arrow--left
+    +retina-image('../img/icon/arrow-left', 23px 44px)
+    left: $grid-gutter  // account for .grid negative margin
+
+  .team__arrow--right
+    +retina-image('../img/icon/arrow-right', 23px 44px)
+    right: 0
+
+  // Slide transitions.
+  $team-slide-distance: 300px
+  $team-slide-duration: 300ms
+  $team-slide-easing: $ease-in-out-quad
+
+  .team-left-show
+    +animation(team-left-show $team-slide-duration $team-slide-easing)
+  .team-left-hide
+    +animation(team-left-hide $team-slide-duration $team-slide-easing)
+  .team-right-show
+    +animation(team-right-show $team-slide-duration $team-slide-easing)
+  .team-right-hide
+    +animation(team-right-hide $team-slide-duration $team-slide-easing)
+
+  +keyframes(team-left-show)
+    from
+      +transform(translateX($team-slide-distance))
+    to
+      +transform(translateX(0))
+  +keyframes(team-left-hide)
+    from
+      +transform(translateX(0))
+      opacity: 1
+    50%
+      opacity: 0
+    to
+      +transform(translateX(-$team-slide-distance))
+      opacity: 0
+  +keyframes(team-right-show)
+    from
+      +transform(translateX(-$team-slide-distance))
+    to
+      +transform(translateX(0))
+  +keyframes(team-right-hide)
+    from
+      +transform(translateX(0))
+      opacity: 1
+    50%
+      opacity: 0
+    to
+      +transform(translateX($team-slide-distance))
+      opacity: 0

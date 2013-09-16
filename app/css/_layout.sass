@@ -38,32 +38,3 @@ $grid-gutter: 32px
 .l-centered
   display: block
   margin: 0 auto
-
-// Main content, centered on the page with a max width.
-.l-main
-  @extend .l-centered
-  padding-left: 25px
-  padding-right: 25px
-  max-width: 960px
-  @media #{$media-ipad}
-    padding-left: 40px
-    padding-right: 40px
-
-// Vertically-padded content blocks.
-.l-pad
-  padding-top: 60px
-  padding-bottom: 60px
-  @media #{$media-ipad}
-    padding-top: 60px
-    padding-bottom: 90px
-
-@media #{$media-ipad}
-  .l-pad--double
-    padding-top: 120px
-    padding-bottom: 160px
-
-  .l-pad--huge
-    padding: 200px 0
-
-  .l-pad--mega
-    padding: 150px 0 300px

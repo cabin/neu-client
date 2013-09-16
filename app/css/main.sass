@@ -119,18 +119,6 @@ p.rule-block__content, .rule-block__content p:first-child
   @extend %crimson
   font-style: italic
 
-// XXX
-@mixin font-sizes($small, $big: '')
-  @if unitless($small)
-    $small: $small * 1px
-  font-size: $small
-  font-size: $big  // XXX
-  //@if $big != ''
-    @media #{$media-ipad}
-      @if unitless($big)
-        $big: $big * 1px
-      font-size: $big
-
 
 ol.rule-list
   $numeral-width: 40px

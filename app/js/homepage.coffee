@@ -53,31 +53,24 @@ angular.module('neu.homepage', ['neu.scrolling'])
 
 
   # One-off directive for handling an in-page slideshow controlled via
-  # scrolling. The idea is similar to some parallax-scrolling effects: the
-  # page's content height is computed as if the slides were positioned
-  # statically, then the body is set to be at least that tall (to provide
-  # enough scrolling "room"). The slides are stacked one on top of another and
-  # an element that wraps the entire page is affixed to the top of the
-  # viewport.
+  # scrolling. The slideshow container's height is set to provide scrolling
+  # "room" for all of the contained slides. Each slide is sized to fill the
+  # viewport exactly, then all slides are stacked with the first slide on top.
   #
-  # On scroll, the wrapper element is offset upwards until the slideshow
-  # arrives at the top of the viewport. Then, scrolling produces no visible
-  # effect between slide thresholds, at which point the slide is animated off
-  # the screen. After the last slide, the wrapper picks up the offset again.
-  .directive 'neuSlideshow', ($window, $timeout, elementY) ->
+  # On scroll, if the slideshow container is visible, adjust the visible slide
+  # based on scroll progress through the container.
+  .directive 'neuSlideshow', ($window, $timeout, elementY, scrollTo) ->
     restrict: 'A'
     link: (scope, elm, attrs) ->
       # Shared variables.
       slides = angular.element(elm[0].querySelectorAll('.slideshow__slide'))
       return unless slides.length
       # HTML elements.
-      body = angular.element($window.document.body)
-      scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
-      contentWrapper = document.querySelector('.js-content-wrapper')
-      mask = angular.element(elm[0].querySelector('.slideshow__curtain'))
       siteHeader = angular.element(document.querySelector('.site-header'))
+      mask = angular.element(elm[0].querySelector('.slideshow__curtain'))
+      container = angular.element(elm[0].querySelector('.slideshow__slides'))
       # Sizes and positions.
-      pageWidth = maskHeight = scrollOffsets = slideOffsets = null
+      pageWidth = maskHeight = scrollOffsets = slideOffsets = slideScroll = null
       # Configuration.
       slideDuration = .2
       maxScrollPerSlide = 800
@@ -90,26 +83,25 @@ angular.module('neu.homepage', ['neu.scrolling'])
         if 1 < pos < slides.length + 1
           $window.scrollTo(0, scrollOffsets[pos])
         else
-          scrollSmoothly(scrollOffsets[pos])
+          scrollTo(scrollOffsets[pos], 0)
 
       scope.previousSlide = ->
         pos = currentSegment(scrollOffsets, scope.viewport.scroll)
         pos = Math.max(pos - 1, 0)
         # Safe to smooth scroll everywhere, since the slide transition point is
         # on the front side of the animation.
-        return scrollSmoothly(scrollOffsets[pos])
-
-      # Algorithm from underscore.js.
-      sortedIndex = (array, obj) ->
-        [low, high] = [0, array.length]
-        while low < high
-          mid = (low + high) >>> 1
-          if array[mid] < obj then low = mid + 1 else high = mid
-        return low
+        return scrollTo(scrollOffsets[pos], 0)
 
       # Return the index into scrollOffsets whose value is immediately previous
       # to the given value (that is, find which "chunk" y should be showing).
       currentSegment = (array, obj) ->
+        # Algorithm from underscore.js.
+        sortedIndex = (array, obj) ->
+          [low, high] = [0, array.length]
+          while low < high
+            mid = (low + high) >>> 1
+            if array[mid] < obj then low = mid + 1 else high = mid
+          return low
         # sortedIndex just ensures the array remains sorted, while we are using
         # each point in the array as a threshold and want to know in which
         # segment we belong.
@@ -124,11 +116,6 @@ angular.module('neu.homepage', ['neu.scrolling'])
         true
 
       enableSlideshow = ->
-        scrollWrapper.css
-          position: 'fixed'
-          left: '0'
-          right: '0'
-          top: '0'
         elm.addClass('slideshow')
         siteHeader.css(position: 'absolute')
         descendingStackingOrder(slides)
@@ -154,8 +141,7 @@ angular.module('neu.homepage', ['neu.scrolling'])
         removeStyle(elm)
         removeStyle(siteHeader)
         removeStyle(mask)
-        removeStyle(scrollWrapper)
-        removeStyle(body)
+        removeStyle(container)
         angular.forEach slides, (slide) ->
           slide = angular.element(slide)
           content = angular.element(slide.children()[0])
@@ -193,7 +179,9 @@ angular.module('neu.homepage', ['neu.scrolling'])
 
         # Ensure the mask reaches the bottom of the first viewport.
         maskHeight = viewportHeight - slideshowTop
-        mask.css(height: "#{maskHeight}px")
+        mask.css(height: "#{maskHeight}px") if maskHeight > 0
+        # Correct our later calculations if maskHeight is under its min-height.
+        maskHeight = Math.max(maskHeight, mask[0].clientHeight)
 
         # Enable/disable the slideshow based on the computed dimensions.
         if canShowSlides(pageWidth, viewportHeight)
@@ -203,9 +191,10 @@ angular.module('neu.homepage', ['neu.scrolling'])
           return  # nothing else to do
 
         # Fix the container and slide sizes.
-        elm.css(height: "#{viewportHeight}px")
-        slides.css(width: "#{pageWidth}px")
         slideScroll = Math.min(viewportHeight, maxScrollPerSlide)
+        slideshowHeight = slideScroll * slides.length + viewportHeight
+        elm.css(height: "#{slideshowHeight}px")
+        container.css(height: "#{viewportHeight}px")
 
         # slideOffsets records the top of each slide and the "bottom" of the
         # final slide (the point at which page scroll should be unlocked).
@@ -219,14 +208,11 @@ angular.module('neu.homepage', ['neu.scrolling'])
         slideOffsets.push(slideOffsets[slideOffsets.length - 1] + slideScroll)
         scrollOffsets.push(slideOffsets[slideOffsets.length - 1] + viewportHeight)
 
-        # Ensure the page has enough room to scroll.
-        minHeight = contentWrapper.clientHeight + slides.length * slideScroll
-        body.css(minHeight: "#{minHeight}px")
         adjustScroll()
 
       # Called on scroll.
       adjustScroll = (y) ->
-        return unless scope.slideshowEnabled  # nothing to do
+        return unless scope.slideshowEnabled and y?  # nothing to do
         currentSlide = currentSegment(slideOffsets, y)
 
         # Before the first slide.
@@ -234,6 +220,7 @@ angular.module('neu.homepage', ['neu.scrolling'])
           # Slide the mask up to reveal the first slide.
           ratio = y / slideOffsets[0]
           mask.css(top: "-#{Math.floor(ratio * maskHeight)}px")
+          container.css(position: 'absolute', top: 0)
           # Reset slides.
           slides.css(left: '0')
           angular.forEach slides, (slide) ->
@@ -242,8 +229,8 @@ angular.module('neu.homepage', ['neu.scrolling'])
 
         # Inside the slideshow.
         else if currentSlide < slides.length
-          y = slideOffsets[0]  # don't scroll the container
           mask.css(top: "-#{maskHeight}px")
+          container.css(position: 'fixed', top: 0)
           angular.forEach slides, (slide, i) ->
             return if i is slides.length - 1  # last slide doesn't animate
             offset = "#{if i >= currentSlide then 0 else pageWidth}px"
@@ -253,9 +240,8 @@ angular.module('neu.homepage', ['neu.scrolling'])
 
         # After the last slide.
         else
-          # Remove slide height from scrollWrapper's offset.
-          y -= slideOffsets[slides.length] - slideOffsets[0]
           mask.css(top: "-#{maskHeight}px")
+          container.css(position: 'absolute', top: 'auto', bottom: 0)
           # Slide off all slides.
           angular.forEach slides, (slide, i) ->
             return if i is slides.length - 1
@@ -264,15 +250,9 @@ angular.module('neu.homepage', ['neu.scrolling'])
             slide.css(left: "#{pageWidth}px")
             content.css(left: "-#{pageWidth}px")
 
-        # Scroll the page.
-        scrollWrapper.css(top: "-#{y}px")
-
       setup = ->
-        y = scope.viewport.scroll
-        $timeout((-> $window.scrollTo(0, y)), 0) if y
-
         scope.$watch(
-          '[viewport.width, viewport.height, contentChanged]',
+          '[viewport.width, viewport.height]',
           ((value) -> adjustSizes(value[0], value[1])),
           true)
         scope.$watch('viewport.scroll', adjustScroll)
@@ -337,16 +317,13 @@ angular.module('neu.homepage', ['neu.scrolling'])
         angular.element(node).replaceWith(frag)
 
       # Page elements; I feel dirty for reaching outside the directive. :/
-      scrollWrapper = angular.element(document.querySelector('.js-scroll-wrapper'))
       scrollHint = angular.element(document.getElementById('js-scroll-hint'))
 
       target = 0
       findTarget = (viewportHeight) ->
         target = elementY(elm) - (viewportHeight - 100)
 
-      checkScroll = (value) ->
-        y = Math.abs(parseInt(scrollWrapper.css('top'), 10))
-        y or= value
+      checkScroll = (y) ->
         sprinkle() if not sprinkled and y >= target
         desprinkle() if sprinkled and y <= target - 200
 

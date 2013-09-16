@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 
+{# Use page-top to avoid width constraints on `.content`. #}
 {% block top %}
 
   <div class="homepage-splash" ng-controller="SplashCtrl">
@@ -10,51 +11,48 @@
 
   <div class="slideshow-preload" neu-slideshow>
     <div class="slideshow__curtain">
-      <a class="slideshow__scroller" href="#slideshow" neu-smooth-scroll></a>
+      <a class="slideshow__scroller" href="#slideshow" ng-click="nextSlide()" neu-smooth-scroll></a>
     </div>
 
-
-
-
-
-
-    <div class="slideshow__slide slideshow__slide--white" id="slideshow">
-      <div>
-        <div class="whisper">When you see the word</div>
-        <div class="callout callout--tight callout--huge">engineering</div>
+    <div class="slideshow__slides">
+      <div class="slideshow__slide slideshow__slide--white" id="slideshow">
+        <div>
+          <div class="slideshow__whisper">When you see the word</div>
+          <div class="slideshow__callout slideshow__callout--tight slideshow__callout--huge">engineering</div>
+        </div>
       </div>
-    </div>
-    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
-      <div class="whisper">what comes to mind?</div>
-    </div>
-    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
-      <div>
-        <div class="callout callout--semi-tight">for geeks only?</div>
-        <div class="callout callout--semi-tight">too hard?</div>
-        <div class="callout callout--semi-tight"><s>creative</s>?</div>
+      <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+        <div class="slideshow__whisper">what comes to mind?</div>
       </div>
-    </div>
-    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
-      <div class="whisper">This might come as a surprise, but</div>
-    </div>
-    <div class="full-bg full-bg--black l-pad slideshow__slide">
-      <div>
-        <div class="callout callout--big">Times are changin&rsquo;</div>
-        <div class="whisper">and engineering is changing, too.</div>
+      <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+        <div>
+          <div class="slideshow__callout slideshow__callout--semi-tight">for geeks only?</div>
+          <div class="slideshow__callout slideshow__callout--semi-tight">too hard?</div>
+          <div class="slideshow__callout slideshow__callout--semi-tight"><s>creative</s>?</div>
+        </div>
       </div>
-    </div>
+      <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+        <div class="slideshow__whisper">This might come as a surprise, but</div>
+      </div>
+      <div class="slideshow__full-bg slideshow__full-bg--black slideshow__l-pad slideshow__slide">
+        <div>
+          <div class="slideshow__callout slideshow__callout--big">Times are changin&rsquo;</div>
+          <div class="slideshow__whisper">and engineering is changing, too.</div>
+        </div>
+      </div>
 
-    <a class="scroller scroller--slideshow" ng-cloak ng-if="slideshowEnabled" ng-click="nextSlide()"></a>
+      <a class="slideshow__scroller slideshow__scroller--slideshow" ng-cloak ng-if="slideshowEnabled" ng-click="nextSlide()"></a>
+    </div>
   </div>
 
-  <div class="full-bg full-bg--grey">
-    <div class="l-main l-pad l-pad--double">
-      <div class="callout engineers-can">
+  <div class="slideshow__full-bg slideshow__full-bg--grey">
+    <div class="slideshow__l-main slideshow__l-pad slideshow__l-pad--double">
+      <div class="slideshow__callout slideshow__engineers-can">
         Engineers
         <ul>
-          <li class="engineers-can__item engineers-can__item--build"><span class="wbr--big">Build</span> our <span class="wbr">bridges</span></li>
-          <li class="engineers-can__item engineers-can__item--cure"><span class="wbr--big">Cure</span> our <span class="wbr">diseases</span></li>
-          <li class="engineers-can__item engineers-can__item--send"><span class="wbr--big">Send</span> us to <span class="wbr">space</span></li>
+          <li class="slideshow__engineers-can__item slideshow__engineers-can__item--build"><span class="wbr--big">Build</span> our <span class="wbr">bridges</span></li>
+          <li class="slideshow__engineers-can__item slideshow__engineers-can__item--cure"><span class="wbr--big">Cure</span> our <span class="wbr">diseases</span></li>
+          <li class="slideshow__engineers-can__item slideshow__engineers-can__item--send"><span class="wbr--big">Send</span> us to <span class="wbr">space</span></li>
         </ul>
         <span neu-post-slides>And even<br>make it possible<br>to read this.</span>
       </div>
@@ -62,58 +60,58 @@
   </div>
 
   <!-- style is for scroll-hint containment -->
-  <div class="l-main l-pad l-pad--double" style="position: relative;">
-    <div class="drip drip--scroll-hint" id="js-scroll-hint"></div>
-    <div class="callout callout--year">Today</div>
-    <div class="callout-img callout-img--america"></div>
-    <div class="callout">
+  <div class="slideshow__l-main slideshow__l-pad slideshow__l-pad--double" style="position: relative;">
+    <div class="slideshow__drip slideshow__drip--scroll-hint" id="js-scroll-hint"></div>
+    <div class="slideshow__callout slideshow__callout--year">Today</div>
+    <div class="slideshow__callout-img slideshow__callout-img--america"></div>
+    <div class="slideshow__callout">
       <em>Millions</em>
-      <div class="whisper">of engineering jobs</div>
+      <div class="slideshow__whisper">of engineering jobs</div>
       <span class="wbr">are unfilled</span> in America alone
     </div>
   </div>
 
-  <div class="full-bg full-bg--black l-pad l-pad--mega">
-    <div class="whisper">Let&rsquo;s face it</div>
-    <div class="drip"></div>
-    <div class="callout">We need more <em class="callout__huge">engineers</em></div>
+  <div class="slideshow__full-bg slideshow__full-bg--black slideshow__l-pad slideshow__l-pad--mega">
+    <div class="slideshow__whisper">Let&rsquo;s face it</div>
+    <div class="slideshow__drip"></div>
+    <div class="slideshow__callout">We need more <em class="slideshow__callout__huge">engineers</em></div>
   </div>
 
-  <div class="l-main l-pad l-pad--huge">
-    <div class="whisper">of every</div>
-    <div class="callout callout--big callout--tight">
+  <div class="slideshow__l-main slideshow__l-pad slideshow__l-pad--huge">
+    <div class="slideshow__whisper">of every</div>
+    <div class="slideshow__callout slideshow__callout--big slideshow__callout--tight">
       size, shape <span class="wbr">&amp; color</span>
     </div>
   </div>
 
-  <div class="full-bg full-bg--grey">
-    <div class="l-main l-pad l-pad--double">
-      <div class="whisper">to break the mold:</div>
+  <div class="slideshow__full-bg slideshow__full-bg--grey">
+    <div class="slideshow__l-main slideshow__l-pad slideshow__l-pad--double">
+      <div class="slideshow__whisper">to break the mold:</div>
 
       <div class="grid">
-        <div class="break-the-mold break-the-mold--left">
-          <div class="callout callout--small">90%<br>white dudes</div>
-          <div class="callout-img callout-img--white-dudes"></div>
+        <div class="slideshow__break-the-mold slideshow__break-the-mold--left">
+          <div class="slideshow__callout slideshow__callout--small">90%<br>white dudes</div>
+          <div class="slideshow__callout-img slideshow__callout-img--white-dudes"></div>
         </div>
-        <div class="break-the-mold break-the-mold--right">
-          <div class="callout callout--small">10%<br>everyone else</div>
-          <div class="callout-img callout-img--everyone-else"></div>
+        <div class="slideshow__break-the-mold slideshow__break-the-mold--right">
+          <div class="slideshow__callout slideshow__callout--small">10%<br>everyone else</div>
+          <div class="slideshow__callout-img slideshow__callout-img--everyone-else"></div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="full-bg full-bg--orange">
-    <div class="quote l-main l-pad">
-      <div class="whisper">And re-engineer our future.</div>
-      <div class="quote__text">
+  <div class="slideshow__full-bg slideshow__full-bg--orange">
+    <div class="slideshow-quote slideshow__l-main slideshow__l-pad">
+      <div class="slideshow__whisper">And re-engineer our future.</div>
+      <div class="slideshow-quote__text">
         <span class="wbr--big">We are attempting to educate</span>
         <span class="wbr--big">21st-century engineers with a</span>
         20th-century curriculum taught in 19th-century institutions.
       </div>
-      <div class="quote__author-name">James Duderstadt</div>
-      <div class="quote__author-title">
+      <div class="slideshow-quote__author-name">James Duderstadt</div>
+      <div class="slideshow-quote__author-title">
         President Emeritus<br>
         <em>&mdash; &amp; Really Smart Guy &mdash;</em><br>
         The University of Michigan<br>
@@ -122,13 +120,8 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
-
+  <div class="slideshow__full-bg slideshow__full-bg--starfield slideshow__l-pad">
+    <div class="slideshow__callout slideshow__callout--big">Introducing</div>
+  </div>
 
 {% endblock %}
