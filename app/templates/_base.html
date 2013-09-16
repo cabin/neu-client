@@ -32,6 +32,7 @@
   <!-- XXX async? -->
   <script src="//use.typekit.net/dru8tic.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
+  <script src="/js/modernizr.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -47,8 +48,21 @@
   </header>
 
   <div class="page-top">{% block top %}{% endblock %}</div>
-  <section class="content">{% block content %}{% endblock %}</section>
 
+  <!--[if lte IE 7]>
+  <div class="old-ie">
+    <div class="old-ie__dialog">
+      <p>Your browser seems a bit outdated. We recommend upgrading to improve
+      your experience:</p>
+      <a class="button" href="http://browsehappy.com/" target="_blank">Upgrade</a>
+      <p>Can't upgrade? Bummer! Feel free to soldier on, but things might look
+      funky.</p>
+    </div>
+  </div>
+  <![endif]-->
+
+  <section class="content">{% block content %}{% endblock %}</section>
+  <div class="page-bottom">{% block bottom %}{% endblock %}</div>
   {% include "_footer.html" %}
 
   <!-- build:js /js/vendor.min.js -->
@@ -61,13 +75,13 @@
   <script src="/bower_components/greensock-js/src/uncompressed/TimelineLite.js"></script>
   <script src="/bower_components/greensock-js/src/uncompressed/plugins/CSSPlugin.js"></script>
   <script src="/bower_components/greensock-js/src/uncompressed/plugins/ScrollToPlugin.js"></script>
-  <script src="/js/modernizr.js"></script>
   <!-- endbuild -->
-  <!--[if lte IE 9]>
+  <!--[if lte IE 8]>
   <script src="ie/respond.js"></script>
   <![endif]-->
   <!-- build:js /js/neu.min.js -->
   <script src="/js/app.js"></script>
+  <script src="/js/ie.js"></script>
   <script src="/js/scrolling.js"></script>
   <script src="/js/placeholder.js"></script>
   <script src="/js/rfi.js"></script>

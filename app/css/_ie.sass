@@ -1,0 +1,20 @@
+.old-ie
+  +position(fixed, 0px 0px 0px 0px)
+  background: transparent
+  background: rgba($black, .5)
+  display: none  // revealed via JS
+  z-index: 100
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F232323,endColorstr=#7F232323)"  // IE8
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F232323,endColorstr=#7F232323)   // IE6/7
+  zoom: 1
+.old-ie__dialog
+  $old-ie-width: 500px
+  background: $white
+  border: 1px solid $black
+  color: $black
+  left: 50%
+  margin-left: -($old-ie-width / 2)
+  position: absolute
+  padding: 20px 40px
+  top: 200px
+  width: $old-ie-width
