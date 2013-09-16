@@ -78,8 +78,9 @@ $custom-select-padding: 5px
 .custom-select__indicator
   +position(absolute, $custom-select-padding $custom-select-padding $custom-select-padding 0)
   background: $orange
+  border-radius: 2px
   width: $input-height - $custom-select-padding * 2
-  z-index: 2
+  z-index: 3
   &:hover
     +background-image(linear-gradient(lighten($orange, 5%), $orange))
   &:active

@@ -1,10 +1,12 @@
 deps = [
   'ngMobile'
   'cabin.at2x'
+  'neu.ie'
   'neu.scrolling'
   'neu.placeholder'
   'neu.rfi'
   'neu.team'
+  'neu.homepage'
   #'neu.controllers'
   #'neu.directives'
   #'neu.services'

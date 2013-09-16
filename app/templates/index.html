@@ -1,0 +1,134 @@
+{% extends "_base.html" %}
+
+{% block top %}
+
+  <div class="homepage-splash" ng-controller="SplashCtrl">
+    <div class="homepage-splash__logo"></div>
+    <div class="homepage-splash__greetings">• Greetings •</div>
+    <div class="homepage-splash__shuffle" neu-bind-shuffle="current">Makers</div>
+  </div>
+
+  <div class="slideshow-preload" neu-slideshow>
+    <div class="slideshow__curtain">
+      <a class="slideshow__scroller" href="#slideshow" neu-smooth-scroll></a>
+    </div>
+
+
+
+
+
+
+    <div class="slideshow__slide slideshow__slide--white" id="slideshow">
+      <div>
+        <div class="whisper">When you see the word</div>
+        <div class="callout callout--tight callout--huge">engineering</div>
+      </div>
+    </div>
+    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+      <div class="whisper">what comes to mind?</div>
+    </div>
+    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+      <div>
+        <div class="callout callout--semi-tight">for geeks only?</div>
+        <div class="callout callout--semi-tight">too hard?</div>
+        <div class="callout callout--semi-tight"><s>creative</s>?</div>
+      </div>
+    </div>
+    <div class="slideshow__slide slideshow__slide--white slideshow__slide--with-rule">
+      <div class="whisper">This might come as a surprise, but</div>
+    </div>
+    <div class="full-bg full-bg--black l-pad slideshow__slide">
+      <div>
+        <div class="callout callout--big">Times are changin&rsquo;</div>
+        <div class="whisper">and engineering is changing, too.</div>
+      </div>
+    </div>
+
+    <a class="scroller scroller--slideshow" ng-cloak ng-if="slideshowEnabled" ng-click="nextSlide()"></a>
+  </div>
+
+  <div class="full-bg full-bg--grey">
+    <div class="l-main l-pad l-pad--double">
+      <div class="callout engineers-can">
+        Engineers
+        <ul>
+          <li class="engineers-can__item engineers-can__item--build"><span class="wbr--big">Build</span> our <span class="wbr">bridges</span></li>
+          <li class="engineers-can__item engineers-can__item--cure"><span class="wbr--big">Cure</span> our <span class="wbr">diseases</span></li>
+          <li class="engineers-can__item engineers-can__item--send"><span class="wbr--big">Send</span> us to <span class="wbr">space</span></li>
+        </ul>
+        <span neu-post-slides>And even<br>make it possible<br>to read this.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- style is for scroll-hint containment -->
+  <div class="l-main l-pad l-pad--double" style="position: relative;">
+    <div class="drip drip--scroll-hint" id="js-scroll-hint"></div>
+    <div class="callout callout--year">Today</div>
+    <div class="callout-img callout-img--america"></div>
+    <div class="callout">
+      <em>Millions</em>
+      <div class="whisper">of engineering jobs</div>
+      <span class="wbr">are unfilled</span> in America alone
+    </div>
+  </div>
+
+  <div class="full-bg full-bg--black l-pad l-pad--mega">
+    <div class="whisper">Let&rsquo;s face it</div>
+    <div class="drip"></div>
+    <div class="callout">We need more <em class="callout__huge">engineers</em></div>
+  </div>
+
+  <div class="l-main l-pad l-pad--huge">
+    <div class="whisper">of every</div>
+    <div class="callout callout--big callout--tight">
+      size, shape <span class="wbr">&amp; color</span>
+    </div>
+  </div>
+
+  <div class="full-bg full-bg--grey">
+    <div class="l-main l-pad l-pad--double">
+      <div class="whisper">to break the mold:</div>
+
+      <div class="grid">
+        <div class="break-the-mold break-the-mold--left">
+          <div class="callout callout--small">90%<br>white dudes</div>
+          <div class="callout-img callout-img--white-dudes"></div>
+        </div>
+        <div class="break-the-mold break-the-mold--right">
+          <div class="callout callout--small">10%<br>everyone else</div>
+          <div class="callout-img callout-img--everyone-else"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="full-bg full-bg--orange">
+    <div class="quote l-main l-pad">
+      <div class="whisper">And re-engineer our future.</div>
+      <div class="quote__text">
+        <span class="wbr--big">We are attempting to educate</span>
+        <span class="wbr--big">21st-century engineers with a</span>
+        20th-century curriculum taught in 19th-century institutions.
+      </div>
+      <div class="quote__author-name">James Duderstadt</div>
+      <div class="quote__author-title">
+        President Emeritus<br>
+        <em>&mdash; &amp; Really Smart Guy &mdash;</em><br>
+        The University of Michigan<br>
+      </div>
+      <!-- http://milproj.dc.umich.edu/publications/EngFlex_report/ -->
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

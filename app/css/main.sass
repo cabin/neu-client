@@ -20,6 +20,7 @@ $nav-font-size: 13px
 @import rfi
 @import ie
 @import team
+@import homepage
 
 
 .content
@@ -86,8 +87,7 @@ a
   border-top-width: 4px
 .rule-block__title
   @extend .col-s
-  @extend %gotham-bold
-  font-size: $heading-font-size
+  @extend .heading
   // TODO: is this good enough, or should we set manual breakpoints?
   padding-right: 60px
 .rule-block__content
@@ -104,18 +104,38 @@ p.rule-block__content, .rule-block__content p:first-child
 
 
 .rule-title
-  @extend %gotham-bold
+  @extend .heading
   border-top: 1px solid $grey-e3
-  font-size: $heading-font-size
   margin-top: 50px
   padding-top: 20px
 
 
+.heading
+  @extend %gotham-bold
+  font-size: $heading-font-size
+.heading--small
+  font-size: 13px
+.subheading
+  @extend %crimson
+  font-style: italic
+
+// XXX
+@mixin font-sizes($small, $big: '')
+  @if unitless($small)
+    $small: $small * 1px
+  font-size: $small
+  font-size: $big  // XXX
+  //@if $big != ''
+    @media #{$media-ipad}
+      @if unitless($big)
+        $big: $big * 1px
+      font-size: $big
+
+
 ol.rule-list
   $numeral-width: 40px
-  @extend %gotham-bold
+  @extend .heading
   counter-reset: rule-list
-  font-size: $heading-font-size
   list-style-type: none
   padding: 0
   &:first-child

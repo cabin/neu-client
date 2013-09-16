@@ -12,6 +12,7 @@ angular.module('neu.rfi', [])
       {key: 'student', value: 'Prospective student'}
       {key: 'faculty', value: 'Prospective faculty'}
       {key: 'partner', value: 'Prospective partner'}
+      {key: 'press', value: 'Press'}
       {key: 'fan', value: 'Super fan'}
     ]
     $scope.data =
