@@ -1,12 +1,12 @@
 {% extends "_base.html" %}
 
-{% block content %}
+{% block top %}
   <div class="subnav">
     <ol class="subnav__list">
       <li class="subnav__item"><a href="/about">About</a></li>
       <li class="subnav__item is-selected">Team / Partners</li>
       <li class="subnav__item"><a href="XXX">Press</a></li>
-      <li class="subnav__item"><a href="#contact">Contact</a></li>
+      <li class="subnav__item"><a href="#contact" neu-smooth-scroll>Contact</a></li>
     </ol>
   </div>
 
@@ -14,20 +14,50 @@
     <h1>Meet the game-changers</h1>
     <h2>Better yet, <a href="#contact" neu-smooth-scroll>join &lsquo;em</a>.</h2>
   </hgroup>
+{% endblock %}
 
+{% block content %}
   <div class="rule-block rule-block--thick">
     <div class="rule-block__title">Team</div>
 
     <div class="rule-block__content rule-block__content--full">
-      XXX team images, names, titles
+      <div class="team__member team__member--solo">
+        <a class="team__link" href="http://www.newhaven.edu/" target="_blank">
+          <img class="team__img" src="XXX" alt width="80" height="80">
+          <div class="heading heading--small">University of New Haven</div>
+          <div class="subheading">Educational Programs</div>
+        </a>
+      </div>
+
+      <div class="team" ng-controller="TeamCtrl"
+        ng-init="memberCount = {{ team|length }}"
+        ng-swipe-left="next()" ng-swipe-right="prev()">
+        {% for member in team %}
+          <div class="team__member"
+            ng-show="showMultiple || index == {{ loop.index }}"
+            ng-animate="animate()">
+            <a class="team__link" href="{{ member.url }}" target="_blank">
+              <img class="team__img" src="{{ member.image_thumb_url }}" alt width="80" height="80">
+              <div class="heading heading--small">{{ member.name }}</div>
+              <div class="subheading">{{ member.title }}</div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
+{% endblock %}
 
-  <div class="rule-block rule-block--thick">
-    <div class="rule-block__title">Partners</div>
+{% block bottom %}
+  <div class="partners">
+    <div class="heading">Partners</div>
 
-    <div class="rule-block__content rule-block__content--full">
-      XXX partner images, names, titles
+    <div class="grid">
+      {% for partner in partners %}
+        <a href="{{ partner.url }}" target="_blank">
+          <img src="{{ partner.image_url }}" alt="{{ partner.name }}">
+        </a>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

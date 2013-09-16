@@ -1,3 +1,70 @@
 {
-    "current_nav": "About"
+    "current_nav": "About",
+    "team": [
+        {
+            "name": "Scott Kauffman",
+            "title": "President &amp; CEO",
+            "url": "http://www.linkedin.com/in/scottkauffman",
+            "image_thumb_url": "/img/team/Scott.png"
+        },
+        {
+            "name": "Lueny Morell",
+            "title": "Provost &amp;<br>Chief Academic Officer",
+            "url": "http://www.linkedin.com/pub/lueny-morell/1/283/668",
+            "image_thumb_url": "/img/team/Lueny.png"
+        },
+        {
+            "name": "Jessica Koziupa",
+            "title": "Office Manager",
+            "url": "http://www.linkedin.com/pub/jessica-koziupa/1/433/b35/",
+            "image_thumb_url": "XXX"
+        },
+        {
+            "name": "Tracey Parry",
+            "title": "Director of Marketing",
+            "url": "http://www.linkedin.com/pub/tracey-parry/1/818/900/",
+            "image_thumb_url": "XXX"
+        },
+        {
+            "name": "Cabin",
+            "title": "Design &amp; Technology",
+            "url": "http://madebycabin.com/",
+            "image_thumb_url": "/img/team/Cabin.png"
+        },
+        {
+            "name": "OMFGCO",
+            "title": "Environmental Design",
+            "url": "http://www.omfgco.com/",
+            "image_thumb_url": "/img/team/OMFGCO.png"
+        },
+        {
+            "name": "Clairvoyant",
+            "title": "Educational Technology",
+            "url": "http://clairvoyantsoft.com/",
+            "image_thumb_url": "/img/team/Clairvoyant.png"
+        },
+        {
+            "name": "University Ventures",
+            "title": "Investment",
+            "url": "http://www.universityventuresfund.com/",
+            "image_thumb_url": "/img/team/UniversityVentures.png"
+        }
+    ],
+    "partners": [
+        {
+            "name": "Make",
+            "url": "http://makezine.com/",
+            "image_url": "XXX"
+        },
+        {
+            "name": "Codecademy",
+            "url": "http://www.codecademy.com/",
+            "image_url": "XXX"
+        },
+        {
+            "name": "See Jane",
+            "url": "http://www.seejane.org/",
+            "image_url": "XXX"
+        }
+    ]
 }
