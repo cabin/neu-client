@@ -1,0 +1,33 @@
+// Trivial grid, based on six columns.
+$gw-column: 135px
+$gw-gutter: $grid-gutter
+.grid
+  +clearfix
+  margin-left: auto
+  margin-right: auto
+  max-width: $page-width
+.grid__item
+  float: left
+  margin-right: $grid-gutter
+.col-s
+  @extend .grid__item
+  width: grid-width(2)
+.col-m
+  @extend .grid__item
+  width: grid-width(3)
+.col-l
+  @extend .grid__item
+  width: grid-width(4)
+.col-x
+  @extend .grid__item
+  width: grid-width(6)
+.omega
+  margin-right: 0
+
+// XXX TODO
+@media only screen and (max-width: 999px)
+  .grid__item
+    float: none
+    margin-right: 0
+  .omega
+    margin-right: 0

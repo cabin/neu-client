@@ -14,42 +14,19 @@ $big-body-font-size: 24px
 $heading-font-size: 17px
 $nav-font-size: 13px
 
+@import grid
 @import header
 @import footer
 @import rfi
+@import ie
+@import team
 
-
-// Trivial grid, based on six columns.
-$gw-column: 135px
-$gw-gutter: $grid-gutter
-.grid
-  +clearfix
-  margin-left: auto
-  margin-right: auto
-  max-width: $page-width
-.grid__item
-  float: left
-  margin-right: $grid-gutter
-.col-s
-  @extend .grid__item
-  width: grid-width(2)
-.col-m
-  @extend .grid__item
-  width: grid-width(3)
-.col-l
-  @extend .grid__item
-  width: grid-width(4)
-.col-x
-  @extend .grid__item
-  width: grid-width(6)
-.omega
-  margin-right: 0
-
-.page-top
-  padding-top: $header-height + $subnav-height
 
 .content
   @extend .grid
+
+a
+  text-decoration: none
 
 
 .page-title
@@ -68,7 +45,6 @@ $gw-gutter: $grid-gutter
   a
     color: $black
     position: relative
-    text-decoration: none
     // Underline is too close to the baseline; border-bottom is too far.
     // Instead, use a pseudo element which can be positioned exactly.
     &:after
@@ -76,8 +52,6 @@ $gw-gutter: $grid-gutter
       background: $black
       content: ""
       height: 1px
-.page-title__orange
-  color: $orange
 
 // Note: Contents of page-title--hero must be wrapped in a `.grid`.
 .page-title--hero
@@ -172,6 +146,7 @@ ol.rule-list
   border: none
   border-radius: 2px
   color: $white
+  display: inline-block
   height: $button-height
   line-height: $button-height
   padding: 0 20px
