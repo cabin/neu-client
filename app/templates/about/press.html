@@ -1,0 +1,35 @@
+{% extends "_base.html" %}
+
+{% block top %}
+  <div class="subnav">
+    <ol class="subnav__list">
+      <li class="subnav__item"><a href="/about">About</a></li>
+      <li class="subnav__item"><a href="/about/team">Team / Partners</a></li>
+      <li class="subnav__item is-selected">Press</li>
+      <li class="subnav__item"><a href="#contact" neu-smooth-scroll>Contact</a></li>
+    </ol>
+  </div>
+
+  <hgroup class="page-title">
+    <h1>Read all about it</h1>
+    <h2>Press inquiries? <a href="#contact" neu-smooth-scroll>Get at us.</a></h2>
+  </hgroup>
+{% endblock %}
+
+{% block content %}
+  <div class="rule-block rule-block--thick">
+    <div class="rule-block__title">
+      Press release
+      <div class="subheading">September 22, 2013</div>
+    </div>
+
+    <div class="rule-block__content">
+      <div class="heading">
+        Introducing New Engineering University&mdash;<br>
+        the future of accredited engineering education
+      </div>
+
+      <p>XXX ...</p>
+    </div>
+  </div>
+{% endblock %}
