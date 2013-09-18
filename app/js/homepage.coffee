@@ -59,7 +59,7 @@ angular.module('neu.homepage', ['neu.scrolling'])
   #
   # On scroll, if the slideshow container is visible, adjust the visible slide
   # based on scroll progress through the container.
-  .directive 'neuSlideshow', ($window, $timeout, elementY, scrollTo) ->
+  .directive 'neuSlideshow', ($window, $timeout, elementY, scrollTo, fixedHeaderHeight) ->
     restrict: 'A'
     link: (scope, elm, attrs) ->
       # Shared variables.
@@ -83,14 +83,14 @@ angular.module('neu.homepage', ['neu.scrolling'])
         if 1 < pos < slides.length + 1
           $window.scrollTo(0, scrollOffsets[pos])
         else
-          scrollTo(scrollOffsets[pos], 0)
+          scrollTo(scrollOffsets[pos])
 
       scope.previousSlide = ->
         pos = currentSegment(scrollOffsets, scope.viewport.scroll)
         pos = Math.max(pos - 1, 0)
         # Safe to smooth scroll everywhere, since the slide transition point is
         # on the front side of the animation.
-        return scrollTo(scrollOffsets[pos], 0)
+        return scrollTo(scrollOffsets[pos])
 
       # Return the index into scrollOffsets whose value is immediately previous
       # to the given value (that is, find which "chunk" y should be showing).
@@ -118,6 +118,7 @@ angular.module('neu.homepage', ['neu.scrolling'])
       enableSlideshow = ->
         elm.addClass('slideshow')
         siteHeader.css(position: 'absolute')
+        fixedHeaderHeight.set(0)
         descendingStackingOrder(slides)
         # Vertically center each slide; assumes a single child element.
         angular.forEach slides, (slide) ->

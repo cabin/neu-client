@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 
-{% block top %}
+{% block header %}
   <div class="subnav">
     <ol class="subnav__list">
       <li class="subnav__item"><a href="/about">About</a></li>
@@ -9,7 +9,9 @@
       <li class="subnav__item"><a href="#contact" neu-smooth-scroll>Contact</a></li>
     </ol>
   </div>
+{% endblock %}
 
+{% block top %}
   <hgroup class="page-title">
     <h1>Read all about it</h1>
     <h2>Press inquiries? <a href="#contact" neu-smooth-scroll>Get at us.</a></h2>

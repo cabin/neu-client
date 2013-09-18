@@ -45,9 +45,8 @@
       </hgroup>
       {% include "_nav.html" %}
     </div>
+    {% block header %}{% endblock %}
   </header>
-
-  <div class="page-top">{% block top %}{% endblock %}</div>
 
   <!--[if lte IE 8]>
   <div class="old-ie">
@@ -60,6 +59,7 @@
   </div>
   <![endif]-->
 
+  <div class="page-top">{% block top %}{% endblock %}</div>
   <section class="content">{% block content %}{% endblock %}</section>
   <div class="page-bottom">{% block bottom %}{% endblock %}</div>
   {% include "_footer.html" %}

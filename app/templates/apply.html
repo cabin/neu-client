@@ -1,13 +1,15 @@
 {% extends "_base.html" %}
 
-{% block top %}
+{% block header %}
   <div class="subnav">
     <ol class="subnav__list">
       <li class="subnav__item is-selected">Apply</li>
       <li class="subnav__item subnav__item--note">Application deadline: {{ app_deadline }}</li>
     </ol>
   </div>
+{% endblock %}
 
+{% block top %}
   <hgroup class="page-title">
     <h1>Prepare for takeoff</h1>
     <h2>One-year Master&rsquo;s in Big Data</h2>

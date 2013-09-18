@@ -1,13 +1,13 @@
 $header-z-index: 100
 
 .site-header
-  +position(fixed, 0px 0px 0 0px)
+  +position(relative, 0px 0px 0 0px)  // JS will convert to fixed
   background: $white
-  height: $header-height
   z-index: $header-z-index
 
 .site-header__container
   @extend .grid
+  height: $header-height
 
 .site-header__logo
   +retina-replace('/img/logo-NEU-wordmark', 109px 40px)
@@ -79,7 +79,6 @@ $header-z-index: 100
 
 
 .subnav
-  +position(fixed, $header-height 0px 0 0px)
   background: $black
   color: $white
   line-height: $subnav-height
@@ -111,7 +110,3 @@ $header-z-index: 100
     content: "»"
     display: inline-block
     margin-right: 10px
-
-
-.page-top
-  padding-top: $header-height + $subnav-height

@@ -7,13 +7,15 @@ angular.module('neu.scrolling', [])
     else
       -> $window.document.documentElement.scrollTop  # IE8
 
+  .factory 'fixedHeaderHeight', ->
+    fixedHeaderHeight = 0
+    get: -> fixedHeaderHeight
+    set: (val) -> fixedHeaderHeight = val
+
   # Scroll smoothly to the given y-coordinate.
-  .factory 'scrollTo', ($window, getScrollTop) ->
-    # XXX Account for the fixed header, so we don't put the scrolled-to element
-    # behind it. Perhaps just parse out the top padding on `.page-top`? For
-    # now, magic numbers!
-    (to, offset = 160) ->
-      to -= offset
+  .factory 'scrollTo', ($window, fixedHeaderHeight) ->
+    (to) ->
+      to -= fixedHeaderHeight.get()
       TweenLite.to($window, .4, scrollTo: {y: to}, ease: Power2.easeInOut)
 
   .factory 'elementY', (getScrollTop) ->
@@ -28,9 +30,7 @@ angular.module('neu.scrolling', [])
 
   # Scroll smoothly to the given element.
   .factory 'scrollToElement', (scrollTo, elementY) ->
-    (elm) ->
-      rect = elm.getBoundingClientRect()
-      scrollTo(elementY(elm))
+    (elm) -> scrollTo(elementY(elm))
 
   # Provide a smooth scrolling animation to the given in-page href.
   .directive 'neuSmoothScroll', (scrollToElement, $window) ->
@@ -41,3 +41,17 @@ angular.module('neu.scrolling', [])
       elm.bind 'click', (event) ->
         event.preventDefault()
         scrollToElement($window.document.getElementById(id))
+
+  # Set `.site-header` element to fixed position, adjusting body padding to
+  # account for its height. If there is no `.subnav` child element, add a class
+  # to provide border styling.
+  # TODO: consider moving the logic in enableSlideshow to here
+  .directive 'siteHeader', (fixedHeaderHeight) ->
+    restrict: 'C'
+    priority: 2
+    link: (scope, elm, attrs) ->
+      elm.css(position: 'fixed')
+      h = elm[0].clientHeight
+      fixedHeaderHeight.set(h)
+      angular.element(document.querySelector('.page-top')).css
+        paddingTop: "#{h}px"
