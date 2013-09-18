@@ -49,14 +49,13 @@
 
   <div class="page-top">{% block top %}{% endblock %}</div>
 
-  <!--[if lte IE 7]>
+  <!--[if lte IE 8]>
   <div class="old-ie">
-    <div class="old-ie__dialog">
-      <p>Your browser seems a bit outdated. We recommend upgrading to improve
-      your experience:</p>
+    <div class="old-ie__dialog" style="text-align: center;">
+      <p>Your browser seems a bit outdated.<br>We recommend upgrading to
+      improve your experience!</p>
       <a class="button" href="http://browsehappy.com/" target="_blank">Upgrade</a>
-      <p>Can't upgrade? Bummer! Feel free to soldier on, but things might look
-      funky.</p>
+      <p><a class="old-ie__ignore" ng-click="ignore()">No thanks</a></p>
     </div>
   </div>
   <![endif]-->

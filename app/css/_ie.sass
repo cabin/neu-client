@@ -7,14 +7,24 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F232323,endColorstr=#7F232323)"  // IE8
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F232323,endColorstr=#7F232323)   // IE6/7
   zoom: 1
+
 .old-ie__dialog
-  $old-ie-width: 500px
+  $old-ie-width: 650px
   background: $white
   border: 1px solid $black
   color: $black
   left: 50%
+  font-size: 20px
   margin-left: -($old-ie-width / 2)
   position: absolute
-  padding: 20px 40px
+  padding: 40px 40px 80px
   top: 200px
   width: $old-ie-width
+  > .button
+    font-size: 15px
+    margin: 30px 0
+
+.old-ie__ignore
+  color: $orange
+  font-style: italic
+  text-decoration: underline
