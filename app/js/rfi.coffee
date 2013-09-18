@@ -1,6 +1,6 @@
 angular.module('neu.rfi', [])
 
-  .controller 'RfiCtrl', ($scope, $http) ->
+  .controller 'RfiCtrl', ($scope, $http, $window) ->
     $scope.state =
       invalid: false     # avoid showing errors until initial submission
       submitting: false  # avoid multiple submissions
@@ -17,26 +17,25 @@ angular.module('neu.rfi', [])
     ]
     $scope.data =
       type: $scope.types[0].key
-      subscribe: true
+      subscribed: true
 
-    $scope.submit = ->
+    $scope.submit = (url) ->
       return if $scope.state.submitting
       if $scope.form.$valid
         $scope.state.submitting = true
-        postData()
+        postData(url)
       else
         $scope.state.invalid = true
 
-    postData = ->
-      # TODO
-      $http.post('/api/...', $scope.data)
+    postData = (url) ->
+      $http.post(url, $scope.data)
         .success (data, status, headers, config) ->
           $scope.state.submitted = true
-          console.log('Submission successful')
+          $window.ga('send', 'event', 'RFI', 'Submitted')
         .error (data, status, headers, config) ->
           $scope.state.submitting = false
           $scope.state.submissionFailed = true
-          console.log("Submission failed (probably because there's no API server...)")
+          $window.ga('send', 'event', 'RFI', 'Failed submission')
 
 
   .directive 'neuRfiSelect', ($timeout) ->

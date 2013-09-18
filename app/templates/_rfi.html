@@ -9,12 +9,12 @@
     </div>
   </div>
 
-  <form class="rfi" name="form" ng-submit="submit()"
+  <form class="rfi" name="form" ng-submit="submit('/api/rfi')"
     ng-hide="state.submitted" novalidate ng-animate="'rfi'">
     <div class="site-footer__subhead">Get in Touch</div>
 
     <div class="col-s">
-      <select name="type" ng-model="data.type" name="type" neu-rfi-select
+      <select name="type" ng-model="data.type" neu-rfi-select
         ng-options="type.key as type.value for type in types"></select>
 
       <input name="fname" type="text" ng-model="data.fname" placeholder="First name" required>
@@ -36,14 +36,14 @@
 
       <input name="phone" type="tel" ng-model="data.phone" placeholder="Phone">
 
-      <input type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
+      <input name="zip" type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
     </div>
 
     <div class="col-s omega">
       <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
 
-      <label class="rfi__checkbox" ng-class="{checked: data.subscribe}">
-        <input type="checkbox" name="subscribe" ng-model="data.subscribe">
+      <label class="rfi__checkbox" ng-class="{checked: data.subscribed}">
+        <input type="checkbox" name="subscribed" ng-model="data.subscribed">
         Subscribe to our fun-filled monthly newsletter
       </label>
       

@@ -27,39 +27,38 @@ describe 'controllers', ->
     describe '$scope.submit', ->
       submitValid = ->
         $scope.form.$valid = true
-        $httpBackend.expectPOST('/api/...').respond(201, '')
-        $scope.submit()
+        $httpBackend.expectPOST('/api/testing').respond(201, '')
+        $scope.submit('/api/testing')
         $httpBackend.flush()
 
       it 'should submit the form if it is valid', ->
         submitValid()
 
-      # XXX skipped for now
-      xit 'should track an event with Google Analytics', ->
+      it 'should track an event with Google Analytics', ->
         submitValid()
         expect($window.ga).toHaveBeenCalledWith(
           'send', 'event', jasmine.any(String), jasmine.any(String))
 
       it "should mark state as invalid when the form isn't valid", ->
         $scope.form.$valid = false
-        $scope.submit()
+        $scope.submit('/api/testing')
         expect($scope.state.invalid).toBe(true)
 
       it 'should not submit or track an invalid submission', ->
         $scope.form.$valid = false
-        $scope.submit()
+        $scope.submit('/api/testing')
         expect($window.ga).not.toHaveBeenCalled()
 
       it 'should prevent multiple submissions', ->
         submitValid()
         $httpBackend.resetExpectations()
-        $scope.submit()
-        $scope.submit()
+        $scope.submit('/api/testing')
+        $scope.submit('/api/testing')
 
       it 'should note a failed POST', ->
         $scope.form.$valid = true
-        $httpBackend.expectPOST('/api/...').respond(500, '')
-        $scope.submit()
+        $httpBackend.expectPOST('/api/testing').respond(500, '')
+        $scope.submit('/api/testing')
         $httpBackend.flush()
         expect($scope.state.submissionFailed).toBe(true)
 
