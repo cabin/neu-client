@@ -13,44 +13,48 @@
     ng-hide="state.submitted" novalidate ng-animate="'rfi'">
     <div class="site-footer__subhead">Get in Touch</div>
 
-    <div class="col-s">
-      <select name="type" ng-model="data.type" neu-rfi-select
-        ng-options="type.key as type.value for type in types"></select>
+    <div class="site-footer__chunk">
+      <div class="col-s">
+        <select name="type" ng-model="data.type" neu-rfi-select
+          ng-options="type.key as type.value for type in types"></select>
 
-      <input name="fname" type="text" ng-model="data.fname" placeholder="First name" required>
-      <input name="lname" type="text" ng-model="data.lname" placeholder="Last name" required>
-      <div class="rfi__error"
-        ng-show="state.invalid && !(form.fname.$valid && form.lname.$valid)">
-        But what shall we call you?
+        <input name="fname" type="text" ng-model="data.fname" placeholder="First name" required>
+        <input name="lname" type="text" ng-model="data.lname" placeholder="Last name" required>
+        <div class="rfi__error"
+          ng-show="state.invalid && !(form.fname.$valid && form.lname.$valid)">
+          But what shall we call you?
+        </div>
+      </div>
+
+      <div class="col-s">
+        <input name="email" type="email" spellcheck="false" ng-model="data.email" placeholder="Email" required>
+        <div class="rfi__error" ng-show="state.invalid && form.email.$error.required">
+          Come on, let&rsquo;s stay in touch!
+        </div>
+        <div class="rfi__error" ng-show="state.invalid && form.email.$error.email">
+          Is that really your email?
+        </div>
+
+        <input name="phone" type="tel" ng-model="data.phone" placeholder="Phone">
+
+        <input name="zip" type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
       </div>
     </div>
 
-    <div class="col-s">
-      <input name="email" type="email" spellcheck="false" ng-model="data.email" placeholder="Email" required>
-      <div class="rfi__error" ng-show="state.invalid && form.email.$error.required">
-        Come on, let&rsquo;s stay in touch!
-      </div>
-      <div class="rfi__error" ng-show="state.invalid && form.email.$error.email">
-        Is that really your email?
-      </div>
+    <div class="site-footer__chunk site-footer__chunk--right">
+      <div class="col-s omega">
+        <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
 
-      <input name="phone" type="tel" ng-model="data.phone" placeholder="Phone">
+        <label class="rfi__checkbox" ng-class="{checked: data.subscribed}">
+          <input type="checkbox" name="subscribed" ng-model="data.subscribed">
+          Subscribe to our fun-filled monthly newsletter
+        </label>
 
-      <input name="zip" type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
-    </div>
+        <button type="submit" ng-model="_" ng-disabled="state.submitting" class="button">Ship it!</button>
 
-    <div class="col-s omega">
-      <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
-
-      <label class="rfi__checkbox" ng-class="{checked: data.subscribed}">
-        <input type="checkbox" name="subscribed" ng-model="data.subscribed">
-        Subscribe to our fun-filled monthly newsletter
-      </label>
-      
-      <button type="submit" ng-model="_" ng-disabled="state.submitting" class="button">Ship it!</button>
-
-      <div class="rfi__error rfi__error--form" ng-show="state.submissionFailed">
-        Something went wrong! :-(
+        <div class="rfi__error rfi__error--form" ng-show="state.submissionFailed">
+          Something went wrong! :-(
+        </div>
       </div>
     </div>
   </form>

@@ -11,14 +11,19 @@ $gw-gutter: $grid-gutter
 // .grid-container is like .grid, but ensures that its contents don't bump up
 // against the edges of the viewport.
 $grid-padding: 30px
+$grid-padding-sm: 15px
 .grid-container
   @extend .grid
   max-width: $page-width + $grid-padding * 2
   padding: 0 $grid-padding
+  @media #{$media-sm}
+    max-width: $page-width + $grid-padding-sm * 2
+    padding: 0 $grid-padding-sm
 
-.grid__item
-  float: left
-  margin-right: $grid-gutter
+@media #{$media-lg}
+  .grid__item
+    float: left
+    margin-right: $grid-gutter
 .col-s
   @extend .grid__item
   width: grid-width(2)
@@ -34,10 +39,21 @@ $grid-padding: 30px
 .omega
   margin-right: 0
 
-// XXX TODO
-@media only screen and (max-width: 999px)
-  .grid__item
-    float: none
-    margin-right: 0
-  .omega
-    margin-right: 0
+
+// XXX
+@media #{$media-sm}
+  .site-header
+    display: none !important
+
+
+@media #{$media-sm-md}
+  .col-s, .col-m, .col-l, .col-x
+    width: auto
+  .col-s
+    max-width: grid-width(2)
+  .col-m
+    max-width: grid-width(3)
+  .col-l
+    max-width: grid-width(4)
+  .col-x
+    max-width: grid-width(6)

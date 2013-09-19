@@ -8,11 +8,31 @@ $button-height: 40px
 $grid-gutter: 30px
 $footer-margin: 100px
 
+// Media query helpers
+// less than 768: show mobile header
+// less than 690: no room for col-l
+$media-lg: 'only screen and (min-width: 1020px)'
+$media-md: 'only screen and (min-width: 768px) and (max-width: 1019px)'
+$media-sm: 'only screen and (max-width: 767px)'
+$media-sm-md: 'only screen and (max-width: 1019px)'
+
 // Typography
 $body-font-size: 18px
-$big-body-font-size: 24px
+$body-font-size-sm: 15px
 $heading-font-size: 17px
 $nav-font-size: 13px
+
+=font-size($big, $small: '')
+  @if unitless($big)
+    $big: $big * 1px
+  font-size: $big
+  @if $small != ''
+    @media #{$media-sm}
+      @if unitless($small)
+        $small: $small * 1px
+      font-size: $small
+
+
 
 @import grid
 @import header
@@ -31,15 +51,15 @@ a
 
 
 .page-title
-  @extend .grid
+  @extend .grid-container
   line-height: 1
   margin-top: 100px
   h1
     @extend %alt-gothic
-    font-size: 100px
+    +font-size(100, 60)
     margin: 0
   h2
-    font-size: 30px
+    +font-size(30, 18)
     font-style: italic
     font-weight: normal
     margin: 0
@@ -62,20 +82,26 @@ a
   padding: 55px 0 90px
   h1
     @extend .col-l
+    +font-size(150, 75)
     clear: both
     color: $white
-    font-size: 150px
     line-height: .9
+    margin: 0 $grid-padding
   h2
     @extend %gotham-bold
+    +font-size($nav-font-size, 10)
     background: $white
     color: $black
     float: left
-    font-size: $nav-font-size
     font-style: normal
     margin-bottom: 20px
-    margin-left: 6px
+    margin-left: $grid-padding + 6px
     padding: 4px 6px
+  @media #{$media-sm}
+    h1
+      margin: 0 $grid-padding-sm
+    h2
+      margin-left: $grid-padding-sm + 4px
  
 
 .rule-block
@@ -88,14 +114,15 @@ a
 .rule-block__title
   @extend .col-s
   @extend .heading
-  // TODO: is this good enough, or should we set manual breakpoints?
-  padding-right: 60px
+  margin-bottom: 20px
+  @media #{$media-sm-md}
+    width: 100% !important
 .rule-block__content
   @extend .col-l
   @extend .omega
-  font-size: $body-font-size
+  +font-size($body-font-size, $body-font-size-sm)
 .rule-block__content--big
-  font-size: $big-body-font-size
+  +font-size(24, 18)
 p.rule-block__content, .rule-block__content p:first-child
   margin: 0
 .rule-block__content--full
@@ -145,7 +172,7 @@ ol.rule-list
     padding-top: 0
   li > span
     @extend %crimson
-    font-size: $body-font-size
+    +font-size($body-font-size, $body-font-size-sm)
 
 
 .button

@@ -38,6 +38,7 @@ $submit-duration: 300ms
     resize: none
 
   .button
+    float: right
     height: $input-height
     line-height: $input-height
     margin-top: $input-margin
@@ -57,6 +58,8 @@ $submit-duration: 300ms
   position: relative
   text-transform: uppercase
   width: 180px
+  @media #{$media-sm}
+    width: 140px
   &.checked
     background-image: url(XXX)
   > input
@@ -74,6 +77,7 @@ $custom-select-padding: 5px
   height: $input-height
   margin-top: $input-margin
   position: relative
+  white-space: nowrap
 
 .custom-select__indicator
   +position(absolute, $custom-select-padding $custom-select-padding $custom-select-padding 0)
