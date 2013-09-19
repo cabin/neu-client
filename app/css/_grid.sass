@@ -1,11 +1,21 @@
 // Trivial grid, based on six columns.
 $gw-column: 135px
 $gw-gutter: $grid-gutter
+
 .grid
   +clearfix
   margin-left: auto
   margin-right: auto
   max-width: $page-width
+
+// .grid-container is like .grid, but ensures that its contents don't bump up
+// against the edges of the viewport.
+$grid-padding: 30px
+.grid-container
+  @extend .grid
+  max-width: $page-width + $grid-padding * 2
+  padding: 0 $grid-padding
+
 .grid__item
   float: left
   margin-right: $grid-gutter
