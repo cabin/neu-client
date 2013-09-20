@@ -1,6 +1,9 @@
 angular.module('neu.homepage', ['neu.scrolling'])
 
-  .controller 'SplashCtrl', ($scope, $timeout) ->
+  # Allow the partner overlay to signal the splash controller.
+  .factory('overlayComplete', ($q) -> $q.defer())
+
+  .controller 'SplashCtrl', ($scope, $timeout, overlayComplete) ->
     shuffleText = [
       'Makers'
       'Thinkers'
@@ -9,13 +12,33 @@ angular.module('neu.homepage', ['neu.scrolling'])
     ]
     delay = 2000
     index = -1
-    do cycle = ->
+    cycle = ->
       index += 1
       if index >= shuffleText.length
         return  # one pass
       $scope.current = shuffleText[index]
       $timeout(cycle, delay)
       return
+    overlayComplete.promise.then(cycle)
+
+  .controller 'PartnerOverlayCtrl', ($window, $scope, $timeout, overlayComplete) ->
+    if not $window.localStorage
+      overlayComplete.resolve()
+    key = 'lastVisit'
+    lastVisit = parseInt($window.localStorage.getItem(key) or 0, 10)
+    now = (new Date).getTime()
+    delta = now - lastVisit
+    $scope.show = delta > 1000 * 60 * 60 * 24  # one day in ms
+    $window.localStorage.setItem(key, now)
+
+    hideOverlay = ->
+      $scope.show = false
+      overlayComplete.resolve()
+
+    if $scope.show
+      $timeout(hideOverlay, 2500)
+    else
+      overlayComplete.resolve()
 
   # Display a shuffle animation when changing values; based on an idea from
   # <http://tutorialzine.com/2011/09/shuffle-letters-effect-jquery/>.

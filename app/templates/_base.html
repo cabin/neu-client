@@ -34,7 +34,7 @@
   <script>try{Typekit.load();}catch(e){}</script>
   <script src="/js/modernizr.js"></script>
 </head>
-<body>
+<body{% if homepage %} ng-cloak{% endif %}>
   <header class="site-header">
     <div class="site-header__container">
       <hgroup>

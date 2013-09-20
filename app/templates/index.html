@@ -3,6 +3,11 @@
 {# Use page-top to avoid width constraints on `.content`. #}
 {% block top %}
 
+  <div class="partner-overlay" ng-controller="PartnerOverlayCtrl"
+    ng-show="show" ng-animate="'partner-overlay'">
+    XXX partner splash here!
+  </div>
+
   <div class="homepage-splash" ng-controller="SplashCtrl">
     <div class="homepage-splash__logo"></div>
     <div class="homepage-splash__greetings">• Greetings •</div>

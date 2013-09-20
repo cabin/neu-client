@@ -3,7 +3,7 @@
 
 .homepage-splash
   background-color: $orange
-  background-image: url(/img/marquee-pattern.gif), url(/img/marquee-university.gif)
+  background-image: url(/img/marquee-pattern.gif), url(/img/home-splash.png)
   background-position: center center
   background-repeat: repeat, no-repeat
   background-size: 100px 100px, auto
@@ -12,6 +12,10 @@
   margin-bottom: 1px
   padding-top: 125px
   text-align: center
+  @media #{$media-sm}
+    background-image: url(/img/home-splash.png)
+    background-repeat: no-repeat
+    background-size: auto
 
 .homepage-splash__logo
   +size(200 145)
@@ -44,6 +48,18 @@ $media-desk: 'only screen and (min-width: 1024px)'
       @if unitless($big)
         $big: $big * 1px
       font-size: $big
+
+
+.partner-overlay
+  +position(fixed, 0px 0px 0px 0px)
+  +transition(opacity 500ms ease-in-out)
+  background-image: url(/img/universe-long.jpg)
+  background-repeat: no-repeat
+  background-size: cover
+  z-index: 300
+
+.partner-overlay-hide
+  opacity: 0
 
 
 // Phase 0 layout styles  //////////////
