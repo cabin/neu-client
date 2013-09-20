@@ -1,6 +1,6 @@
 <div ng-controller="RfiCtrl" class="rfi-container" ng-class="{'is-submitted': state.submitted}">
   <div ng-show="state.submitted" class="rfi-complete" ng-animate="'rfi-complete'">
-    <div class="grid">
+    <div class="grid-container">
       <div class="rfi-complete__heading">Bravo!</div>
       <div class="rfi-complete__text">
         We&rsquo;ll be in touch shortly.<br>
@@ -9,8 +9,12 @@
     </div>
   </div>
 
-  <form class="rfi" name="form" ng-submit="submit('/api/rfi')"
+  <form class="rfi grid-container" name="form" ng-submit="submit('/api/rfi')"
     ng-hide="state.submitted" novalidate ng-animate="'rfi'">
+    {% if makerfaire %}
+      <style>body { background-color: #2b2b2b; }</style>
+      <span ng-init="data.maker_faire = true"></span>
+    {% endif %}
     <div class="site-footer__subhead">Get in Touch</div>
 
     <div class="site-footer__chunk">
