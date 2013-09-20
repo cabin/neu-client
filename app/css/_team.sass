@@ -1,11 +1,30 @@
+// Compute the necessary window width to display $n team members. Take the
+// container width for $n members, remove 40px for the left-most member's left
+// margin, and add 30px each side for page padding.
+@function outer-width-for-n-members($n)
+  @return width-for-n-members($n) + 30px * 2 - 40px
+// Compute the necessary container width for $n team members.
+@function width-for-n-members($n)
+  @return (210px + 40px) * $n
+
 .team
-  +clearfix
   margin-left: -40px
   > hr
-    margin-left: 40px
+    background: $grey-e3
     border: none
     height: 1px
-    background: $grey-e3
+    margin-bottom: 50px
+    margin-left: 40px
+
+.team__container
+  +clearfix
+  margin: 0 auto
+  @media only screen and (max-width: #{outer-width-for-n-members(4) - 1})
+    width: width-for-n-members(3)
+  @media only screen and (max-width: #{outer-width-for-n-members(3) - 1})
+    width: width-for-n-members(2)
+  @media only screen and (max-width: #{outer-width-for-n-members(2) - 1})
+    width: width-for-n-members(1)
 
 .team__member
   float: left
@@ -22,7 +41,8 @@
   float: none
   margin-left: auto
   margin-right: auto
-  width: 320px
+  max-width: grid-width(2)
+  width: 100%
   height: auto
   margin-bottom: 50px
   margin-top: -20px
@@ -36,71 +56,3 @@
   > .heading
     text-align: center
     color: $grey-93
-
-
-
-// XXX for reference
-  .team__arrow
-    +size(23px 44px)
-    +transition(opacity ease-in 100ms)
-    opacity: 1
-    position: absolute
-    top: 60px
-    -webkit-tap-highlight-color: transparent
-    z-index: 1
-    .team-left-hide ~ &, .team-right-hide ~ &
-      +transition-duration(0)
-      opacity: 0
-    @media #{$media-ipad}
-      display: none
-
-  .team__arrow--left
-    +retina-image('../img/icon/arrow-left', 23px 44px)
-    left: $grid-gutter  // account for .grid negative margin
-
-  .team__arrow--right
-    +retina-image('../img/icon/arrow-right', 23px 44px)
-    right: 0
-
-  // Slide transitions.
-  $team-slide-distance: 300px
-  $team-slide-duration: 300ms
-  $team-slide-easing: $ease-in-out-quad
-
-  .team-left-show
-    +animation(team-left-show $team-slide-duration $team-slide-easing)
-  .team-left-hide
-    +animation(team-left-hide $team-slide-duration $team-slide-easing)
-  .team-right-show
-    +animation(team-right-show $team-slide-duration $team-slide-easing)
-  .team-right-hide
-    +animation(team-right-hide $team-slide-duration $team-slide-easing)
-
-  +keyframes(team-left-show)
-    from
-      +transform(translateX($team-slide-distance))
-    to
-      +transform(translateX(0))
-  +keyframes(team-left-hide)
-    from
-      +transform(translateX(0))
-      opacity: 1
-    50%
-      opacity: 0
-    to
-      +transform(translateX(-$team-slide-distance))
-      opacity: 0
-  +keyframes(team-right-show)
-    from
-      +transform(translateX(-$team-slide-distance))
-    to
-      +transform(translateX(0))
-  +keyframes(team-right-hide)
-    from
-      +transform(translateX(0))
-      opacity: 1
-    50%
-      opacity: 0
-    to
-      +transform(translateX($team-slide-distance))
-      opacity: 0

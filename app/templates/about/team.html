@@ -33,13 +33,11 @@
         </a>
       </div>
 
-      <div class="team" ng-controller="TeamCtrl"
-        ng-init="memberCount = {{ team|length }}"
-        ng-swipe-left="next()" ng-swipe-right="prev()">
+      <div class="team">
+        <hr>
+        <div class="team__container">
         {% for member in team %}
-          <div class="team__member"
-            ng-show="showMultiple || index == {{ loop.index }}"
-            ng-animate="animate()">
+          <div class="team__member">
             <a class="team__link" href="{{ member.url }}" target="_blank">
               <img class="team__img" src="{{ member.image_thumb_url }}" alt width="80" height="80">
               <div class="heading heading--small">{{ member.name }}</div>
@@ -47,6 +45,7 @@
             </a>
           </div>
         {% endfor %}
+        </div>
       </div>
     </div>
   </div>

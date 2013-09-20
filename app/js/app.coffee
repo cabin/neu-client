@@ -5,7 +5,6 @@ deps = [
   'neu.scrolling'
   'neu.placeholder'
   'neu.rfi'
-  'neu.team'
   'neu.homepage'
   #'neu.controllers'
   #'neu.directives'
