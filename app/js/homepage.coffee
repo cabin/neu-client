@@ -24,6 +24,7 @@ angular.module('neu.homepage', ['neu.scrolling'])
   .controller 'PartnerOverlayCtrl', ($window, $scope, $timeout, overlayComplete) ->
     if not $window.localStorage
       overlayComplete.resolve()
+      return
     key = 'lastVisit'
     lastVisit = parseInt($window.localStorage.getItem(key) or 0, 10)
     now = (new Date).getTime()

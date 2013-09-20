@@ -21,8 +21,8 @@
     background-size: auto
 
 .homepage-splash__logo
-  +size(200 145)
-  background: green
+  +retina-image(/img/symbol-white, 200px 148px)
+  +size(200 148)
   margin: 0 auto
 
 .homepage-splash__greetings
@@ -59,7 +59,17 @@ $media-desk: 'only screen and (min-width: 1024px)'
   background-image: url(/img/universe-long.jpg)
   background-repeat: no-repeat
   background-size: cover
+  color: $white
   z-index: 300
+.partner-overlay__logo
+  $w: 280px
+  $h: 438px
+  +hide-text
+  +position(absolute, 50% 0 0 50%)
+  +retina-image(/img/logo-partner, $w $h)
+  +size($w $h)
+  margin-left: -($w / 2)
+  margin-top: -($h / 2)
 
 .partner-overlay-hide
   opacity: 0
@@ -120,9 +130,10 @@ $media-desk: 'only screen and (min-width: 1024px)'
   background-size: 100%
   box-shadow: inset 0 6px 6px -2px rgba($black, .8), inset 0 -6px 6px -2px rgba($black, .4)
   @media #{$media-ipad}
-    height: 800px
-    .slideshow__callout
-      line-height: 680px
+    height: 1400px
+    .slideshow__callout:first-child
+      margin-top: 200px
+      margin-bottom: 200px
     .no-touch &
       background-attachment: fixed
       background-size: cover
@@ -131,6 +142,17 @@ $media-desk: 'only screen and (min-width: 1024px)'
   +hidpi(2)
     .no-touch &
       background-attachment: scroll
+
+.slideshow__eat-footer-margin
+  margin-bottom: -$footer-margin
+
+.slideshow__partner-logo
+  $w: 280px
+  $h: 438px
+  +hide-text
+  +retina-image(/img/logo-partner, $w $h)
+  +size($w $h)
+  margin: 0 auto
 
 // Droplet-style vertical arrow.
 .slideshow__drip
@@ -185,25 +207,16 @@ $media-desk: 'only screen and (min-width: 1024px)'
     min-height: 250px
 
 .slideshow__scroller
+  +retina-image('../img/icon/scroll-arrow-orange', 60px 60px)
+  +size(60px)
   border-radius: 30px
   display: block
+  margin-left: -30px
   z-index: 30
-  @media #{$media-small}
-    +retina-image('../img/icon/scroll-sm', 30px 30px)
-    +size(30px)
-    margin-left: -15px
-  @media #{$media-ipad}
-    +retina-image('../img/icon/scroll-lg', 60px 60px)
-    +size(60px)
-    margin-left: -30px
 
 .slideshow__curtain .slideshow__scroller
-  +position(absolute, -30px 0 0 50%)
-  @media #{$media-small}
-    +retina-image('../img/icon/scroll-arrow-white-sm', 30px 30px)
-    top: -15px
-  @media #{$media-ipad}
-    +retina-image('../img/icon/scroll-arrow-white-lg', 60px 60px)
+  +position(absolute, 90px 0 0 50%)
+  +retina-image('../img/icon/scroll-arrow-white', 60px 60px)
 
 .slideshow__scroller--slideshow
   +position(absolute, 0 0 90px 50%)

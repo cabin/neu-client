@@ -1,5 +1,5 @@
 <div ng-controller="RfiCtrl" class="rfi-container" ng-class="{'is-submitted': state.submitted}">
-  <div ng-show="state.submitted" class="rfi-complete" ng-animate="'rfi-complete'">
+  <div ng-cloak ng-show="state.submitted" class="rfi-complete" ng-animate="'rfi-complete'">
     <div class="grid-container">
       <div class="rfi-complete__heading">Bravo!</div>
       <div class="rfi-complete__text">

@@ -5,7 +5,9 @@
 
   <div class="partner-overlay" ng-controller="PartnerOverlayCtrl"
     ng-show="show" ng-animate="'partner-overlay'">
-    XXX partner splash here!
+    <div class="partner-overlay__logo">
+      NEU. A new approach to engineering at the University of New Haven.
+    </div>
   </div>
 
   <div class="homepage-splash" ng-controller="SplashCtrl">
@@ -127,6 +129,24 @@
 
   <div class="slideshow__full-bg slideshow__full-bg--starfield slideshow__l-pad">
     <div class="slideshow__callout slideshow__callout--big">Introducing</div>
+    <div class="slideshow__partner-logo">
+      NEU. A new approach to engineering at the University of New Haven.
+    </div>
+    </div>
+  </div>
+
+  <div class="slideshow__full-bg slideshow__full-bg--grey slideshow__eat-footer-margin">
+    <div class="slideshow__l-main slideshow__l-pad slideshow__l-pad--double">
+      <div class="slideshow__whisper">
+        <span class="wbr wbr--big">Out to build the most relevant, collaborative,</span>
+        <span class="wbr wbr--big">&amp; industry-connected</span>
+        <span class="wbr wbr--big">engineering university on earth.</span>
+      </div>
+      <div class="slideshow__drip"></div>
+      <div class="slideshow__whisper">
+        <a href="#contact" neu-smooth-scroll>Join us</a>
+      </div>
+    </div>
   </div>
 
 {% endblock %}
