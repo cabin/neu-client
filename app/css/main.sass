@@ -46,8 +46,25 @@ $nav-font-size: 13px
 .content
   @extend .grid-container
 
+// Don't decorate links by default, since they generally get custom styling.
+// Links in body content (i.e., children of paragraphs) get a simple underline.
 a
+  color: inherit
   text-decoration: none
+p > a
+  text-decoration: underline
+
+// For larger text, normal underline is too close to the baseline, but
+// border-bottom is too far. Instead, use a pseudo element which can be
+// positioned exactly to overlap descenders.
+%padded-underline
+  position: relative
+  text-decoration: none
+  &:after
+    +position(absolute, 0 0px 3px 0px)
+    background: $black
+    content: ""
+    height: 1px
 
 
 .page-title
@@ -64,15 +81,8 @@ a
     font-weight: normal
     margin: 0
   a
+    @extend %padded-underline
     color: $black
-    position: relative
-    // Underline is too close to the baseline; border-bottom is too far.
-    // Instead, use a pseudo element which can be positioned exactly.
-    &:after
-      +position(absolute, 0 0px 3px 0px)
-      background: $black
-      content: ""
-      height: 1px
 
 // Note: Contents of page-title--hero must be wrapped in a `.grid`.
 .page-title--hero
