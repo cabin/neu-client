@@ -25,8 +25,8 @@ module.exports = (grunt) ->
         src: ['<%= path.build %>/css/*.css']
         dest: '<%= path.build %>/css'
         options:
-          target: ['<%= path.app %>/img/icon/**/*']
-          baseDir: '<%= path.build %>'
+          target: ['<%= path.build %>/img/icon/**/*']
+          baseDir: '<%= path.build %>/css'
     coffee:
       dist:
         expand: true
