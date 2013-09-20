@@ -18,30 +18,40 @@
   @media #{$media-sm}
     background-image: url(/img/home-splash.png)
     background-repeat: no-repeat
-    background-size: auto
+    background-size: cover
+    height: 350px
+    padding-top: 50px
 
 .homepage-splash__logo
-  +retina-image(/img/symbol-white, 200px 148px)
-  +size(200 148)
+  +retina-replace(/img/symbol-white, 200px 148px)
   margin: 0 auto
+  @media #{$media-sm}
+    +size(100px 74px)
+    background-image: url(/img/symbol-white.png)
+    background-size: 100px 74px
 
 .homepage-splash__greetings
   @extend .heading
   margin-top: 50px
+  @media #{$media-sm}
+    margin-top: 30px
 
 .homepage-splash__shuffle
   @extend %alt-gothic
-  font-size: 200px
+  +font-size(200px, 70px)
   margin-top: 30px
 
 
-// XXX for the slideshow only
+// NOTE: These media queries are for the slideshow only; if the slideshow
+// sticks around, it would be worthwhile to port it over to the new
+// breakpoints.
 $media-small: 'only screen and (max-width: 767px)'
 $media-small-ipad: 'only screen and (max-width: 1023px)'
 $media-ipad: 'only screen and (min-width: 768px)'
 $media-desk: 'only screen and (min-width: 1024px)'
 
-// XXX
+// NOTE: This is similar to the global `font-size` mixin, but with big/small
+// argument order reversed and using the slideshow-only media queries.
 =font-sizes($small, $big: '')
   @if unitless($small)
     $small: $small * 1px
@@ -65,12 +75,16 @@ $media-desk: 'only screen and (min-width: 1024px)'
 .partner-overlay__logo
   $w: 280px
   $h: 438px
-  +hide-text
   +position(absolute, 50% 0 0 50%)
-  +retina-image(/img/logo-partner, $w $h)
-  +size($w $h)
+  +retina-replace(/img/logo-partner, $w $h)
   margin-left: -($w / 2)
   margin-top: -($h / 2)
+  @media #{$media-sm}
+    +size(($w / 2) ($h / 2))
+    background-image: url(/img/logo-partner.png)
+    background-size: ($w / 2) ($h / 2)
+    margin-left: -($w / 4)
+    margin-top: -($h / 4)
 
 .partner-overlay-hide
   opacity: 0
@@ -138,11 +152,9 @@ $media-desk: 'only screen and (min-width: 1024px)'
     .no-touch &
       background-attachment: fixed
       background-size: cover
-  // Chrome on retina has a bug here that I have yet to track down.
-  // background-attachment: fixed in a position: fixed container...
-  +hidpi(2)
-    .no-touch &
-      background-attachment: scroll
+  @media #{$media-sm}
+    .slideshow__callout:first-child
+      margin-bottom: 40px
 
 .slideshow__eat-footer-margin
   margin-bottom: -$footer-margin
@@ -150,10 +162,12 @@ $media-desk: 'only screen and (min-width: 1024px)'
 .slideshow__partner-logo
   $w: 280px
   $h: 438px
-  +hide-text
-  +retina-image(/img/logo-partner, $w $h)
-  +size($w $h)
+  +retina-replace(/img/logo-partner, $w $h)
   margin: 0 auto
+  @media #{$media-sm}
+    +size(($w / 2) ($h / 2))
+    background-image: url(/img/logo-partner.png)
+    background-size: ($w / 2) ($h / 2)
 
 // Droplet-style vertical arrow.
 .slideshow__drip
@@ -203,13 +217,12 @@ $media-desk: 'only screen and (min-width: 1024px)'
 .slideshow__curtain
   background-image: url(/img/marquee-bottom.gif)
   background-position: center center
-  min-height: 100px
-  @media #{$media-ipad}
-    min-height: 250px
+  min-height: 250px
+  @media #{$media-sm-md}
+    min-height: 100px
 
 .slideshow__scroller
-  +retina-image('../img/icon/scroll-arrow-orange', 60px 60px)
-  +size(60px)
+  +retina-replace('../img/icon/scroll-arrow-orange', 60px 60px)
   border-radius: 30px
   display: block
   margin-left: -30px
@@ -218,6 +231,12 @@ $media-desk: 'only screen and (min-width: 1024px)'
 .slideshow__curtain .slideshow__scroller
   +position(absolute, 90px 0 0 50%)
   +retina-image('../img/icon/scroll-arrow-white', 60px 60px)
+  @media #{$media-sm}
+    +size(30px)
+    background-image: url('../img/icon/scroll-arrow-white.png')
+    background-size: 30px 30px
+    margin-left: -15px
+    top: 20px
 
 .slideshow__scroller--slideshow
   +position(absolute, 0 0 90px 50%)

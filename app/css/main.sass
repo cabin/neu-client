@@ -71,9 +71,11 @@ p > a
   @extend .grid-container
   line-height: 1
   margin-top: 100px
+  @media #{$media-sm}
+    margin-top: 50px
   h1
     @extend %alt-gothic
-    +font-size(100, 60)
+    +font-size(100, 50)
     margin: 0
   h2
     +font-size(30, 18)
@@ -122,6 +124,8 @@ p > a
   border-top: 1px solid $black
   margin-top: 100px
   padding-top: 20px
+  @media #{$media-sm}
+    margin-top: 50px
 .rule-block--thick
   border-top-width: 4px
 .rule-block__title
