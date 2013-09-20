@@ -4,7 +4,7 @@
   <div class="subnav">
     <ol class="subnav__list">
       <li class="subnav__item is-selected">Apply</li>
-      <li class="subnav__item subnav__item--note">Application deadline: {{ app_deadline }}</li>
+      <li class="subnav__item subnav__item--note">Applications opening soon</li>
     </ol>
   </div>
 {% endblock %}
@@ -40,14 +40,19 @@
     <div class="rule-block__title">Application<br>&amp; degrees</div>
 
     <div class="rule-block__content">
-      <p>XXX image</p>
+      <div class="partners-box">
+        <div class="partners-box__neu">NEU</div>
+        <div class="partners-box__plus">+</div>
+        <a href="{{ unh_url }}" target="_blank">
+          <div class="partners-box__unh">University of New Haven</div>
+        </a>
+      </div>
 
-      <p>While NEU&rsquo;s campus is located in Silicon Valley, California,
-      your application will be approved, and your degree granted, by our
-      esteemed partner. The <a href="{{ unh_url }}" target="_blank">University
-      of New Haven</a> has nearly a century of experience as a leader in
-      experiential education. Together, we are proud to lock arms on this great
-      quest to re-engineer engineering education.</p>
+      <p>Our one-year Master&rsquo;s in Big Data program takes place on
+      NEU&rsquo;s campus in Silicon Valley, California. Your application will
+      be approved, and your degree granted, by our esteemed
+      partner, the <a href="{{ unh_url }}" target="_blank">University
+      of New Haven</a>. <a href="/about"><em>Learn more</em></a>
 
     </div>
   </div>
@@ -59,16 +64,14 @@
         <li><span>Bachelor&rsquo;s degree from a regionally accredited college
         or university</span></li>
         <li><span>Official college or university transcripts</span></li>
-        <li><span>Completed online application (<em>applications open in
-        October 2013</em>)</span></li>
-        <li><span>Three letters of recommendation from instructors or
+        <li><span>Completed online application (<em>applications opening
+        soon</em>)</span></li>
+        <li><span>Two letters of recommendation from instructors or
         practicing professionals</span></li>
         <li><span>Statement of purpose (<em>250&ndash;500 words</em>) and
         résumé</span></li>
         <li><span>Proof of English proficiency (required of applicants whose
-        primary language is not English). Nonimmigrant alien applicants are
-        required to submit documentation of sufficient financial resources to
-        attend NEU</span></li>
+        primary language is not English)</span></li>
         <li><span>Personal interview (<em>prospective students living beyond a
         1,000-mile radius of Palo Alto, California may request a Skype
         interview</em>)</span></li>
@@ -77,10 +80,10 @@
   </div>
 
   <div class="rule-block">
-    <div class="rule-block__title">Let&rsquo;s do this</div>
+    <div class="rule-block__title">Stay tuned</div>
     <div class="rule-block__content">
-      XXX apply now button
-      Have questions? <em><a href="#contact" neu-smooth-scroll>Get in touch</a>.</em>
+      <a href="#contact" neu-smooth-scroll><em>Sign up</em></a> to be notified
+      when applications open.
     </div>
   </div>
 {% endblock %}

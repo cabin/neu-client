@@ -105,7 +105,7 @@ a
       margin: 0 $grid-padding-sm
     h2
       margin-left: $grid-padding-sm + 4px
- 
+
 
 .rule-block
   @extend .grid
@@ -208,3 +208,42 @@ ol.rule-list
     display: none
 .placeholder.is-visible label
   display: block !important
+
+
+.partners-box
+  background: $tan
+.partners-box__neu
+  +retina-replace(/img/partners-neu, 59px 65px)
+.partners-box__plus
+  +retina-replace(/img/partners-plus, 29px 29px)
+.partners-box__unh
+  +retina-replace(/img/partners-unh, 230px 25px)
+@media only screen and (min-width: 511px)
+  .partners-box
+    +size(100% 150px)
+    position: relative
+  .partners-box__neu
+    +position(absolute, 50% 0 0 19%)
+    margin-left: -(59px / 2)
+    margin-top: -(65px / 2)
+  .partners-box__plus
+    +position(absolute, 50% 0 0 37%)
+    margin-left: -(29px / 2)
+    margin-top: -(29px / 2)
+  .partners-box__unh
+    +position(absolute, 50% 0 0 68%)
+    margin-left: -(230px / 2)
+    margin-top: -(25px / 2)
+@media only screen and (max-width: 510px)
+  .partners-box
+    padding: 10px
+  .partners-box__neu,
+  .partners-box__plus,
+  .partners-box__unh
+    margin: 30px auto
+
+
+// On the about page. TODO: Abstract this into something reusable?
+.just-about-everything
+  +retina-replace(/img/just-about-everything, 210px 65px)
+  margin: 35px auto 50px
