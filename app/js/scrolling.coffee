@@ -46,6 +46,7 @@ angular.module('neu.scrolling', [])
   # account for its height. If there is no `.subnav` child element, add a class
   # to provide border styling.
   # TODO: consider moving the logic in enableSlideshow to here
+  # XXX adjust fixedHeaderHeight (and page-top padding) on resize
   .directive 'siteHeader', (fixedHeaderHeight) ->
     restrict: 'C'
     priority: 2
