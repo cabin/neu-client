@@ -5,49 +5,57 @@
             "name": "Scott Kauffman",
             "title": "President &amp; CEO",
             "url": "http://www.linkedin.com/in/scottkauffman",
-            "image_thumb_url": "/img/team/Scott.png"
+            "image_thumb_url": "/img/team/Scott.png",
+            "image_thumb_url_2x": "/img/team/Scott@2x.png"
         },
         {
             "name": "Lueny Morell",
             "title": "Provost &amp;<br>Chief Academic Officer",
             "url": "http://www.linkedin.com/pub/lueny-morell/1/283/668",
-            "image_thumb_url": "/img/team/Lueny.png"
+            "image_thumb_url": "/img/team/Lueny.png",
+            "image_thumb_url_2x": "/img/team/Lueny@2x.png"
         },
         {
             "name": "Jessica Koziupa",
             "title": "Operations Manager",
             "url": "http://www.linkedin.com/pub/jessica-koziupa/1/433/b35/",
-            "image_thumb_url": "XXX"
+            "image_thumb_url": "/img/team/Jessica.png",
+            "image_thumb_url_2x": "/img/team/Jessica@2x.png"
         },
         {
             "name": "Tracey Parry",
             "title": "Director of Marketing",
             "url": "http://www.linkedin.com/pub/tracey-parry/1/818/900/",
-            "image_thumb_url": "XXX"
+            "image_thumb_url": "/img/team/Tracey.png",
+            "image_thumb_url_2x": "/img/team/Tracey@2x.png"
         },
         {
             "name": "Cabin",
             "title": "Design &amp; Technology",
             "url": "http://madebycabin.com/",
-            "image_thumb_url": "/img/team/Cabin.png"
+            "image_thumb_url": "/img/team/Cabin.png",
+            "image_thumb_url_2x": "/img/team/Cabin@2x.png"
         },
         {
             "name": "OMFGCO",
             "title": "Environmental Design",
             "url": "http://www.omfgco.com/",
-            "image_thumb_url": "/img/team/OMFGCO.png"
+            "image_thumb_url": "/img/team/OMFGCO.png",
+            "image_thumb_url_2x": "/img/team/OMFGCO@2x.png"
         },
         {
             "name": "Clairvoyant",
             "title": "Educational Technology",
             "url": "http://clairvoyantsoft.com/",
-            "image_thumb_url": "/img/team/Clairvoyant.png"
+            "image_thumb_url": "/img/team/Clairvoyant.png",
+            "image_thumb_url_2x": "/img/team/Clairvoyant@2x.png"
         },
         {
             "name": "University Ventures",
             "title": "Investment",
             "url": "http://www.universityventuresfund.com/",
-            "image_thumb_url": "/img/team/UniversityVentures.png"
+            "image_thumb_url": "/img/team/UniversityVentures.png",
+            "image_thumb_url_2x": "/img/team/UniversityVentures@2x.png"
         }
     ],
     "partners": [

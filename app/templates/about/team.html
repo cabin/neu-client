@@ -27,7 +27,8 @@
     <div class="rule-block__content rule-block__content--full">
       <div class="team__member team__member--solo">
         <a class="team__link" href="{{ unh_url }}" target="_blank">
-          <img class="team__img" src="XXX" alt width="80" height="80">
+          <img class="team__img" src="/img/team/UNH.png" alt
+            width="80" height="80" cb-at2x="/img/team/UNH@2x.png">
           <div class="heading heading--small">University of New Haven</div>
           <div class="subheading">Educational Programs</div>
         </a>
@@ -39,7 +40,8 @@
         {% for member in team %}
           <div class="team__member">
             <a class="team__link" href="{{ member.url }}" target="_blank">
-              <img class="team__img" src="{{ member.image_thumb_url }}" alt width="80" height="80">
+              <img class="team__img" src="{{ member.image_thumb_url }}" alt
+                width="80" height="80" cb-at2x="{{ member.image_thumb_url_2x }}">
               <div class="heading heading--small">{{ member.name }}</div>
               <div class="subheading">{{ member.title }}</div>
             </a>
