@@ -1,4 +1,4 @@
-angular.module('neu.homepage', ['neu.scrolling'])
+angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
 
   # Allow the partner overlay to signal the splash controller.
   .factory('overlayComplete', ($q) -> $q.defer())
@@ -21,7 +21,7 @@ angular.module('neu.homepage', ['neu.scrolling'])
       return
     overlayComplete.promise.then(cycle)
 
-  .controller 'PartnerOverlayCtrl', ($window, $scope, $timeout, overlayComplete) ->
+  .controller 'PartnerOverlayCtrl', ($window, $scope, $timeout, overlayComplete, preload) ->
     if not $window.localStorage
       overlayComplete.resolve()
       return
@@ -37,7 +37,9 @@ angular.module('neu.homepage', ['neu.scrolling'])
       overlayComplete.resolve()
 
     if $scope.show
-      $timeout(hideOverlay, 2500)
+      # Wait for the background image to load before snatching it away.
+      f = -> $timeout(hideOverlay, 2500)
+      preload('/img/universe-long.jpg').then(f, f)
     else
       overlayComplete.resolve()
 
