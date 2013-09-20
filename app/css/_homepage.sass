@@ -2,16 +2,19 @@
 // in a hurry, and could use a stylistic refactor.
 
 .homepage-splash
+  $dots-size: 100px
   background-color: $orange
   background-image: url(/img/marquee-pattern.gif), url(/img/home-splash.png)
   background-position: center center
   background-repeat: repeat, no-repeat
-  background-size: 100px 100px, auto
+  background-size: $dots-size $dots-size, auto
   color: $white
   height: 830px
   margin-bottom: 1px
   padding-top: 125px
   text-align: center
+  +hidpi(2)
+    background-size: ($dots-size / 2) ($dots-size / 2), auto
   @media #{$media-sm}
     background-image: url(/img/home-splash.png)
     background-repeat: no-repeat
