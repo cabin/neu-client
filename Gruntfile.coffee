@@ -61,14 +61,18 @@ module.exports = (grunt) ->
           {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.build %>'}
           {expand: true, cwd: 'app', src: 'img/**', dest: '<%= path.build %>'}
           {expand: true, cwd: 'app', src: 'ie/**', dest: '<%= path.build %>'}
-          {'<%= path.build %>/index.html': '<%= path.app %>/index.html'}
         ]
       dist:
         files: [
           {expand: true, cwd: 'app', src: 'css/fonts/**', dest: '<%= path.dist %>'}
           {expand: true, cwd: 'app', src: 'img/**', dest: '<%= path.dist %>'}
           {expand: true, cwd: 'app', src: 'ie/**', dest: '<%= path.dist %>'}
-          '<%= path.dist %>/index.html': 'app/index.html'
+          {
+            expand: true
+            cwd: '<%= path.build %>'
+            src: ['**/*.html', '!<%= path.components %>/**']
+            dest: '<%= path.dist %>'
+          }
         ]
     rev:
       src: [
@@ -83,16 +87,20 @@ module.exports = (grunt) ->
       ]
     ngmin:
       dist:
+        '<%= path.dist %>/js/vendor.min.js': '<%= path.dist %>/js/vendor.min.js'
         '<%= path.dist %>/js/neu.min.js': '<%= path.dist %>/js/neu.min.js'
     useminPrepare:
-      html: '<%= path.build %>/index.html'
+      html: ['<%= path.build %>/**/*.html', '!<%= path.build %>/<%= path.components %>/**']
       options:
         dest: '<%= path.dist %>'
     usemin:
-      html: ['<%= path.dist %>/index.html']
+      html: ['<%= path.dist %>/**/*.html']
       css: ['<%= path.dist %>/css/*.css']
       options:
         dirs: ['<%= path.dist %>']
+    uglify:
+      dist:
+        '<%= path.dist %>/js/modernizr.js': '<%= path.build %>/js/modernizr.js'
 
     connect:
       server:
@@ -148,8 +156,9 @@ module.exports = (grunt) ->
     'concat'
     'cssmin'
     'ngmin'
-    'uglify'
-    'rev'
+    #'uglify'  # XXX come back to this; ngmin is failing
+    # TODO: Figure out how to enable this without messing up JS.
+    #'rev'
     'usemin'
   ])
   grunt.registerTask('dev', ['build', 'connect', 'karma:unit', 'watch'])
