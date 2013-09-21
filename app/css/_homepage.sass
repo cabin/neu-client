@@ -1,6 +1,8 @@
 // NOTE: Here there be dragons. This was cobbled together from the Phase 0 site
 // in a hurry, and could use a stylistic refactor.
 
+$media-splash-mid-height: 'only screen and (max-height: 900px)'
+
 .homepage-splash
   $dots-size: 100px
   background-color: $orange
@@ -15,6 +17,9 @@
   text-align: center
   +hidpi(2)
     background-size: ($dots-size / 2) ($dots-size / 2), auto
+  @media #{$media-splash-mid-height}
+    height: 580px
+    padding-top: 100px
   @media #{$media-sm}
     background-image: url(/img/home-splash.png)
     background-repeat: no-repeat
@@ -38,8 +43,11 @@
 
 .homepage-splash__shuffle
   @extend %alt-gothic
-  +font-size(200px, 70px)
   margin-top: 30px
+  // Before +font-size() to allow the mobile size to win when appropriate.
+  @media #{$media-splash-mid-height}
+    font-size: 160px
+  +font-size(200px, 70px)
 
 
 // NOTE: These media queries are for the slideshow only; if the slideshow
@@ -237,6 +245,8 @@ $media-desk: 'only screen and (min-width: 1024px)'
 .slideshow__curtain .slideshow__scroller
   +position(absolute, 90px 0 0 50%)
   +retina-image('../img/icon/scroll-arrow-white', 60px 60px)
+  @media #{$media-splash-mid-height}
+    top: 30px
   @media #{$media-sm}
     +size(30px)
     background-image: url('../img/icon/scroll-arrow-white.png')
