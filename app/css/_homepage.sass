@@ -71,7 +71,10 @@ $media-desk: 'only screen and (min-width: 1024px)'
   background-repeat: no-repeat
   background-size: cover
   color: $white
+  display: none
   z-index: 300
+.partner-overlay--visible
+  display: block
 .partner-overlay__logo
   $w: 280px
   $h: 438px
@@ -88,6 +91,7 @@ $media-desk: 'only screen and (min-width: 1024px)'
 
 .partner-overlay-hide
   opacity: 1
+  display: block
 .partner-overlay-hide.partner-overlay-hide-active
   opacity: 0
 
