@@ -1,11 +1,12 @@
-<nav>
-  <ul class="site-header__nav">
+<nav class="site-header__nav" ng-cloak neu-mobile-nav>
+  <a class="site-header__nav__toggle" ng-show="isMobile" ng-click="toggleMenu()"></a>
+  <ul class="nav-list" ng-class="{'nav-list--mobile': isMobile}" ng-show="menuOpen">
     {% for name, url in nav_items %}
       <li{% if current_nav == name %} class="is-selected"{% endif %}>
         <a href="{{ url }}">
-          <hr class="site-header__nav__indicator">
+          <hr class="nav-list__indicator">
           {% if name == "Program" %}
-            <span class="site-header__nav__beta">Beta</span>
+            <span class="nav-list__beta">Beta</span>
           {% endif %}
           {{ name }}
         </a>

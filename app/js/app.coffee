@@ -1,6 +1,7 @@
 deps = [
   'ngMobile'
   'cabin.at2x'
+  'neu.nav'
   'neu.ie'
   'neu.scrolling'
   'neu.placeholder'
