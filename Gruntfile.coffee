@@ -26,7 +26,6 @@ module.exports = (grunt) ->
         dest: '<%= path.build %>/css'
         options:
           target: ['<%= path.build %>/img/icon/**/*']
-          baseDir: '<%= path.build %>/css'
     coffee:
       dist:
         expand: true
@@ -140,12 +139,12 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks(dep)
 
   grunt.registerTask('build', [
+    'copy:build'
     'jinja'
     'sass'
     'dataUri'
     'coffee'
     'modernizr'
-    'copy:build'
   ])
   grunt.registerTask('test', ['build', 'karma:unitSingle'])
   grunt.registerTask('dist', [
