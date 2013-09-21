@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "dependencies": {
     "cabin-utils": "git@github.com:cabin/utils.git#0.0.3",
-    "neu-style": "../style",
+    "neu-style": "git@github.com:cabin/neu-style.git",
     "greensock-js": "1.10.2"
   }
 }
