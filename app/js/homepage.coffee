@@ -30,7 +30,6 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
     now = (new Date).getTime()
     delta = now - lastVisit
     $scope.show = delta > 1000 * 60 * 60 * 24  # one day in ms
-    console.log 'delta', delta, $scope.show
     $window.localStorage.setItem(key, now)
 
     hideOverlay = ->
@@ -39,11 +38,9 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
 
     if $scope.show
       # Wait for the background image to load before snatching it away.
-      console.log 'waiting'
       f = -> $timeout(hideOverlay, 2500)
       preload('/img/universe-long.jpg').then(f, f)
     else
-      console.log 'resolving immediately'
       overlayComplete.resolve()
 
   # Display a shuffle animation when changing values; based on an idea from
