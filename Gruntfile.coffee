@@ -76,13 +76,14 @@ module.exports = (grunt) ->
     rev:
       src: [
         '<%= path.dist %>/**/*.{css,js}'
-        '<%= path.dist %>/img/*.{gif,jpg,jpeg,png}'
-        '<%= path.dist %>/img/team/*.{gif,jpg,jpeg,png}'
-        # TODO: This is to work around the at2x directive not knowing how to
-        # find revved image filenames; may be a better way?
-        '!<%= path.dist %>/img/**/*@2x.*'
-        # Don't rename the Facebook image.
-        '!<%= path.dist %>/img/mark-1500.png'
+        # TODO: find a way to do this without breaking JS-referenced URLs
+        #'<%= path.dist %>/img/*.{gif,jpg,jpeg,png}'
+        #'<%= path.dist %>/img/team/*.{gif,jpg,jpeg,png}'
+        ## TODO: This is to work around the at2x directive not knowing how to
+        ## find revved image filenames; may be a better way?
+        #'!<%= path.dist %>/img/**/*@2x.*'
+        ## Don't rename the Facebook image.
+        #'!<%= path.dist %>/img/mark-1500.png'
       ]
     ngmin:
       dist:
@@ -156,8 +157,7 @@ module.exports = (grunt) ->
     'cssmin'
     'ngmin'
     #'uglify'  # XXX come back to this; ngmin is failing
-    # TODO: Figure out how to enable this without messing up JS.
-    #'rev'
+    'rev'
     'usemin'
   ])
   grunt.registerTask('dev', ['build', 'connect', 'karma:unit', 'watch'])
