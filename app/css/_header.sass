@@ -78,6 +78,8 @@ $header-z-index: 100
     color: black
     padding: 10px
     text-decoration: none
+  @media #{$media-sm}
+    display: none
 
 .nav-list__beta
   +position(absolute, 31px 0 0 10px)
@@ -122,6 +124,8 @@ $header-z-index: 100
     padding-top: 10px
 
 @media #{$media-sm}
+  .nav-list.nav-list--mobile
+    display: block
   .nav-list__beta,
   .nav-list__indicator
     display: none !important
