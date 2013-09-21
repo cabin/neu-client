@@ -19,7 +19,9 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
       $scope.current = shuffleText[index]
       $timeout(cycle, delay)
       return
-    overlayComplete.promise.then(cycle)
+    #XXX when we re-enable the overlay...
+    #overlayComplete.promise.then(cycle)
+    cycle()
 
   .controller 'PartnerOverlayCtrl', ($window, $scope, $timeout, overlayComplete, preload) ->
     if not $window.localStorage
