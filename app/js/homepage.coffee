@@ -169,6 +169,7 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
         removeStyle(siteHeader)
         removeStyle(mask)
         removeStyle(container)
+        fixedHeaderHeight.reset()
         angular.forEach slides, (slide) ->
           slide = angular.element(slide)
           content = angular.element(slide.children()[0])

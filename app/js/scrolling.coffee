@@ -9,8 +9,13 @@ angular.module('neu.scrolling', [])
 
   .factory 'fixedHeaderHeight', ->
     fixedHeaderHeight = 0
+    subscribers = []
     get: -> fixedHeaderHeight
     set: (val) -> fixedHeaderHeight = val
+    subscribe: (callback) ->
+      subscribers.push(callback)
+    reset: ->
+      callback() for callback in subscribers
 
   # Scroll smoothly to the given y-coordinate.
   .factory 'scrollTo', ($window, fixedHeaderHeight) ->
@@ -51,8 +56,10 @@ angular.module('neu.scrolling', [])
     restrict: 'C'
     priority: 2
     link: (scope, elm, attrs) ->
-      elm.css(position: 'fixed')
-      h = elm[0].clientHeight
-      fixedHeaderHeight.set(h)
-      angular.element(document.querySelector('.page-top')).css
-        paddingTop: "#{h}px"
+      do adjust = ->
+        elm.css(position: 'fixed')
+        h = elm[0].clientHeight
+        fixedHeaderHeight.set(h)
+        angular.element(document.querySelector('.page-top')).css
+          paddingTop: "#{h}px"
+      fixedHeaderHeight.subscribe(adjust)
