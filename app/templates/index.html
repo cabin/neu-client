@@ -3,6 +3,7 @@
 {# Use page-top to avoid width constraints on `.content`. #}
 {% block top %}
 
+  {# TODO: fix partner overlay
   <div class="partner-overlay" ng-controller="PartnerOverlayCtrl"
     ng-class="{'partner-overlay--visible': show}"
     ng-show="show" ng-animate="'partner-overlay'">
@@ -10,6 +11,7 @@
       NEU. A new approach to engineering at the University of New Haven.
     </div>
   </div>
+  #}
 
   <div class="homepage-splash" ng-controller="SplashCtrl">
     <div class="homepage-splash__logo"></div>
