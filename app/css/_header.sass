@@ -58,8 +58,10 @@ $header-z-index: 100
 
 .site-header__nav__toggle
   +retina-replace('../img/icon/hamburger', 20px 14px)
-  display: block
+  display: none
   margin: 18px 0
+  @media #{$media-sm}
+    display: block
 
 .nav-list
   @extend %gotham-bold
