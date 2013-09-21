@@ -39,15 +39,18 @@ $media-splash-mid-height: 'only screen and (max-height: 1025px)'
   @extend .heading
   margin-top: 50px
   @media #{$media-sm}
-    margin-top: 30px
+    margin-top: 20px
 
 .homepage-splash__shuffle
   @extend %alt-gothic
   margin-top: 30px
   // Before +font-size() to allow the mobile size to win when appropriate.
   @media #{$media-splash-mid-height}
+    margin-top: 20px
     font-size: 160px
   +font-size(200px, 70px)
+  @media #{$media-sm}
+    margin-top: 10px
 
 
 // NOTE: These media queries are for the slideshow only; if the slideshow
