@@ -20,6 +20,8 @@ angular.module('neu.rfi', [])
       subscribed: true
 
     $scope.submit = (url) ->
+      # Make sure Mobile Safari closes the keyboard.
+      $window.document.activeElement.blur()
       return if $scope.state.submitting
       if $scope.form.$valid
         $scope.state.submitting = true
