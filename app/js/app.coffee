@@ -7,9 +7,6 @@ deps = [
   'neu.placeholder'
   'neu.rfi'
   'neu.homepage'
-  #'neu.controllers'
-  #'neu.directives'
-  #'neu.services'
 ]
 
 module = angular.module('neu', deps)
