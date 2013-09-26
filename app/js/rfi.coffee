@@ -11,7 +11,7 @@ angular.module('neu.rfi', [])
     $scope.types = [
       {key: 'student', value: 'Prospective student'}
       {key: 'faculty', value: 'Prospective faculty'}
-      {key: 'partner', value: 'Prospective partner'}
+      {key: 'partner-mentor', value: 'Partner/Mentor'}
       {key: 'press', value: 'Press'}
       {key: 'fan', value: 'Super fan'}
     ]
