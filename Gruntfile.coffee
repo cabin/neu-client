@@ -87,8 +87,8 @@ module.exports = (grunt) ->
       ]
     ngmin:
       dist:
-        '<%= path.dist %>/js/vendor.min.js': '<%= path.dist %>/js/vendor.min.js'
-        '<%= path.dist %>/js/neu.min.js': '<%= path.dist %>/js/neu.min.js'
+        src: '<%= path.dist %>/js/neu.min.js'
+        dest: '<%= path.dist %>/js/neu.min.js'
     useminPrepare:
       html: ['<%= path.build %>/**/*.html', '!<%= path.build %>/<%= path.components %>/**']
       options:
@@ -156,7 +156,7 @@ module.exports = (grunt) ->
     'concat'
     'cssmin'
     'ngmin'
-    #'uglify'  # XXX come back to this; ngmin is failing
+    'uglify'
     'rev'
     'usemin'
   ])
