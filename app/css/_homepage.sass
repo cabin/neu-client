@@ -561,3 +561,12 @@ $media-desk: 'only screen and (min-width: 1024px)'
     font-style: italic
     line-height: 2
     text-transform: none
+
+
+// Animation helpers  //////////////////
+
+.slideshow-sprinkle-text
+  color: $grey-e3
+.slideshow-sprinkle-text--active
+  +transition(color 300ms ease-in)
+  color: $orange

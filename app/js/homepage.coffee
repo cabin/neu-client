@@ -343,7 +343,7 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
             frag.appendChild(span)
             chars.push(span)
         chars = shuffle(chars)
-        angular.element(chars).addClass('sprinkle-text')
+        angular.element(chars).addClass('slideshow-sprinkle-text')
         angular.element(node).replaceWith(frag)
 
       # Page elements; I feel dirty for reaching outside the directive. :/
@@ -370,7 +370,7 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
         # tween/timeline.
         if Modernizr.touch
           addClass = (el) ->
-            angular.element(el).addClass('sprinkle-text--active')
+            angular.element(el).addClass('slideshow-sprinkle-text--active')
           angular.forEach chars, (char, i) ->
             $timeout((-> addClass(char)), stagger * i * 1000)
           delay = stagger * chars.length + duration
@@ -392,7 +392,7 @@ angular.module('neu.homepage', ['neu.scrolling', 'cabin.preload'])
       desprinkle = ->
         timeline.kill?()
         scrollHint.removeClass('is-visible')
-        angular.element(chars).removeClass('sprinkle-text--active')
+        angular.element(chars).removeClass('slideshow-sprinkle-text--active')
         angular.element(chars).css(color: '')
         sprinkled = false
 
