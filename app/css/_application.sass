@@ -1,0 +1,17 @@
+.application-menu
+  @extend %gotham-bold
+  border-bottom: 1px solid $grey-e3
+  font-size: 11px
+  list-style-type: none
+  padding: 0
+  margin-top: 5px
+
+  > li > a
+    border-top: 1px solid $grey-e3
+    display: block
+    line-height: 30px
+    padding: 0 10px
+    &:hover
+      background-color: $grey-f3
+  > li.is-selected > a
+    color: $orange

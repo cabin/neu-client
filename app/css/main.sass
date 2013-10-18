@@ -42,6 +42,7 @@ $nav-font-size: 13px
 @import ie
 @import team
 @import homepage
+@import application
 
 
 .content
@@ -160,16 +161,22 @@ p > a
     margin-top: 50px
 .rule-block--thick
   border-top-width: 4px
-.rule-block__title
+.rule-block__sidebar
   @extend .col-s
-  @extend .heading
   margin-bottom: 20px
   @media #{$media-sm-md}
     width: 100% !important
+.rule-block__title
+  @extend .rule-block__sidebar
+  @extend .heading
 .rule-block__content
   @extend .col-l
   @extend .omega
   +font-size($body-font-size, $body-font-size-sm)
+  > hr
+    border: none
+    border-top: 1px solid black
+    margin: 40px 0 20px
 .rule-block__content--big
   +font-size(24, 18)
 p.rule-block__content, .rule-block__content p:first-child
@@ -184,6 +191,8 @@ p.rule-block__content, .rule-block__content p:first-child
   border-top: 1px solid $grey-e3
   margin-top: 50px
   padding-top: 20px
+.rule-title--dark
+  border-top-color: $black
 
 
 .heading
@@ -222,6 +231,9 @@ ol.rule-list
   li > span
     @extend %crimson
     +font-size($body-font-size, $body-font-size-sm)
+ol.rule-list--padded li
+  margin-top: 20px
+  padding-top: 20px
 
 
 // For browsers that don't support HTML5 placeholders.
