@@ -6,7 +6,6 @@ $header-height: 100px
 $header-height-sm: 50px
 $subnav-height: 60px
 $subnav-height-sm: 30px
-$button-height: 40px
 $grid-gutter: 30px
 $footer-margin: 100px
 
@@ -35,10 +34,10 @@ $nav-font-size: 13px
       font-size: $small
 
 
-
 @import grid
 @import header
 @import footer
+@import forms
 @import rfi
 @import ie
 @import team
@@ -223,25 +222,6 @@ ol.rule-list
   li > span
     @extend %crimson
     +font-size($body-font-size, $body-font-size-sm)
-
-
-.button
-  @extend %gotham-bold
-  background: $orange
-  border: none
-  border-radius: 2px
-  color: $white
-  display: inline-block
-  height: $button-height
-  line-height: $button-height
-  padding: 0 20px
-  white-space: nowrap
-  &:hover:not([disabled])
-    +background-image(linear-gradient(lighten($orange, 5%), $orange))
-  &:active:not([disabled])
-    +background-image(linear-gradient($orange, lighten($orange, 5%)))
-  &[disabled]
-    opacity: .6
 
 
 // For browsers that don't support HTML5 placeholders.
