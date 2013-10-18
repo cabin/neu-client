@@ -1,0 +1,149 @@
+{% extends "_base.html" %}
+
+{% block top %}
+  <style>body { background-color: #f6f6f6; }</style>
+  <hgroup class="page-title">
+    <h1>Apply</h1>
+    <h2>One-Year Master of Engineering in Big Data Program</h2>
+  </hgroup>
+{% endblock %}
+
+{% block content %}
+  <div class="rule-block rule-block--thick">
+    <div class="rule-block__sidebar">
+      <ul class="application-menu">
+        <li><a href="">Application instructions</a></li>
+        <li class="is-selected"><a href="">Student information</a></li>
+        <li><a href="">Academic records</a></li>
+        <li><a href="">Employment history</a></li>
+        <li><a href="">Sign &amp; submit</a></li>
+      </ul>
+    </div>
+
+    <div class="rule-block__content application-form">
+      <fieldset>
+        <div class="rule-block__title">Student information</div>
+
+        <input type="text" name="firstName" placeholder="First name">
+        <input type="text" name="middleInitial" placeholder="Middle initial">
+        <input type="text" name="lastName" placeholder="Last name">
+        <div class="input-hinted">
+          <input type="text" name="nickName" placeholder="Alternate names used">
+          <div class="input-hinted__hint">
+            Other names that may appear on academic
+            records.
+          </div>
+        </div>
+
+        <div class="application-radios application-radios--no-text">
+          <label><input type="radio" name="gender" value="M"> Male</label>
+          <label><input type="radio" name="gender" value="F"> Female</label>
+        </div>
+
+        <div class="input-hinted">
+          <input type="text" name="dateOfBirth" placeholder="Date of birth">
+          <div class="input-hinted__hint">MM/DD/YYYY</div>
+        </div>
+
+        <input type="text" name="socialSecurityNumber" placeholder="Social security number">
+      </fieldset>
+
+      <fieldset>
+        <div class="rule-title rule-title--dark">Current mailing address</div>
+
+        <input type="text" name="address1" placeholder="Address line 1">
+        <input type="text" name="address1" placeholder="Address line 2">
+        <input type="text" name="city" placeholder="City">
+        <input type="text" name="state" placeholder="State">
+        <input type="text" name="country" placeholder="Country">
+        <input type="text" name="zip" placeholder="ZIP code">
+      </fieldset>
+
+      <fieldset>
+        <div class="rule-title rule-title--dark">Additional information</div>
+
+        <textarea name="learnedAboutUNH" rows="5" placeholder="How did you learn about UNH?"></textarea>
+
+        <div class="application-radios application-radios--ruled">
+          <p>Are you a citizen of the U.S.?</p>
+
+          <label><input type="radio" name="usCitizen" value="Y"> Yes</label>
+          <label><input type="radio" name="usCitizen" value="N"> No</label>
+          <input type="text" name="citizenStatus" placeholder="If no, please indicate status">
+        </div>
+
+        <div class="application-radios application-radios--ruled">
+          <p>Have you ever been convicted of a crime other than a minor traffic
+          violation?</p>
+
+          <label><input type="radio" name="crime" value="Y"> Yes</label>
+          <label><input type="radio" name="crime" value="N"> No</label>
+          <input type="text" name="crimeExplanation" placeholder="If yes, please indicate status">
+        </div>
+
+        <div class="application-radios application-radios--ruled">
+          <p>Are you a U.S. Green Card holder?</p>
+
+          <label><input type="radio" name="greenCard" value="Y"> Yes</label>
+          <label><input type="radio" name="greenCard" value="N"> No</label>
+          <input type="text" name="alienRegistration" placeholder="If so, provide Alien Registration No.">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="rule-title rule-title--dark">...</div>
+      </fieldset>
+
+      <fieldset>
+        <div class="rule-title rule-title--dark">Military</div>
+
+        <div class="application-radios">
+          <p>Are you military or a veteran?</p>
+
+          <label><input type="radio" name="military" value="Y"> Yes</label>
+          <label><input type="radio" name="military" value="N"> No</label>
+
+          <select name="militaryStatus" neu-rfi-select>
+            <option selected disabled>Military status</option>
+            <option>Active</option>
+            <option>Veteran</option>
+            <option>Guard</option>
+            <option>Reserve</option>
+            <option>Military dependant</option>
+            <option>Other affiliation</option>
+          </select>
+
+          <input type="text" name="branch" placeholder="Branch">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="rule-title rule-title--dark">Other random input samples</div>
+
+        <div class="input-hinted">
+          <input type="text" name="collegeName" placeholder="College name">
+          <div class="input-hinted__hint">
+            <button class="button button--dim">College lookup</button>
+          </div>
+        </div>
+        <input type="text" name="collegeCode" placeholder="College code">
+
+        <p class="full">Please upload an electronic copy of your résumé:</p>
+        <input type="file" name="transcript">
+
+        <br><br>
+
+        <input type="text" placeholder="Error example">
+        <p class="application-error">What&rsquo;s that bogus entry, boo?</p>
+
+      </fieldset>
+
+
+      <hr>
+      <button class="button">Save &amp; continue</button>
+      <span class="application-whisper">or</span>
+      <button class="button button--dim">Save for later</button>
+
+    </div>
+  </div>
+{% endblock %}

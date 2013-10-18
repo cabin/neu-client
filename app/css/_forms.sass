@@ -13,9 +13,11 @@ $custom-select-padding: 5px
   color: $black
   display: block
   font-size: $input-font-size
-  height: $input-height  // for cross-browser conformity
   line-height: $input-line-height
   padding: $input-padding $input-padding * 2
+// For cross-browser conformity.
+#{$all-text-inputs}
+  height: $input-height
 
 .button
   @extend %gotham-bold
@@ -36,6 +38,13 @@ $custom-select-padding: 5px
   &[disabled]
     opacity: .6
 
+.button--dim
+  background: $grey-c3
+  &:hover:not([disabled])
+    +background-image(linear-gradient(lighten($grey-c3, 5%), $grey-c3))
+  &:active:not([disabled])
+    +background-image(linear-gradient($grey-c3, lighten($grey-c3, 5%)))
+
 
 .custom-select
   @extend %gotham-bold
@@ -43,6 +52,7 @@ $custom-select-padding: 5px
   background: $white
   border-radius: 2px
   color: $black
+  font-size: 13px
   height: $input-height
   margin-top: $input-margin
   position: relative
@@ -73,6 +83,7 @@ $custom-select-padding: 5px
     left: -$custom-select-padding
     right: -$custom-select-padding
     top: -$custom-select-padding
+    z-index: 4
 
 
 .custom-select__option
@@ -98,3 +109,36 @@ $custom-select-padding: 5px
   &.is-selected:after
     float: right
     content: "•"
+  &.is-disabled
+    background: transparent
+    color: $grey-93
+
+// TODO; copied from phase-0 for reference
+  .join-us__radio
+    +font-header(12)
+    border-top: 1px solid rgba($white, .3)
+    letter-spacing: 2px
+    margin-bottom: 12px
+    padding-top: 12px
+    text-align: left
+    > label
+      +retina-image('../img/icon/radio-unchecked', 14px 14px)
+      background-position: 0 0
+      background-repeat: no-repeat
+      margin-left: 15px
+      line-height: 14px
+      padding-left: 20px
+      cursor: pointer
+      &.checked
+        +retina-image('../img/icon/radio-checked', 14px 14px)
+      &:first-child
+        margin-left: 0
+      > input
+        // IE does not allow modification of form inputs with `display: none`.
+        position: absolute
+        z-index: -1
+      @media #{$media-ipad}
+        padding-left: 24px
+        margin-left: 30px
+        > input
+          margin-right: 5px

@@ -175,7 +175,7 @@ p > a
   +font-size($body-font-size, $body-font-size-sm)
   > hr
     border: none
-    border-top: 1px solid black
+    border-top: 1px solid $black
     margin: 40px 0 20px
 .rule-block__content--big
   +font-size(24, 18)
@@ -189,8 +189,9 @@ p.rule-block__content, .rule-block__content p:first-child
 .rule-title
   @extend .heading
   border-top: 1px solid $grey-e3
+  margin-bottom: 20px
   margin-top: 50px
-  padding-top: 20px
+  padding-top: 10px
 .rule-title--dark
   border-top-color: $black
 

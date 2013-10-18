@@ -15,3 +15,90 @@
       background-color: $grey-f3
   > li.is-selected > a
     color: $orange
+
+
+.application-form
+  #{$all-text-inputs}, textarea
+    @extend .col-s
+    box-shadow: inset 0 1px 1px 0 rgba($black, .3)
+    margin-top: $input-margin
+
+  // Avoid a Chrome bug that refuses to align the button/text.
+  input[type=file]
+    line-height: 1
+
+  textarea
+    resize: none
+
+  .custom-select
+    @extend .col-s
+    margin-top: $input-margin
+
+  fieldset
+    +clearfix
+    border: none
+    margin: 0
+    padding: 0
+
+  .rule-title, hr
+    clear: left
+
+  p.full
+    @extend .col-l
+    @extend .omega
+    margin-top: 20px
+
+
+.input-hinted
+  @extend .col-l
+  @extend .omega
+  height: $input-height + $input-margin
+
+.input-hinted__hint
+  @extend .col-s
+  @extend .omega
+  border-top: 1px solid $grey-e3
+  color: $grey-93
+  float: right
+  font-size: $input-font-size
+  font-style: italic
+  margin-top: $input-margin
+  padding-right: 20px
+  padding-top: $input-padding
+
+
+.application-radios
+  @extend .col-s
+  display: inline-block
+  > label
+    display: inline-block
+    margin: 10px 20px 10px 0
+
+.application-radios--no-text
+  margin-top: 10px
+  margin-bottom: 5px
+
+.application-radios--ruled
+  border-top: 1px solid $grey-e3
+  margin-top: 20px
+  padding-top: 14px
+
+
+.application-whisper
+  color: $grey-93
+  font-style: italic
+  margin: 10px
+
+
+.application-error
+  @extend .col-s
+  @extend %gotham-bold
+  +retina-image('../img/icon/error-chevron', 16px 16px)
+  background-position: ($input-padding * 2) 6px
+  background-repeat: no-repeat
+  border: 1px solid $grey-e3
+  border-radius: 2px
+  color: $orange
+  font-size: 10px
+  margin-top: 0
+  padding: 8px 20px 8px 40px
