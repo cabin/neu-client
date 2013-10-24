@@ -5,6 +5,17 @@
   list-style-type: none
   padding: 0
   margin-top: 5px
+  margin-bottom: 0
+  width: 300px
+
+  @media #{$media-lg}
+    &.cb-stick
+      position: fixed
+      top: 115px
+    &.cb-stick--bottom
+      position: absolute
+      bottom: 0
+      top: auto
 
   > li > a
     border-top: 1px solid $grey-e3
