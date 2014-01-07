@@ -15,7 +15,7 @@ module.exports = (grunt) ->
       dist:
         expand: true
         cwd: '<%= path.app %>'
-        src: ['css/**/*.{sass,scss}', '!css/**/_*']
+        src: ['css/**/*.{sass,scss}']
         dest: '<%= path.build %>'
         ext: '.css'
       options:
