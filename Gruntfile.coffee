@@ -111,7 +111,8 @@ module.exports = (grunt) ->
       grunt:
         files: ['Gruntfile.coffee']
       options:
-        livereload: true
+        livereload:
+          port: 35770
       sass:
         files: ['app/css/**/*.{sass,scss}']
         tasks: ['sass', 'dataUri']
