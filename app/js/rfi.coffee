@@ -1,6 +1,6 @@
 angular.module('neu.rfi', [])
 
-  .controller 'RfiCtrl', ($scope, $http, $window) ->
+  .controller 'RfiCtrl', ($scope, $http, $window, $timeout) ->
     $scope.state =
       invalid: false     # avoid showing errors until initial submission
       submitting: false  # avoid multiple submissions
@@ -30,6 +30,9 @@ angular.module('neu.rfi', [])
         $scope.state.invalid = true
 
     postData = (url) ->
+      $timeout((-> $scope.state.submitted = true), 250)
+      return  # Faking it.
+
       $http.post(url, $scope.data)
         .success (data, status, headers, config) ->
           $scope.state.submitted = true
