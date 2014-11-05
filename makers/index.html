@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" ng-app="neu">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>NEU &middot; New Engineering University</title>
+  <!-- Made by Cabin <http://madebycabin.com/>. xo! -->
+
+  <link rel="shortcut icon" href="/favicon.ico?t=1374221039">
+  <meta name="viewport" content="initial-scale=1">
+  <meta property="og:title" content="New Engineering University">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="http://neu.me/img/mark-1500.png">
+  <meta property="og:url" content="http://neu.me/">
+  <meta property="og:site_name" content="NEU">
+  <meta property="og:description" content="A new breed of university for a new breed of engineer.">
+  <meta name="description" content="A new breed of university for a new breed of engineer.">
+
+  <!--[if lte IE 8]>
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400italic" rel="stylesheet" type="text/css">
+  <![endif]-->
+
+  <link href="//cloud.typography.com/7953332/754206/css/fonts.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/d0c0e62d.neu.min.css">
+
+  <script src="//use.typekit.net/dru8tic.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+  <script src="/js/5490b75a.modernizr.min.js"></script>
+</head>
+<body>
+  
+<footer id="contact" class="site-footer" style="margin-top: 0" ng-cloak>
+  <div class="site-footer__bg">
+    <div ng-controller="RfiCtrl" ng-cloak class="rfi-container" ng-class="{'is-submitted': state.submitted}">
+  <div ng-show="state.submitted" class="rfi-complete" ng-animate="'rfi-complete'">
+    <div class="grid-container">
+      <div class="rfi-complete__heading">Bravo!</div>
+      <div class="rfi-complete__text">
+        We&rsquo;ll be in touch shortly.<br>
+        PS: Don&rsquo;t forget to friend &amp; follow us for more NEU bliss!
+      </div>
+    </div>
+  </div>
+
+  <form class="rfi grid-container" name="form" ng-submit="submit('/api/rfi')"
+    ng-hide="state.submitted" novalidate ng-animate="'rfi'">
+    
+      <style>body, .site-footer__bg { background: #2b2b2b; }</style>
+      <span ng-init="data.maker_faire = true"></span>
+    
+    <div class="site-footer__subhead">Get in Touch</div>
+
+    <div class="site-footer__chunk">
+      <div class="col-s">
+        <select name="type" ng-model="data.type" neu-rfi-select
+          ng-options="type.key as type.value for type in types"></select>
+
+        <input name="fname" type="text" ng-model="data.fname" placeholder="First name" required>
+        <input name="lname" type="text" ng-model="data.lname" placeholder="Last name" required>
+        <div class="rfi__error"
+          ng-show="state.invalid && !(form.fname.$valid && form.lname.$valid)">
+          But what shall we call you?
+        </div>
+      </div>
+
+      <div class="col-s">
+        <input name="email" type="email" spellcheck="false" ng-model="data.email" placeholder="Email" required>
+        <div class="rfi__error" ng-show="state.invalid && form.email.$error.required">
+          Come on, let&rsquo;s stay in touch!
+        </div>
+        <div class="rfi__error" ng-show="state.invalid && form.email.$error.email">
+          Is that really your email?
+        </div>
+
+        <input name="phone" type="tel" ng-model="data.phone" placeholder="Phone">
+
+        <input name="zip" type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
+      </div>
+    </div>
+
+    <div class="site-footer__chunk site-footer__chunk--right">
+      <div class="col-s omega">
+        <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
+
+        <label class="rfi__checkbox" ng-class="{checked: data.subscribed}">
+          <input type="checkbox" name="subscribed" ng-model="data.subscribed">
+          Subscribe to our fun-filled monthly newsletter
+        </label>
+
+        <button type="submit" ng-model="_" ng-disabled="state.submitting" class="button">Ship it!</button>
+
+        <div class="rfi__error rfi__error--form" ng-show="state.submissionFailed">
+          Something went wrong! :-(
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+  </div>
+</footer>
+
+
+  <script src="/js/22c1a7c2.vendor.min.js"></script>
+  <!--[if lte IE 8]>
+  <script src="ie/e74d3dc3.respond.js"></script>
+  <![endif]-->
+  <script src="/js/44cf1db3.neu.min.js"></script>
+</body>
+</html>

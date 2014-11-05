@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" ng-app="neu">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>NEU &middot; New Engineering University</title>
+  <!-- Made by Cabin <http://madebycabin.com/>. xo! -->
+
+  <link rel="shortcut icon" href="/favicon.ico?t=1374221039">
+  <meta name="viewport" content="initial-scale=1">
+  <meta property="og:title" content="New Engineering University">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="http://neu.me/img/mark-1500.png">
+  <meta property="og:url" content="http://neu.me/">
+  <meta property="og:site_name" content="NEU">
+  <meta property="og:description" content="A new breed of university for a new breed of engineer.">
+  <meta name="description" content="A new breed of university for a new breed of engineer.">
+
+  <!--[if lte IE 8]>
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400italic" rel="stylesheet" type="text/css">
+  <![endif]-->
+
+  <link href="//cloud.typography.com/7953332/754206/css/fonts.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/d0c0e62d.neu.min.css">
+
+  <script src="//use.typekit.net/dru8tic.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+  <script src="/js/5490b75a.modernizr.min.js"></script>
+</head>
+<body>
+  
+
+  <header class="site-header">
+    <div class="site-header__container">
+      <hgroup>
+        <a href="/"><h1 class="site-header__logo">NEU</h1></a>
+        <a href="http://newhaven.edu/" target="_blank">
+          <h2 class="site-header__partner">
+            A new approach to engineering at the University of New Haven
+          </h2>
+        </a>
+      </hgroup>
+      <nav class="site-header__nav" ng-cloak neu-mobile-nav>
+  <a class="site-header__nav__toggle" ng-click="toggleMenu()"></a>
+  <ul class="nav-list" ng-class="{'nav-list--mobile': isMobile}" ng-show="menuOpen">
+    
+      <li>
+        <a href="/about">
+          <hr class="nav-list__indicator">
+          
+          About
+        </a>
+      </li>
+    
+      <li>
+        <a href="/program">
+          <hr class="nav-list__indicator">
+          
+            <span class="nav-list__beta">Beta</span>
+          
+          Program
+        </a>
+      </li>
+    
+      <li>
+        <a href="/apply">
+          <hr class="nav-list__indicator">
+          
+          Get Info
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+    </div>
+    
+  </header>
+
+  <!--[if lte IE 8]>
+  <div class="old-ie">
+    <div class="old-ie__dialog" style="text-align: center;">
+      <p>Your browser seems a bit outdated.<br>We recommend upgrading to
+      improve your experience!</p>
+      <a class="button" href="http://browsehappy.com/" target="_blank">Upgrade</a>
+      <p><a class="old-ie__ignore" ng-click="ignore()">No thanks</a></p>
+    </div>
+  </div>
+  <![endif]-->
+
+  <div class="page-top">
+  <style>body { background-color: #f6f6f6; }</style>
+  <hgroup class="page-title">
+    <h1>Apply</h1>
+    <h2>One-Year Master of Engineering in Big Data Program</h2>
+  </hgroup>
+</div>
+  <section class="content">
+  <div class="rule-block rule-block--thick">
+    <div class="rule-block__sidebar">
+      <ul class="application-menu" cb-sticky-pos="110">
+        <li class="is-selected"><a href="">Application instructions</a></li>
+        <li><a href="">Student information</a></li>
+        <li><a href="">Academic records</a></li>
+        <li><a href="">Employment history</a></li>
+        <li><a href="">Sign &amp; submit</a></li>
+      </ul>
+    </div>
+
+    <div class="rule-block__content">
+      <p>Once you complete the application online, all supplemental materials
+      listed below must be submitted to:</p>
+      
+      <p>Graduate Admissions Office
+      <br>University of New Haven
+      <br>300 Boston Post Road
+      <br>West Haven, CT 06516</p>
+
+      <hr>
+
+      <ol class="rule-list rule-list--padded">
+        <li><span>The application fee for online applications is currently
+        waived. If you wish to submit a paper application or mail in your
+        completed online application, you must pay a $75 application
+        fee.</span></li>
+
+        <li><span>Official transcripts forwarded by all colleges previously
+        attended.</span></li>
+
+        <li><span>Students applying to the Graduate School must submit two
+        letters of recommendation from professional sources. You may now
+        indicate up to three recommenders during the online application process
+        for electronic recommendation submission. If you wish to obtain
+        original letters of recommendation and not use the electronic system,
+        you may do so and mail original copies to the Graduate Admissions
+        Office.</span></li>
+
+        <li><span>A brief personal statement (approximately 500 words)
+        describing your interest in your intended degree program and why you
+        would make a good candidate to the University of New Haven. Please also
+        include any information that you feel would be important for the
+        admissions committee to be aware of when evaluating your
+        application.</span></li>
+
+        <li><span>A resume is strongly recommended for all applicants to the
+        Graduate School.</span></li>
+      </ol>
+
+      <div class="rule-title rule-title--dark">Need help?</div>
+
+      <p>If you are having difficulty with the online application, please
+      contact Marcus Hanscom in the Graduate Admissions Office at 203-932-7277
+      or 1-800-342-5864 x7277.</p>
+
+      <hr>
+
+      <button class="button">Go to application</button>
+
+    </div>
+  </div>
+</section>
+  <div class="page-bottom"></div>
+  <footer id="contact" class="site-footer">
+  <div class="site-footer__bg">
+    <div ng-controller="RfiCtrl" ng-cloak class="rfi-container" ng-class="{'is-submitted': state.submitted}">
+  <div ng-show="state.submitted" class="rfi-complete" ng-animate="'rfi-complete'">
+    <div class="grid-container">
+      <div class="rfi-complete__heading">Bravo!</div>
+      <div class="rfi-complete__text">
+        We&rsquo;ll be in touch shortly.<br>
+        PS: Don&rsquo;t forget to friend &amp; follow us for more NEU bliss!
+      </div>
+    </div>
+  </div>
+
+  <form class="rfi grid-container" name="form" ng-submit="submit('/api/rfi')"
+    ng-hide="state.submitted" novalidate ng-animate="'rfi'">
+    
+    <div class="site-footer__subhead">Get in Touch</div>
+
+    <div class="site-footer__chunk">
+      <div class="col-s">
+        <select name="type" ng-model="data.type" neu-rfi-select
+          ng-options="type.key as type.value for type in types"></select>
+
+        <input name="fname" type="text" ng-model="data.fname" placeholder="First name" required>
+        <input name="lname" type="text" ng-model="data.lname" placeholder="Last name" required>
+        <div class="rfi__error"
+          ng-show="state.invalid && !(form.fname.$valid && form.lname.$valid)">
+          But what shall we call you?
+        </div>
+      </div>
+
+      <div class="col-s">
+        <input name="email" type="email" spellcheck="false" ng-model="data.email" placeholder="Email" required>
+        <div class="rfi__error" ng-show="state.invalid && form.email.$error.required">
+          Come on, let&rsquo;s stay in touch!
+        </div>
+        <div class="rfi__error" ng-show="state.invalid && form.email.$error.email">
+          Is that really your email?
+        </div>
+
+        <input name="phone" type="tel" ng-model="data.phone" placeholder="Phone">
+
+        <input name="zip" type="text" pattern="[0-9]*" ng-model="data.zip" placeholder="ZIP code">
+      </div>
+    </div>
+
+    <div class="site-footer__chunk site-footer__chunk--right">
+      <div class="col-s omega">
+        <textarea ng-model="data.note" placeholder="Optional love note."></textarea>
+
+        <label class="rfi__checkbox" ng-class="{checked: data.subscribed}">
+          <input type="checkbox" name="subscribed" ng-model="data.subscribed">
+          Subscribe to our fun-filled monthly newsletter
+        </label>
+
+        <button type="submit" ng-model="_" ng-disabled="state.submitting" class="button">Ship it!</button>
+
+        <div class="rfi__error rfi__error--form" ng-show="state.submissionFailed">
+          Something went wrong! :-(
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+    <div class="grid-container">
+      <div class="site-footer__contact">
+        <div class="col-l site-footer__chunk">
+          <div class="site-footer__subhead">NEU Offices</div>
+
+          <div class="col-s">
+            <a href="https://www.google.com/maps?q=395+Page+Mill+Rd,+94306" target="_blank">
+              395 Page Mill Road, 3rd Floor<br>
+              Palo Alto, CA 94306
+            </a>
+          </div>
+
+          <table class="col-s omega">
+            <tr>
+              <td>Email:</td>
+              <td><a href="mailto:frontdesk@neu.me">frontdesk@neu.me</a></td>
+            </tr><tr>
+              <td>Phone:</td>
+              <td>(855) 638-6398</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="col-s site-footer__chunk omega">
+          <div class="site-footer__subhead">In the Wild</div>
+
+          <a href="https://www.facebook.com/pages/NEU-New-Engineering-University/577097745688022"
+            target="_blank" class="share-icon share-icon--facebook">Facebook</a>
+          <a href="https://twitter.com/spreadthelogic"
+            target="_blank" class="share-icon share-icon--twitter">Twitter</a>
+          <a href="http://instagram.com/spreadthelogic/"
+            target="_blank" class="share-icon share-icon--instagram">Instagram</a>
+          <a href="https://plus.google.com/101741858749215450388/posts"
+            target="_blank" class="share-icon share-icon--google">Google+</a>
+          <a href="http://www.linkedin.com/company/neu-new-engineering-university"
+            target="_blank" class="share-icon share-icon--linkedin omega">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__copyright">
+    &copy;2014 New Engineering University, Inc.
+  </div>
+</footer>
+
+
+  
+
+  <script src="/js/22c1a7c2.vendor.min.js"></script>
+  <!--[if lte IE 8]>
+  <script src="ie/e74d3dc3.respond.js"></script>
+  <![endif]-->
+  <script src="/js/44cf1db3.neu.min.js"></script>
+</body>
+</html>
